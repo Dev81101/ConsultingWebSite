@@ -56,8 +56,8 @@ app.use((req, res, next) => {
     serveStatic(app);
   }
 
-  // Always serve on port 80 for the frontend to connect properly
-  const port = parseInt(process.env.PORT || '80', 10);
+  // Use port 3000 for local development or PORT from environment
+  const port = parseInt(process.env.PORT || '3000', 10);
   server.listen(port, "0.0.0.0", () => {
     log(`serving on port ${port}`);
   });
