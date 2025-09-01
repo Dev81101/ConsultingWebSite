@@ -3,10 +3,12 @@ import { Link, useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Menu, X, ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
+import NewsletterSubscription from "./newsletter-subscription";
 
 export default function Navigation() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isProgramsOpen, setIsProgramsOpen] = useState(false);
+  const [isBlogOpen, setIsBlogOpen] = useState(false);
   const [location] = useLocation();
 
   const isActive = (path: string) => location === path;
@@ -128,16 +130,44 @@ export default function Navigation() {
               </div>
             </div>
 
-            <Link 
-              href="/blog" 
-              className={cn(
-                "text-foreground hover:text-primary transition-colors duration-200",
-                isActive("/blog") && "text-primary"
-              )}
-              data-testid="nav-blog"
+            {/* Blog Dropdown */}
+            <div 
+              className="relative group"
+              onMouseEnter={() => setIsBlogOpen(true)}
+              onMouseLeave={() => setIsBlogOpen(false)}
             >
-              Blog
-            </Link>
+              <button 
+                className={cn(
+                  "flex items-center text-foreground hover:text-primary transition-colors duration-200",
+                  isActive("/blog") && "text-primary"
+                )}
+                data-testid="nav-blog"
+              >
+                Blog <ChevronDown className="ml-1 h-4 w-4" />
+              </button>
+              <div className={cn(
+                "absolute top-full left-0 w-80 bg-card border border-border rounded-lg shadow-xl mt-2 transition-all duration-300",
+                isBlogOpen ? "opacity-100 visible translate-y-0" : "opacity-0 invisible -translate-y-2"
+              )}>
+                <div className="p-6">
+                  <div className="space-y-4">
+                    <div>
+                      <Link 
+                        href="/blog" 
+                        className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted rounded-md transition-colors"
+                        data-testid="dropdown-blog-all"
+                      >
+                        View All Posts
+                      </Link>
+                    </div>
+                    <div className="border-t pt-4">
+                      <h3 className="font-semibold text-primary mb-3">Newsletter</h3>
+                      <NewsletterSubscription variant="compact" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
             <Link 
               href="/about" 
               className={cn(

@@ -1,7 +1,7 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
-import { insertContactSubmissionSchema } from "@shared/schema";
+import { insertContactSubmissionSchema, insertNewsletterSubscriptionSchema } from "@shared/schema";
 import { z } from "zod";
 
 export async function registerRoutes(app: Express): Promise<Server> {
@@ -50,6 +50,26 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.status(400).json({ message: "Validation error", errors: error.errors });
       }
       res.status(500).json({ message: "Failed to submit contact form" });
+    }
+  });
+
+  // Newsletter subscription routes
+  app.post("/api/newsletter/subscribe", async (req, res) => {
+    try {
+      const validatedData = insertNewsletterSubscriptionSchema.parse(req.body);
+      const subscription = await storage.createNewsletterSubscription(validatedData);
+      res.status(201).json({ 
+        message: "Successfully subscribed to newsletter",
+        subscription: { id: subscription.id, email: subscription.email }
+      });
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        return res.status(400).json({ message: "Invalid email address", errors: error.errors });
+      }
+      if (error instanceof Error && error.message.includes("already subscribed")) {
+        return res.status(409).json({ message: error.message });
+      }
+      res.status(500).json({ message: "Failed to subscribe to newsletter" });
     }
   });
 

@@ -1,4 +1,4 @@
-import { type User, type InsertUser, type BlogPost, type InsertBlogPost, type ContactSubmission, type InsertContactSubmission, type Achievement, type InsertAchievement } from "@shared/schema";
+import { type User, type InsertUser, type BlogPost, type InsertBlogPost, type ContactSubmission, type InsertContactSubmission, type Achievement, type InsertAchievement, type NewsletterSubscription, type InsertNewsletterSubscription } from "@shared/schema";
 import { randomUUID } from "crypto";
 
 export interface IStorage {
@@ -15,6 +15,9 @@ export interface IStorage {
   
   getAchievements(): Promise<Achievement[]>;
   createAchievement(achievement: InsertAchievement): Promise<Achievement>;
+  
+  createNewsletterSubscription(subscription: InsertNewsletterSubscription): Promise<NewsletterSubscription>;
+  getNewsletterSubscription(email: string): Promise<NewsletterSubscription | undefined>;
 }
 
 export class MemStorage implements IStorage {
@@ -22,12 +25,14 @@ export class MemStorage implements IStorage {
   private blogPosts: Map<string, BlogPost>;
   private contactSubmissions: Map<string, ContactSubmission>;
   private achievements: Map<string, Achievement>;
+  private newsletterSubscriptions: Map<string, NewsletterSubscription>;
 
   constructor() {
     this.users = new Map();
     this.blogPosts = new Map();
     this.contactSubmissions = new Map();
     this.achievements = new Map();
+    this.newsletterSubscriptions = new Map();
     
     this.seedData();
   }
@@ -240,6 +245,31 @@ export class MemStorage implements IStorage {
     };
     this.achievements.set(id, achievement);
     return achievement;
+  }
+
+  async createNewsletterSubscription(insertSubscription: InsertNewsletterSubscription): Promise<NewsletterSubscription> {
+    // Check if email already exists
+    const existingSubscription = Array.from(this.newsletterSubscriptions.values())
+      .find(sub => sub.email === insertSubscription.email && sub.isActive);
+    
+    if (existingSubscription) {
+      throw new Error("Email is already subscribed to our newsletter");
+    }
+
+    const id = randomUUID();
+    const subscription: NewsletterSubscription = {
+      ...insertSubscription,
+      id,
+      subscribedAt: new Date(),
+      isActive: insertSubscription.isActive !== undefined ? insertSubscription.isActive : true,
+    };
+    this.newsletterSubscriptions.set(id, subscription);
+    return subscription;
+  }
+
+  async getNewsletterSubscription(email: string): Promise<NewsletterSubscription | undefined> {
+    return Array.from(this.newsletterSubscriptions.values())
+      .find(sub => sub.email === email);
   }
 }
 

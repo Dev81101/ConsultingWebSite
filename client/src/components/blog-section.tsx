@@ -4,6 +4,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
 import { ArrowRight, Calendar } from "lucide-react";
+import NewsletterSubscription from "./newsletter-subscription";
 
 const categoryColors: Record<string, string> = {
   "IPARD": "bg-primary/10 text-primary",
@@ -117,12 +118,25 @@ export default function BlogSection() {
           ))}
         </div>
 
-        <div className="text-center mt-12">
-          <Link href="/blog">
-            <Button className="bg-primary text-primary-foreground px-8 py-3 hover:bg-primary/90" data-testid="blog-view-all">
-              View All Posts
-            </Button>
-          </Link>
+        <div className="mt-16">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+            <div className="text-center lg:text-left">
+              <h3 className="text-2xl font-bold text-foreground mb-4">
+                Want to Read More?
+              </h3>
+              <p className="text-muted-foreground mb-6">
+                Get our latest insights on IPARD funding, business opportunities, and success stories delivered directly to your inbox.
+              </p>
+              <Link href="/blog">
+                <Button className="bg-primary text-primary-foreground px-8 py-3 hover:bg-primary/90" data-testid="blog-view-all">
+                  View All Posts
+                </Button>
+              </Link>
+            </div>
+            <div>
+              <NewsletterSubscription variant="full" />
+            </div>
+          </div>
         </div>
       </div>
     </section>
