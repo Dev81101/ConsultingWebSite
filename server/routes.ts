@@ -1,0 +1,68 @@
+import type { Express } from "express";
+import { createServer, type Server } from "http";
+import { storage } from "./storage";
+import { insertContactSubmissionSchema } from "@shared/schema";
+import { z } from "zod";
+
+export async function registerRoutes(app: Express): Promise<Server> {
+  // Blog routes
+  app.get("/api/blog/posts", async (req, res) => {
+    try {
+      const posts = await storage.getBlogPosts();
+      res.json(posts);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch blog posts" });
+    }
+  });
+
+  app.get("/api/blog/featured", async (req, res) => {
+    try {
+      const posts = await storage.getFeaturedBlogPosts();
+      res.json(posts);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch featured blog posts" });
+    }
+  });
+
+  app.get("/api/blog/posts/:slug", async (req, res) => {
+    try {
+      const { slug } = req.params;
+      const post = await storage.getBlogPost(slug);
+      
+      if (!post) {
+        return res.status(404).json({ message: "Blog post not found" });
+      }
+      
+      res.json(post);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch blog post" });
+    }
+  });
+
+  // Contact form route
+  app.post("/api/contact", async (req, res) => {
+    try {
+      const validatedData = insertContactSubmissionSchema.parse(req.body);
+      const submission = await storage.createContactSubmission(validatedData);
+      res.status(201).json({ message: "Contact form submitted successfully", id: submission.id });
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        return res.status(400).json({ message: "Validation error", errors: error.errors });
+      }
+      res.status(500).json({ message: "Failed to submit contact form" });
+    }
+  });
+
+  // Achievements route
+  app.get("/api/achievements", async (req, res) => {
+    try {
+      const achievements = await storage.getAchievements();
+      res.json(achievements);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch achievements" });
+    }
+  });
+
+  const httpServer = createServer(app);
+  return httpServer;
+}
