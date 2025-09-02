@@ -1,0 +1,921 @@
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WVP Plus Consulting - Expert Financial & Agricultural Consulting</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+    tailwind.config = {
+       theme: {
+         extend: {
+          borderRadius: {
+          lg: "var(--radius)",
+          md: "calc(var(--radius) - 2px)",
+          sm: "calc(var(--radius) - 4px)",
+          },
+          colors: {
+          background: "var(--background)",
+          foreground: "var(--foreground)",
+          card: {
+             DEFAULT: "var(--card)",
+             foreground: "var(--card-foreground)",
+          },
+          popover: {
+             DEFAULT: "var(--popover)",
+             foreground: "var(--popover-foreground)",
+          },
+          primary: {
+             DEFAULT: "var(--primary)",
+             foreground: "var(--primary-foreground)",
+          },
+          secondary: {
+             DEFAULT: "var(--secondary)",
+             foreground: "var(--secondary-foreground)",
+          },
+          muted: {
+             DEFAULT: "var(--muted)",
+             foreground: "var(--muted-foreground)",
+          },
+          accent: {
+             DEFAULT: "var(--accent)",
+             foreground: "var(--accent-foreground)",
+          },
+          destructive: {
+             DEFAULT: "var(--destructive)",
+             foreground: "var(--destructive-foreground)",
+          },
+          border: "var(--border)",
+          input: "var(--input)",
+          ring: "var(--ring)",
+          chart: {
+             "1": "var(--chart-1)",
+             "2": "var(--chart-2)",
+             "3": "var(--chart-3)",
+             "4": "var(--chart-4)",
+             "5": "var(--chart-5)",
+          }
+          },
+          fontFamily: {
+          sans: ["var(--font-sans)"],
+          serif: ["var(--font-serif)"],
+          mono: ["var(--font-mono)"],
+       }
+  },
+}
+    };
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --card: #fcfcfc;
+            --ring: hsl(0, 0%, 41.96%);
+            --input: #b5b5b5;
+            --muted: #e3e3e3;
+            --accent: hsl(0, 0%, 100%);
+            --border: #e8e8e8;
+            --radius: 0.8rem;
+            --shadow: 0px 2px 0px 0px hsl(9, 75%, 61% / 0.00), 0px 1px 2px -1px hsl(9, 75%, 61% / 0.00);
+            --chart-1: hsl(203.8863, 88.2845%, 53.1373%);
+            --chart-2: hsl(159.7826, 100%, 36.0784%);
+            --chart-3: hsl(42.0290, 92.8251%, 56.2745%);
+            --chart-4: hsl(147.1429, 78.5047%, 41.9608%);
+            --chart-5: hsl(341.4894, 75.2000%, 50.9804%);
+            --popover: hsl(45, 25%, 97%);
+            --primary: #eb1a4e;
+            --sidebar: hsl(45, 25%, 97%);
+            --spacing: 0.25rem;
+            --font-mono: Menlo, monospace;
+            --font-sans: 'Poppins', sans-serif;
+            --secondary: #c4c4c4;
+            --shadow-lg: 0px 2px 0px 0px hsl(9, 75%, 61% / 0.00), 0px 4px 6px -1px hsl(9, 75%, 61% / 0.00);
+            --shadow-md: 0px 2px 0px 0px hsl(9, 75%, 61% / 0.00), 0px 2px 4px -1px hsl(9, 75%, 61% / 0.00);
+            --shadow-sm: 0px 2px 0px 0px hsl(9, 75%, 61% / 0.00), 0px 1px 2px -1px hsl(9, 75%, 61% / 0.00);
+            --shadow-xl: 0px 2px 0px 0px hsl(9, 75%, 61% / 0.00), 0px 8px 10px -1px hsl(9, 75%, 61% / 0.00);
+            --shadow-xs: 0px 2px 0px 0px hsl(9, 75%, 61% / 0.00);
+            --background: #f0f0f0;
+            --font-serif: 'Poppins', sans-serif;
+            --foreground: #1a1a1a;
+            --shadow-2xl: 0px 2px 0px 0px hsl(9, 75%, 61% / 0.00);
+            --shadow-2xs: 0px 2px 0px 0px hsl(9, 75%, 61% / 0.00);
+            --destructive: hsl(0, 0%, 0%);
+            --sidebar-ring: hsl(9, 75%, 61%);
+            --sidebar-accent: hsl(25, 45%, 80%);
+            --sidebar-border: hsl(45, 15%, 80%);
+            --card-foreground: hsl(0, 0%, 0%);
+            --sidebar-primary: hsl(9, 75%, 61%);
+            --tracking-normal: 0em;
+            --muted-foreground: #212121;
+            --accent-foreground: hsl(0, 0%, 10.2%);
+            --popover-foreground: hsl(0, 0%, 100%);
+            --primary-foreground: #ffffff;
+            --sidebar-foreground: hsl(20, 14%, 17%);
+            --secondary-foreground: #1a1a1a;
+            --destructive-foreground: #ffffff;
+            --sidebar-accent-foreground: hsl(20, 14%, 17%);
+            --sidebar-primary-foreground: hsl(0, 0%, 100%);
+        }
+
+        .dark {
+            --card: hsl(20, 14%, 8%);
+            --ring: hsl(9, 75%, 61%);
+            --input: hsl(20, 14%, 18%);
+            --muted: hsl(20, 14%, 15%);
+            --accent: hsl(25, 45%, 20%);
+            --border: hsl(20, 14%, 15%);
+            --chart-1: hsl(203.8863, 88.2845%, 53.1373%);
+            --chart-2: hsl(159.7826, 100%, 36.0784%);
+            --chart-3: hsl(42.0290, 92.8251%, 56.2745%);
+            --chart-4: hsl(147.1429, 78.5047%, 41.9608%);
+            --chart-5: hsl(341.4894, 75.2000%, 50.9804%);
+            --popover: hsl(20, 14%, 4%);
+            --primary: hsl(9, 75%, 61%);
+            --sidebar: hsl(20, 14%, 8%);
+            --secondary: hsl(30, 15%, 52%);
+            --background: hsl(20, 14%, 4%);
+            --foreground: hsl(45, 25%, 91%);
+            --destructive: hsl(356.3033, 90.5579%, 54.3137%);
+            --sidebar-ring: hsl(9, 75%, 61%);
+            --sidebar-accent: hsl(25, 45%, 20%);
+            --sidebar-border: hsl(20, 14%, 15%);
+            --card-foreground: hsl(45, 25%, 85%);
+            --sidebar-primary: hsl(9, 75%, 61%);
+            --muted-foreground: hsl(45, 15%, 46%);
+            --accent-foreground: hsl(45, 25%, 85%);
+            --popover-foreground: hsl(45, 25%, 91%);
+            --primary-foreground: hsl(0, 0%, 100%);
+            --sidebar-foreground: hsl(45, 25%, 85%);
+            --secondary-foreground: hsl(0, 0%, 100%);
+            --destructive-foreground: hsl(0, 0%, 100%);
+            --sidebar-accent-foreground: hsl(45, 25%, 85%);
+            --sidebar-primary-foreground: hsl(0, 0%, 100%);
+        }
+
+        .slider-container {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .slide {
+            opacity: 0;
+            transform: translateX(100%);
+            transition: all 0.6s ease-in-out;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .slide.active {
+            opacity: 1;
+            transform: translateX(0);
+            position: relative;
+        }
+
+        .dropdown {
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+        }
+
+        .dropdown.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .counter {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .animate-fadeInUp {
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hover-scale {
+            transition: transform 0.3s ease;
+        }
+
+        .hover-scale:hover {
+            transform: scale(1.05);
+        }
+
+        .blog-card {
+            transition: all 0.3s ease;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        .client-logo {
+            filter: grayscale(100%);
+            transition: filter 0.3s ease;
+        }
+
+        .client-logo:hover {
+            filter: grayscale(0%);
+        }
+    </style>
+</head>
+<body class="bg-background text-foreground font-sans">
+    <!-- @COMPONENT: Navigation [Complex dropdown navigation with IPARD, Financial Aid, Consulting] -->
+    <nav class="fixed w-full top-0 z-50 bg-card/95 backdrop-blur-sm border-b border-border">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex items-center">
+                    <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjQwIiB2aWV3Qm94PSIwIDAgMTAwIDQwIiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjx0ZXh0IHg9IjUwIiB5PSIyMCIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjE4IiBmb250LXdlaWdodD0iYm9sZCIgZmlsbD0iIzFhMWExYSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSI+V1ZQKzwvdGV4dD48L3N2Zz4=" alt="WVP Plus Consulting" class="h-8 w-auto">
+                    <span class="ml-2 text-xl font-bold text-foreground">WVP Plus Consulting</span>
+                </div>
+
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#home" class="text-foreground hover:text-primary transition-colors duration-200">Home</a>
+                    
+                    <!-- Programs Dropdown -->
+                    <div class="relative group">
+                        <button class="flex items-center text-foreground hover:text-primary transition-colors duration-200">
+                            Programs <i class="fas fa-chevron-down ml-1 text-xs"></i>
+                        </button>
+                        <div class="dropdown absolute top-full left-0 w-96 bg-card border border-border rounded-lg shadow-xl mt-2 group-hover:show">
+                            <div class="p-6">
+                                <div class="grid grid-cols-1 gap-6">
+                                    <!-- IPARD Programs -->
+                                    <div>
+                                        <h3 class="font-semibold text-primary mb-3">IPARD Programs</h3>
+                                        <div class="space-y-2">
+                                            <a href="#ipard1" class="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted rounded-md transition-colors">IPARD I - Agricultural Investment</a>
+                                            <a href="#ipard2" class="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted rounded-md transition-colors">IPARD II - Processing Facilities</a>
+                                            <a href="#ipard3" class="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted rounded-md transition-colors">IPARD III - Rural Development</a>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Financial Aid -->
+                                    <div>
+                                        <h3 class="font-semibold text-primary mb-3">Financial Aid</h3>
+                                        <div class="space-y-2">
+                                            <a href="#manufacturing" class="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted rounded-md transition-colors">Manufacturing Support</a>
+                                            <a href="#tourism" class="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted rounded-md transition-colors">Tourism Development</a>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Consulting Services -->
+                                    <div>
+                                        <h3 class="font-semibold text-primary mb-3">Consulting Services</h3>
+                                        <div class="space-y-2">
+                                            <a href="#micro" class="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted rounded-md transition-colors">Micro Business Consulting</a>
+                                            <a href="#business-plans" class="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted rounded-md transition-colors">Business Plan Development</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <a href="#blog" class="text-foreground hover:text-primary transition-colors duration-200">Blog</a>
+                    <a href="#about" class="text-foreground hover:text-primary transition-colors duration-200">About</a>
+                    <a href="#contact" class="bg-primary text-primary-foreground px-4 py-2 rounded-md hover:bg-primary/90 transition-colors duration-200">Contact</a>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button class="text-foreground hover:text-primary">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <!-- @END_COMPONENT: Navigation -->
+
+    <!-- @COMPONENT: HeroSlider [Dynamic slider for agriculture, tourism programs] -->
+    <section class="relative h-screen slider-container mt-16" id="home">
+        <!-- Slide 1: Agriculture Program -->
+        <div class="slide active">
+            <!-- Modern agricultural machinery in vast farmland -->
+            <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1500595046743-cd271d694d30?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&h=1080');"></div>
+            <div class="absolute inset-0 bg-black/50"></div>
+            <div class="relative z-10 h-full flex items-center">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="max-w-3xl">
+                        <h1 class="text-5xl lg:text-6xl font-bold text-white mb-6 animate-fadeInUp">Transform Your Agricultural Business</h1>
+                        <p class="text-xl text-gray-200 mb-8 animate-fadeInUp" style="animation-delay: 0.2s">Access up to €1.3M in IPARD funding for agricultural modernization and rural development</p>
+                        <div class="flex flex-col sm:flex-row gap-4 animate-fadeInUp" style="animation-delay: 0.4s">
+                            <button class="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-3 rounded-md font-semibold transition-colors duration-200">Learn More</button>
+                            <button class="border border-white text-white hover:bg-white hover:text-black px-8 py-3 rounded-md font-semibold transition-colors duration-200">View Programs</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 2: Tourism Program -->
+        <div class="slide">
+            <!-- Beautiful rural tourism destination with traditional architecture -->
+            <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&h=1080');"></div>
+            <div class="absolute inset-0 bg-black/50"></div>
+            <div class="relative z-10 h-full flex items-center">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="max-w-3xl">
+                        <h1 class="text-5xl lg:text-6xl font-bold text-white mb-6">Develop Rural Tourism Excellence</h1>
+                        <p class="text-xl text-gray-200 mb-8">Create sustainable tourism businesses with our comprehensive support and funding guidance</p>
+                        <div class="flex flex-col sm:flex-row gap-4">
+                            <button class="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-3 rounded-md font-semibold transition-colors duration-200">Tourism Programs</button>
+                            <button class="border border-white text-white hover:bg-white hover:text-black px-8 py-3 rounded-md font-semibold transition-colors duration-200">Success Stories</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3: Financial Consulting -->
+        <div class="slide">
+            <!-- Professional business meeting with financial charts and documents -->
+            <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1560472354-b33ff0c44a43?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&h=1080');"></div>
+            <div class="absolute inset-0 bg-black/50"></div>
+            <div class="relative z-10 h-full flex items-center">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="max-w-3xl">
+                        <h1 class="text-5xl lg:text-6xl font-bold text-white mb-6">Expert Financial Consulting</h1>
+                        <p class="text-xl text-gray-200 mb-8">Strategic business planning and financial advisory services to accelerate your growth</p>
+                        <div class="flex flex-col sm:flex-row gap-4">
+                            <button class="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-3 rounded-md font-semibold transition-colors duration-200">Our Services</button>
+                            <button class="border border-white text-white hover:bg-white hover:text-black px-8 py-3 rounded-md font-semibold transition-colors duration-200">Get Consultation</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slider Navigation -->
+        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex space-x-3">
+            <button class="w-3 h-3 rounded-full bg-white/50 hover:bg-white transition-colors duration-200 slider-dot active" data-slide="0"></button>
+            <button class="w-3 h-3 rounded-full bg-white/50 hover:bg-white transition-colors duration-200 slider-dot" data-slide="1"></button>
+            <button class="w-3 h-3 rounded-full bg-white/50 hover:bg-white transition-colors duration-200 slider-dot" data-slide="2"></button>
+        </div>
+    </section>
+    <!-- @END_COMPONENT: HeroSlider -->
+
+    <!-- @COMPONENT: AchievementCounters [Animated counters for last year's achievements] -->
+    <section class="py-16 bg-card">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl lg:text-4xl font-bold text-foreground mb-4">Our 2024 Achievements</h2>
+                <p class="text-xl text-muted-foreground">Delivering exceptional results for our clients across all sectors</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="text-center">
+                    <div class="counter text-primary mb-2" data-target="245">0</div>
+                    <h3 class="text-lg font-semibold text-foreground mb-2">Successful Projects</h3>
+                    <p class="text-muted-foreground">IPARD and funding projects completed</p>
+                </div>
+                
+                <div class="text-center">
+                    <div class="counter text-primary mb-2" data-target="86">0</div>
+                    <h3 class="text-lg font-semibold text-foreground mb-2">Million EUR Secured</h3>
+                    <p class="text-muted-foreground">Total funding obtained for clients</p>
+                </div>
+                
+                <div class="text-center">
+                    <div class="counter text-primary mb-2" data-target="350">0</div>
+                    <h3 class="text-lg font-semibold text-foreground mb-2">Happy Clients</h3>
+                    <p class="text-muted-foreground">Businesses we've helped grow</p>
+                </div>
+                
+                <div class="text-center">
+                    <div class="counter text-primary mb-2" data-target="95">0</div>
+                    <h3 class="text-lg font-semibold text-foreground mb-2">Success Rate %</h3>
+                    <p class="text-muted-foreground">Project approval rate</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- @END_COMPONENT: AchievementCounters -->
+
+    <!-- @COMPONENT: ServicesSection [Overview of IPARD, Financial Aid, Consulting services] -->
+    <section class="py-20 bg-background" id="services">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl lg:text-4xl font-bold text-foreground mb-4">Our Comprehensive Services</h2>
+                <p class="text-xl text-muted-foreground max-w-3xl mx-auto">From IPARD funding to business consulting, we provide end-to-end support for your growth journey</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- IPARD Programs -->
+                <div class="bg-card rounded-lg p-8 hover-scale">
+                    <div class="w-16 h-16 bg-primary/10 rounded-lg flex items-center justify-center mb-6">
+                        <i class="fas fa-seedling text-2xl text-primary"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-foreground mb-4">IPARD Programs</h3>
+                    <p class="text-muted-foreground mb-6">Access EU funding up to €1.3M for agricultural investments, processing facilities, and rural development projects.</p>
+                    <ul class="space-y-2 text-sm text-muted-foreground mb-6">
+                        <li><i class="fas fa-check text-primary mr-2"></i>IPARD I - Agricultural Investment</li>
+                        <li><i class="fas fa-check text-primary mr-2"></i>IPARD II - Processing Modernization</li>
+                        <li><i class="fas fa-check text-primary mr-2"></i>IPARD III - Rural Tourism</li>
+                    </ul>
+                    <button class="text-primary hover:text-primary/80 font-semibold">Learn More <i class="fas fa-arrow-right ml-1"></i></button>
+                </div>
+
+                <!-- Financial Aid -->
+                <div class="bg-card rounded-lg p-8 hover-scale">
+                    <div class="w-16 h-16 bg-primary/10 rounded-lg flex items-center justify-center mb-6">
+                        <i class="fas fa-chart-line text-2xl text-primary"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-foreground mb-4">Financial Aid</h3>
+                    <p class="text-muted-foreground mb-6">Comprehensive support for manufacturing and tourism sectors with grants, subsidies, and favorable loans.</p>
+                    <ul class="space-y-2 text-sm text-muted-foreground mb-6">
+                        <li><i class="fas fa-check text-primary mr-2"></i>Manufacturing Support Programs</li>
+                        <li><i class="fas fa-check text-primary mr-2"></i>Tourism Development Grants</li>
+                        <li><i class="fas fa-check text-primary mr-2"></i>Export Promotion Funding</li>
+                    </ul>
+                    <button class="text-primary hover:text-primary/80 font-semibold">Learn More <i class="fas fa-arrow-right ml-1"></i></button>
+                </div>
+
+                <!-- Consulting Services -->
+                <div class="bg-card rounded-lg p-8 hover-scale">
+                    <div class="w-16 h-16 bg-primary/10 rounded-lg flex items-center justify-center mb-6">
+                        <i class="fas fa-handshake text-2xl text-primary"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-foreground mb-4">Business Consulting</h3>
+                    <p class="text-muted-foreground mb-6">Expert guidance for micro businesses and comprehensive business plan development services.</p>
+                    <ul class="space-y-2 text-sm text-muted-foreground mb-6">
+                        <li><i class="fas fa-check text-primary mr-2"></i>Micro Business Consulting</li>
+                        <li><i class="fas fa-check text-primary mr-2"></i>Business Plan Development</li>
+                        <li><i class="fas fa-check text-primary mr-2"></i>Strategic Planning</li>
+                    </ul>
+                    <button class="text-primary hover:text-primary/80 font-semibold">Learn More <i class="fas fa-arrow-right ml-1"></i></button>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- @END_COMPONENT: ServicesSection -->
+
+    <!-- @COMPONENT: ClientsSection [Showcase of client logos and testimonials] -->
+    <section class="py-20 bg-card" id="clients">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl lg:text-4xl font-bold text-foreground mb-4">Trusted by Leading Businesses</h2>
+                <p class="text-xl text-muted-foreground">We've helped hundreds of companies across agriculture, tourism, and manufacturing sectors</p>
+            </div>
+
+            <!-- Client Logos -->
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 items-center mb-16">
+                <!-- Agricultural equipment manufacturer logo placeholder -->
+                <div class="client-logo bg-muted/20 rounded-lg p-4 h-20 flex items-center justify-center">
+                    <span class="text-muted-foreground font-semibold">AgroTech</span>
+                </div>
+                <!-- Tourism company logo placeholder -->
+                <div class="client-logo bg-muted/20 rounded-lg p-4 h-20 flex items-center justify-center">
+                    <span class="text-muted-foreground font-semibold">TourSerbia</span>
+                </div>
+                <!-- Food processing company logo placeholder -->
+                <div class="client-logo bg-muted/20 rounded-lg p-4 h-20 flex items-center justify-center">
+                    <span class="text-muted-foreground font-semibold">FoodPro</span>
+                </div>
+                <!-- Manufacturing company logo placeholder -->
+                <div class="client-logo bg-muted/20 rounded-lg p-4 h-20 flex items-center justify-center">
+                    <span class="text-muted-foreground font-semibold">ManuTech</span>
+                </div>
+                <!-- Rural tourism business logo placeholder -->
+                <div class="client-logo bg-muted/20 rounded-lg p-4 h-20 flex items-center justify-center">
+                    <span class="text-muted-foreground font-semibold">RuralEco</span>
+                </div>
+                <!-- Organic farming operation logo placeholder -->
+                <div class="client-logo bg-muted/20 rounded-lg p-4 h-20 flex items-center justify-center">
+                    <span class="text-muted-foreground font-semibold">OrganicFarm</span>
+                </div>
+            </div>
+
+            <!-- Testimonials -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-background rounded-lg p-6">
+                    <div class="flex items-center mb-4">
+                        <div class="text-yellow-400 flex">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                    <p class="text-muted-foreground mb-4">"WVP Plus helped us secure €800,000 in IPARD funding for our agricultural modernization project. Their expertise was invaluable."</p>
+                    <div class="flex items-center">
+                        <!-- Portrait of satisfied agricultural business owner -->
+                        <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&h=100" alt="Marko Petrović" class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <h4 class="font-semibold text-foreground">Marko Petrović</h4>
+                            <p class="text-sm text-muted-foreground">CEO, AgroTech Solutions</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-background rounded-lg p-6">
+                    <div class="flex items-center mb-4">
+                        <div class="text-yellow-400 flex">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                    <p class="text-muted-foreground mb-4">"Excellent support in developing our rural tourism business. The team guided us through every step of the funding process."</p>
+                    <div class="flex items-center">
+                        <!-- Portrait of female tourism business owner -->
+                        <img src="https://pixabay.com/get/ga84248cf054a1b425af11ae8f42d7acd826b8e1c68a62cf793908055deee5b5ee7bf110e65749d7b96b1cd71a2f4277058a6f5329562c3f4996d9832d919e665_1280.jpg" alt="Ana Nikolić" class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <h4 class="font-semibold text-foreground">Ana Nikolić</h4>
+                            <p class="text-sm text-muted-foreground">Founder, Mountain Retreat</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-background rounded-lg p-6">
+                    <div class="flex items-center mb-4">
+                        <div class="text-yellow-400 flex">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                    <p class="text-muted-foreground mb-4">"Professional business plan development service. Their financial projections were accurate and helped us secure bank financing."</p>
+                    <div class="flex items-center">
+                        <!-- Portrait of middle-aged manufacturing executive -->
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&h=100" alt="Stefan Jovanović" class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <h4 class="font-semibold text-foreground">Stefan Jovanović</h4>
+                            <p class="text-sm text-muted-foreground">Director, ManuPro Ltd</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- @END_COMPONENT: ClientsSection -->
+
+    <!-- @COMPONENT: BlogSection [Featured blog posts about financial insights and stories] -->
+    <section class="py-20 bg-background" id="blog">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl lg:text-4xl font-bold text-foreground mb-4">Latest Insights & Stories</h2>
+                <p class="text-xl text-muted-foreground">Stay informed with our expert analysis and client success stories</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Featured Blog Post 1 -->
+                <article class="blog-card bg-card rounded-lg overflow-hidden shadow-sm">
+                    <!-- Modern agricultural technology in action with farmers using tablets -->
+                    <img src="https://images.unsplash.com/photo-1625246333195-78d9c38ad449?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=300" alt="IPARD 2025 funding opportunities" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <div class="flex items-center mb-3">
+                            <span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm font-medium">IPARD</span>
+                            <span class="text-muted-foreground text-sm ml-3">March 15, 2025</span>
+                        </div>
+                        <h3 class="text-xl font-semibold text-foreground mb-3">IPARD 2025: New Funding Opportunities</h3>
+                        <p class="text-muted-foreground mb-4">Discover the latest IPARD funding rounds and how your agricultural business can benefit from increased support...</p>
+                        <a href="#" class="text-primary hover:text-primary/80 font-semibold">Read More <i class="fas fa-arrow-right ml-1"></i></a>
+                    </div>
+                </article>
+
+                <!-- Featured Blog Post 2 -->
+                <article class="blog-card bg-card rounded-lg overflow-hidden shadow-sm">
+                    <!-- Rural tourism accommodation with beautiful mountain landscape -->
+                    <img src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=300" alt="Rural tourism trends 2025" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <div class="flex items-center mb-3">
+                            <span class="bg-chart-2/10 text-chart-2 px-3 py-1 rounded-full text-sm font-medium">Tourism</span>
+                            <span class="text-muted-foreground text-sm ml-3">March 12, 2025</span>
+                        </div>
+                        <h3 class="text-xl font-semibold text-foreground mb-3">Rural Tourism Trends for 2025</h3>
+                        <p class="text-muted-foreground mb-4">Explore emerging trends in rural tourism and learn how to position your business for success in the growing eco-tourism market...</p>
+                        <a href="#" class="text-primary hover:text-primary/80 font-semibold">Read More <i class="fas fa-arrow-right ml-1"></i></a>
+                    </div>
+                </article>
+
+                <!-- Featured Blog Post 3 -->
+                <article class="blog-card bg-card rounded-lg overflow-hidden shadow-sm">
+                    <!-- Business meeting with financial charts and growth analytics on screens -->
+                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=300" alt="Financial planning strategies" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <div class="flex items-center mb-3">
+                            <span class="bg-chart-3/10 text-chart-3 px-3 py-1 rounded-full text-sm font-medium">Finance</span>
+                            <span class="text-muted-foreground text-sm ml-3">March 10, 2025</span>
+                        </div>
+                        <h3 class="text-xl font-semibold text-foreground mb-3">Strategic Financial Planning for SMEs</h3>
+                        <p class="text-muted-foreground mb-4">Essential financial planning strategies that can help small and medium enterprises navigate economic uncertainties and achieve sustainable growth...</p>
+                        <a href="#" class="text-primary hover:text-primary/80 font-semibold">Read More <i class="fas fa-arrow-right ml-1"></i></a>
+                    </div>
+                </article>
+
+                <!-- Additional Blog Posts -->
+                <article class="blog-card bg-card rounded-lg overflow-hidden shadow-sm">
+                    <!-- Modern food processing facility with quality control -->
+                    <img src="https://images.unsplash.com/photo-1574484284002-952d92456975?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=300" alt="Manufacturing grants and subsidies" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <div class="flex items-center mb-3">
+                            <span class="bg-chart-4/10 text-chart-4 px-3 py-1 rounded-full text-sm font-medium">Manufacturing</span>
+                            <span class="text-muted-foreground text-sm ml-3">March 8, 2025</span>
+                        </div>
+                        <h3 class="text-xl font-semibold text-foreground mb-3">Manufacturing Grants: Complete Guide</h3>
+                        <p class="text-muted-foreground mb-4">A comprehensive overview of available manufacturing grants and subsidies, including eligibility criteria and application processes...</p>
+                        <a href="#" class="text-primary hover:text-primary/80 font-semibold">Read More <i class="fas fa-arrow-right ml-1"></i></a>
+                    </div>
+                </article>
+
+                <article class="blog-card bg-card rounded-lg overflow-hidden shadow-sm">
+                    <!-- Successful entrepreneur presenting business plan to investors -->
+                    <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=300" alt="Business plan success stories" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <div class="flex items-center mb-3">
+                            <span class="bg-chart-5/10 text-chart-5 px-3 py-1 rounded-full text-sm font-medium">Success Story</span>
+                            <span class="text-muted-foreground text-sm ml-3">March 5, 2025</span>
+                        </div>
+                        <h3 class="text-xl font-semibold text-foreground mb-3">From Idea to €2M: Client Success Story</h3>
+                        <p class="text-muted-foreground mb-4">How we helped a small organic farm secure major funding and scale operations through strategic business planning and IPARD support...</p>
+                        <a href="#" class="text-primary hover:text-primary/80 font-semibold">Read More <i class="fas fa-arrow-right ml-1"></i></a>
+                    </div>
+                </article>
+
+                <article class="blog-card bg-card rounded-lg overflow-hidden shadow-sm">
+                    <!-- Digital transformation in agriculture with IoT sensors -->
+                    <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=300" alt="Digital agriculture transformation" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <div class="flex items-center mb-3">
+                            <span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm font-medium">Technology</span>
+                            <span class="text-muted-foreground text-sm ml-3">March 3, 2025</span>
+                        </div>
+                        <h3 class="text-xl font-semibold text-foreground mb-3">Digital Transformation in Agriculture</h3>
+                        <p class="text-muted-foreground mb-4">Exploring how digital technologies and IoT solutions are revolutionizing modern agriculture and creating new funding opportunities...</p>
+                        <a href="#" class="text-primary hover:text-primary/80 font-semibold">Read More <i class="fas fa-arrow-right ml-1"></i></a>
+                    </div>
+                </article>
+            </div>
+
+            <div class="text-center mt-12">
+                <button class="bg-primary text-primary-foreground px-8 py-3 rounded-md hover:bg-primary/90 transition-colors duration-200">View All Posts</button>
+            </div>
+        </div>
+    </section>
+    <!-- @END_COMPONENT: BlogSection -->
+
+    <!-- @COMPONENT: ContactSection [Contact form and consultation booking] -->
+    <section class="py-20 bg-card" id="contact">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <div>
+                    <h2 class="text-3xl lg:text-4xl font-bold text-foreground mb-6">Ready to Grow Your Business?</h2>
+                    <p class="text-xl text-muted-foreground mb-8">Let's discuss how we can help you access funding and achieve your business goals.</p>
+                    
+                    <div class="space-y-6">
+                        <div class="flex items-center">
+                            <div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mr-4">
+                                <i class="fas fa-phone text-primary"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold text-foreground">Phone</h3>
+                                <p class="text-muted-foreground">+381 11 123 4567</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center">
+                            <div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mr-4">
+                                <i class="fas fa-envelope text-primary"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold text-foreground">Email</h3>
+                                <p class="text-muted-foreground">info@wvpplus.rs</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center">
+                            <div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mr-4">
+                                <i class="fas fa-map-marker-alt text-primary"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold text-foreground">Address</h3>
+                                <p class="text-muted-foreground">Knez Mihailova 42<br>11000 Belgrade, Serbia</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-background rounded-lg p-8">
+                    <h3 class="text-2xl font-semibold text-foreground mb-6">Get Free Consultation</h3>
+                    <form class="space-y-6">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-foreground mb-2">First Name</label>
+                                <input type="text" class="w-full px-4 py-3 bg-input border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary text-foreground" placeholder="John">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-foreground mb-2">Last Name</label>
+                                <input type="text" class="w-full px-4 py-3 bg-input border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary text-foreground" placeholder="Doe">
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-foreground mb-2">Email</label>
+                            <input type="email" class="w-full px-4 py-3 bg-input border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary text-foreground" placeholder="john@example.com">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-foreground mb-2">Service Interest</label>
+                            <select class="w-full px-4 py-3 bg-input border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary text-foreground">
+                                <option>IPARD Programs</option>
+                                <option>Financial Aid</option>
+                                <option>Business Consulting</option>
+                                <option>Business Plan Development</option>
+                            </select>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-foreground mb-2">Message</label>
+                            <textarea rows="4" class="w-full px-4 py-3 bg-input border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary text-foreground" placeholder="Tell us about your project..."></textarea>
+                        </div>
+                        
+                        <button type="submit" class="w-full bg-primary text-primary-foreground py-3 rounded-md hover:bg-primary/90 transition-colors duration-200 font-semibold">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- @END_COMPONENT: ContactSection -->
+
+    <!-- @COMPONENT: Footer [Company info, links, social media] -->
+    <footer class="bg-foreground text-background py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="lg:col-span-2">
+                    <div class="flex items-center mb-4">
+                        <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjQwIiB2aWV3Qm94PSIwIDAgMTAwIDQwIiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjx0ZXh0IHg9IjUwIiB5PSIyMCIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjE4IiBmb250LXdlaWdodD0iYm9sZCIgZmlsbD0iI2ZmZmZmZiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSI+V1ZQKzwvdGV4dD48L3N2Zz4=" alt="WVP Plus Consulting" class="h-8 w-auto">
+                        <span class="ml-2 text-xl font-bold">WVP Plus Consulting</span>
+                    </div>
+                    <p class="text-gray-300 mb-6 max-w-md">Expert financial consulting and funding solutions for agriculture, tourism, and manufacturing sectors. Your success is our mission.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-10 h-10 bg-primary rounded-lg flex items-center justify-center hover:bg-primary/80 transition-colors">
+                            <i class="fab fa-facebook-f text-white"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-primary rounded-lg flex items-center justify-center hover:bg-primary/80 transition-colors">
+                            <i class="fab fa-twitter text-white"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-primary rounded-lg flex items-center justify-center hover:bg-primary/80 transition-colors">
+                            <i class="fab fa-linkedin-in text-white"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-primary rounded-lg flex items-center justify-center hover:bg-primary/80 transition-colors">
+                            <i class="fab fa-instagram text-white"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Services</h3>
+                    <ul class="space-y-2 text-gray-300">
+                        <li><a href="#" class="hover:text-white transition-colors">IPARD Programs</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Financial Aid</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Business Consulting</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Business Plans</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Company</h3>
+                    <ul class="space-y-2 text-gray-300">
+                        <li><a href="#" class="hover:text-white transition-colors">About Us</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Our Team</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Careers</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-700 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-300">&copy; 2025 WVP Plus Consulting. All rights reserved.</p>
+                <div class="flex space-x-6 mt-4 md:mt-0">
+                    <a href="#" class="text-gray-300 hover:text-white transition-colors">Privacy Policy</a>
+                    <a href="#" class="text-gray-300 hover:text-white transition-colors">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- @END_COMPONENT: Footer -->
+
+    <script>
+        (function() {
+            // Slider functionality
+            let currentSlide = 0;
+            const slides = document.querySelectorAll('.slide');
+            const dots = document.querySelectorAll('.slider-dot');
+            
+            function showSlide(index) {
+                slides.forEach((slide, i) => {
+                    slide.classList.toggle('active', i === index);
+                });
+                dots.forEach((dot, i) => {
+                    dot.classList.toggle('active', i === index);
+                });
+            }
+            
+            function nextSlide() {
+                currentSlide = (currentSlide + 1) % slides.length;
+                showSlide(currentSlide);
+            }
+            
+            // Auto-slide every 5 seconds
+            setInterval(nextSlide, 5000);
+            
+            // Dot navigation
+            dots.forEach((dot, index) => {
+                dot.addEventListener('click', () => {
+                    currentSlide = index;
+                    showSlide(currentSlide);
+                });
+            });
+
+            // Counter animation
+            function animateCounters() {
+                const counters = document.querySelectorAll('.counter');
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const counter = entry.target;
+                            const target = parseInt(counter.getAttribute('data-target'));
+                            const duration = 2000; // 2 seconds
+                            const step = target / (duration / 16); // 60fps
+                            let current = 0;
+                            
+                            const timer = setInterval(() => {
+                                current += step;
+                                if (current >= target) {
+                                    counter.textContent = target;
+                                    clearInterval(timer);
+                                } else {
+                                    counter.textContent = Math.floor(current);
+                                }
+                            }, 16);
+                            
+                            observer.unobserve(counter);
+                        }
+                    });
+                });
+                
+                counters.forEach(counter => {
+                    observer.observe(counter);
+                });
+            }
+            
+            // Initialize counters when DOM is loaded
+            animateCounters();
+
+            // Smooth scrolling for navigation links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+
+            // Mobile menu toggle (basic implementation)
+            const mobileMenuButton = document.querySelector('.md\\:hidden button');
+            if (mobileMenuButton) {
+                mobileMenuButton.addEventListener('click', function() {
+                    // TODO: Implement mobile menu toggle functionality
+                    console.log('Mobile menu toggle clicked');
+                });
+            }
+
+            // Form submission handler
+            document.querySelector('form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                // TODO: Implement form submission logic
+                alert('Form submitted! We will contact you soon.');
+            });
+        })();
+    </script>
+</body>
+</html>

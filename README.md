@@ -30,9 +30,9 @@ A comprehensive business consulting website built with React, TypeScript, and Ex
 3. **Set up environment variables** (optional):
    ```bash
    # Copy the example environment file
-   copy .env.example .env
+   copy .env .env
    # or on macOS/Linux:
-   # cp .env.example .env
+   # cp .env .env
    ```
 
 4. **Start the development server**:
@@ -112,10 +112,10 @@ The built application will be ready for deployment with optimized assets and ser
   ```bash
   # Windows Command Prompt
   set PORT=3001 && npm run dev
-  
+
   # Windows PowerShell
   $env:PORT=3001; npm run dev
-  
+
   # macOS/Linux
   PORT=3001 npm run dev
   ```
@@ -126,6 +126,10 @@ The built application will be ready for deployment with optimized assets and ser
 **Permission errors on Windows:**
 - Run your terminal as Administrator if you encounter permission issues
 - Make sure your antivirus isn't blocking the development server
+
+**Environment variable issues on Windows:**
+- If you see errors like `'NODE_ENV' is not recognized as an internal or external command`, the scripts have been updated to use cross-env to fix this issue
+- Make sure to run `npm install` to get the latest dependencies including cross-env
 
 ## Support
 
