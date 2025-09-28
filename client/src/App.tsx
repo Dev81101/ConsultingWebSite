@@ -11,6 +11,7 @@ import BlogPost from "@/pages/blog-post";
 import Programs from "@/pages/programs";
 import About from "@/pages/about";
 import Contact from "@/pages/contact";
+import { AdminPage } from "@/pages/admin";
 import NotFound from "@/pages/not-found";
 
 function CountryRouter() {
@@ -29,6 +30,9 @@ function CountryRouter() {
       <Switch>
         {/* Root redirect handled by CountryProvider */}
         <Route path="/" component={() => <div>Redirecting...</div>} />
+        
+        {/* Admin routes */}
+        <Route path="/admin" component={AdminPage} />
         
         {/* Country-based routes */}
         <Route path="/:country" component={Home} />

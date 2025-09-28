@@ -13,6 +13,8 @@ export interface IStorage {
   getFeaturedBlogPostsByCountry(country: Country): Promise<BlogPost[]>;
   getBlogPostBySlugAndCountry(slug: string, country: Country): Promise<BlogPost | undefined>;
   createBlogPost(post: InsertBlogPost): Promise<BlogPost>;
+  updateBlogPost(slug: string, post: InsertBlogPost): Promise<BlogPost | undefined>;
+  deleteBlogPost(slug: string): Promise<boolean>;
   
   createContactSubmission(submission: InsertContactSubmission): Promise<ContactSubmission>;
   
@@ -247,6 +249,34 @@ export class MemStorage implements IStorage {
     };
     this.blogPosts.set(post.slug, post);
     return post;
+  }
+
+  async updateBlogPost(slug: string, insertPost: InsertBlogPost): Promise<BlogPost | undefined> {
+    const existingPost = this.blogPosts.get(slug);
+    if (!existingPost) {
+      return undefined;
+    }
+    
+    // If slug is changing, remove old and add new
+    if (insertPost.slug !== slug) {
+      this.blogPosts.delete(slug);
+    }
+    
+    const updatedPost: BlogPost = {
+      ...existingPost,
+      ...insertPost,
+      tags: insertPost.tags || [],
+      featured: insertPost.featured || false,
+      published: insertPost.published !== undefined ? insertPost.published : true,
+      updatedAt: new Date()
+    };
+    
+    this.blogPosts.set(insertPost.slug, updatedPost);
+    return updatedPost;
+  }
+
+  async deleteBlogPost(slug: string): Promise<boolean> {
+    return this.blogPosts.delete(slug);
   }
 
   async createContactSubmission(insertSubmission: InsertContactSubmission): Promise<ContactSubmission> {
