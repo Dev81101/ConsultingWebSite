@@ -3,6 +3,18 @@ import { pgTable, text, varchar, timestamp, boolean, integer } from "drizzle-orm
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
 
+// Country type for multi-country support
+export const countrySchema = z.enum(["rs", "mk", "me", "ba"]);
+export type Country = z.infer<typeof countrySchema>;
+
+// Country display names
+export const COUNTRY_NAMES: Record<Country, string> = {
+  rs: "Serbia",
+  mk: "North Macedonia", 
+  me: "Montenegro",
+  ba: "Bosnia and Herzegovina"
+};
+
 export const users = pgTable("users", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
   username: text("username").notNull().unique(),
@@ -18,6 +30,7 @@ export const blogPosts = pgTable("blog_posts", {
   imageUrl: text("image_url").notNull(),
   category: text("category").notNull(),
   tags: text("tags").array().default([]),
+  countries: text("countries").array().notNull().default(["rs"]),
   featured: boolean("featured").default(false),
   published: boolean("published").default(true),
   createdAt: timestamp("created_at").defaultNow(),
@@ -55,7 +68,9 @@ export const insertUserSchema = createInsertSchema(users).pick({
   password: true,
 });
 
-export const insertBlogPostSchema = createInsertSchema(blogPosts).omit({
+export const insertBlogPostSchema = createInsertSchema(blogPosts, {
+  countries: z.array(countrySchema).min(1, "At least one country must be selected")
+}).omit({
   id: true,
   createdAt: true,
   updatedAt: true,
