@@ -56,8 +56,8 @@ app.use((req, res, next) => {
     serveStatic(app);
   }
 
-  // Use port 3000 for local development or PORT from environment
-  const port = parseInt(process.env.PORT || '3000', 10);
+  // Use port 5000 for Replit or PORT from environment
+  const port = parseInt(process.env.PORT || '5000', 10);
   server.listen(port, "0.0.0.0", () => {
     log(`serving on port ${port}`);
   });
