@@ -1,14 +1,56 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
-import { insertContactSubmissionSchema, insertNewsletterSubscriptionSchema } from "@shared/schema";
+import { insertContactSubmissionSchema, insertNewsletterSubscriptionSchema, countrySchema, type Country, COUNTRY_NAMES } from "@shared/schema";
 import { z } from "zod";
 
 export async function registerRoutes(app: Express): Promise<Server> {
+  // Geo detection route
+  app.get("/api/geo", (req, res) => {
+    // Try to detect country from headers or Accept-Language
+    const cfCountry = req.headers['cf-ipcountry'] as string;
+    const vercelCountry = req.headers['x-vercel-ip-country'] as string;
+    const acceptLanguage = req.headers['accept-language'] as string;
+    
+    let detectedCountry: Country = 'rs'; // default
+    
+    // Check Cloudflare or Vercel headers first
+    if (cfCountry && Object.keys(COUNTRY_NAMES).includes(cfCountry.toLowerCase())) {
+      detectedCountry = cfCountry.toLowerCase() as Country;
+    } else if (vercelCountry && Object.keys(COUNTRY_NAMES).includes(vercelCountry.toLowerCase())) {
+      detectedCountry = vercelCountry.toLowerCase() as Country;
+    } else if (acceptLanguage) {
+      // Map language codes to countries
+      const languageMappings: Record<string, Country> = {
+        'sr': 'rs',  // Serbian -> Serbia
+        'mk': 'mk',  // Macedonian -> North Macedonia  
+        'me': 'me',  // Montenegrin -> Montenegro
+        'bs': 'ba',  // Bosnian -> Bosnia
+        'hr': 'me',  // Croatian (if sr-ME) -> Montenegro
+      };
+      
+      const primaryLang = acceptLanguage.split(',')[0].split('-')[0].toLowerCase();
+      if (languageMappings[primaryLang]) {
+        detectedCountry = languageMappings[primaryLang];
+      }
+    }
+    
+    res.json({ country: detectedCountry, name: COUNTRY_NAMES[detectedCountry] });
+  });
   // Blog routes
   app.get("/api/blog/posts", async (req, res) => {
     try {
-      const posts = await storage.getBlogPosts();
+      const countryParam = req.query.country as string;
+      let country: Country = 'rs';
+      
+      if (countryParam) {
+        const countryValidation = countrySchema.safeParse(countryParam);
+        if (countryValidation.success) {
+          country = countryValidation.data;
+        }
+      }
+      
+      const posts = await storage.getBlogPostsByCountry(country);
       res.json(posts);
     } catch (error) {
       res.status(500).json({ message: "Failed to fetch blog posts" });
@@ -17,7 +59,17 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   app.get("/api/blog/featured", async (req, res) => {
     try {
-      const posts = await storage.getFeaturedBlogPosts();
+      const countryParam = req.query.country as string;
+      let country: Country = 'rs';
+      
+      if (countryParam) {
+        const countryValidation = countrySchema.safeParse(countryParam);
+        if (countryValidation.success) {
+          country = countryValidation.data;
+        }
+      }
+      
+      const posts = await storage.getFeaturedBlogPostsByCountry(country);
       res.json(posts);
     } catch (error) {
       res.status(500).json({ message: "Failed to fetch featured blog posts" });
@@ -27,7 +79,17 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get("/api/blog/posts/:slug", async (req, res) => {
     try {
       const { slug } = req.params;
-      const post = await storage.getBlogPost(slug);
+      const countryParam = req.query.country as string;
+      let country: Country = 'rs';
+      
+      if (countryParam) {
+        const countryValidation = countrySchema.safeParse(countryParam);
+        if (countryValidation.success) {
+          country = countryValidation.data;
+        }
+      }
+      
+      const post = await storage.getBlogPostBySlugAndCountry(slug, country);
       
       if (!post) {
         return res.status(404).json({ message: "Blog post not found" });

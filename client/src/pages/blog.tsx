@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Link } from "wouter";
 import { ArrowRight, Calendar, Search } from "lucide-react";
 import { useState } from "react";
+import { useCountry } from "@/lib/country-context";
 
 const categoryColors: Record<string, string> = {
   "IPARD": "bg-primary/10 text-primary",
@@ -17,6 +18,7 @@ const categoryColors: Record<string, string> = {
 };
 
 function BlogCard({ post }: { post: BlogPost }) {
+  const { country } = useCountry();
   const categoryColorClass = categoryColors[post.category] || "bg-muted text-muted-foreground";
   
   return (
@@ -47,7 +49,7 @@ function BlogCard({ post }: { post: BlogPost }) {
         <p className="text-muted-foreground mb-4 line-clamp-3" data-testid="blog-card-excerpt">
           {post.excerpt}
         </p>
-        <Link href={`/blog/${post.slug}`}>
+        <Link href={`/${country}/blog/${post.slug}`}>
           <Button 
             variant="ghost" 
             className="text-primary hover:text-primary/80 hover:bg-primary/10 p-0 h-auto font-semibold"
@@ -62,11 +64,19 @@ function BlogCard({ post }: { post: BlogPost }) {
 }
 
 export default function Blog() {
+  const { country } = useCountry();
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
 
   const { data: posts, isLoading, error } = useQuery<BlogPost[]>({
-    queryKey: ["/api/blog/posts"],
+    queryKey: ["/api/blog/posts", country],
+    queryFn: async () => {
+      const response = await fetch(`/api/blog/posts?country=${country}`);
+      if (!response.ok) {
+        throw new Error('Failed to fetch blog posts');
+      }
+      return response.json();
+    },
   });
 
   const categories = ["All", "IPARD", "Tourism", "Finance", "Manufacturing", "Success Story", "Technology"];

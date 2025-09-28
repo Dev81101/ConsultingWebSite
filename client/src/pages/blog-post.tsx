@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Link } from "wouter";
 import { ArrowLeft, Calendar, Tag } from "lucide-react";
+import { useCountry } from "@/lib/country-context";
 
 const categoryColors: Record<string, string> = {
   "IPARD": "bg-primary/10 text-primary",
@@ -16,16 +17,31 @@ const categoryColors: Record<string, string> = {
 };
 
 export default function BlogPost() {
-  const [match, params] = useRoute("/blog/:slug");
+  const { country } = useCountry();
+  const [match, params] = useRoute("/:country/blog/:slug");
   const slug = params?.slug;
 
   const { data: post, isLoading, error } = useQuery<BlogPostType>({
-    queryKey: ["/api/blog/posts", slug],
+    queryKey: ["/api/blog/posts", slug, country],
     enabled: !!slug,
+    queryFn: async () => {
+      const response = await fetch(`/api/blog/posts/${slug}?country=${country}`);
+      if (!response.ok) {
+        throw new Error('Failed to fetch blog post');
+      }
+      return response.json();
+    },
   });
 
   const { data: relatedPosts } = useQuery<BlogPostType[]>({
-    queryKey: ["/api/blog/featured"],
+    queryKey: ["/api/blog/featured", country],
+    queryFn: async () => {
+      const response = await fetch(`/api/blog/featured?country=${country}`);
+      if (!response.ok) {
+        throw new Error('Failed to fetch featured posts');
+      }
+      return response.json();
+    },
   });
 
   if (isLoading) {
@@ -55,7 +71,7 @@ export default function BlogPost() {
           <div className="text-center">
             <h1 className="text-2xl font-bold text-foreground mb-4">Blog Post Not Found</h1>
             <p className="text-muted-foreground mb-8">The blog post you're looking for doesn't exist.</p>
-            <Link href="/blog">
+            <Link href={`/${country}/blog`}>
               <Button>Back to Blog</Button>
             </Link>
           </div>
@@ -70,7 +86,7 @@ export default function BlogPost() {
     <div className="pt-16 min-h-screen bg-background" data-testid="blog-post-page">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         {/* Back Button */}
-        <Link href="/blog">
+        <Link href={`/${country}/blog`}>
           <Button variant="ghost" className="mb-8" data-testid="back-to-blog">
             <ArrowLeft className="mr-2 h-4 w-4" />
             Back to Blog
@@ -156,7 +172,7 @@ export default function BlogPost() {
                       <h3 className="font-semibold text-foreground mb-2 line-clamp-2">
                         {relatedPost.title}
                       </h3>
-                      <Link href={`/blog/${relatedPost.slug}`}>
+                      <Link href={`/${country}/blog/${relatedPost.slug}`}>
                         <Button variant="ghost" size="sm" className="text-primary hover:text-primary/80 p-0 h-auto">
                           Read More →
                         </Button>

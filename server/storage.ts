@@ -1,4 +1,4 @@
-import { type User, type InsertUser, type BlogPost, type InsertBlogPost, type ContactSubmission, type InsertContactSubmission, type Achievement, type InsertAchievement, type NewsletterSubscription, type InsertNewsletterSubscription } from "@shared/schema";
+import { type User, type InsertUser, type BlogPost, type InsertBlogPost, type ContactSubmission, type InsertContactSubmission, type Achievement, type InsertAchievement, type NewsletterSubscription, type InsertNewsletterSubscription, type Country } from "@shared/schema";
 import { randomUUID } from "crypto";
 
 export interface IStorage {
@@ -9,6 +9,9 @@ export interface IStorage {
   getBlogPosts(): Promise<BlogPost[]>;
   getFeaturedBlogPosts(): Promise<BlogPost[]>;
   getBlogPost(slug: string): Promise<BlogPost | undefined>;
+  getBlogPostsByCountry(country: Country): Promise<BlogPost[]>;
+  getFeaturedBlogPostsByCountry(country: Country): Promise<BlogPost[]>;
+  getBlogPostBySlugAndCountry(slug: string, country: Country): Promise<BlogPost | undefined>;
   createBlogPost(post: InsertBlogPost): Promise<BlogPost>;
   
   createContactSubmission(submission: InsertContactSubmission): Promise<ContactSubmission>;
@@ -208,6 +211,26 @@ export class MemStorage implements IStorage {
 
   async getBlogPost(slug: string): Promise<BlogPost | undefined> {
     return this.blogPosts.get(slug);
+  }
+
+  async getBlogPostsByCountry(country: Country): Promise<BlogPost[]> {
+    return Array.from(this.blogPosts.values())
+      .filter(post => post.published && post.countries.includes(country))
+      .sort((a, b) => new Date(b.createdAt || new Date()).getTime() - new Date(a.createdAt || new Date()).getTime());
+  }
+
+  async getFeaturedBlogPostsByCountry(country: Country): Promise<BlogPost[]> {
+    return Array.from(this.blogPosts.values())
+      .filter(post => post.published && post.featured && post.countries.includes(country))
+      .sort((a, b) => new Date(b.createdAt || new Date()).getTime() - new Date(a.createdAt || new Date()).getTime());
+  }
+
+  async getBlogPostBySlugAndCountry(slug: string, country: Country): Promise<BlogPost | undefined> {
+    const post = this.blogPosts.get(slug);
+    if (!post || !post.published || !post.countries.includes(country)) {
+      return undefined;
+    }
+    return post;
   }
 
   async createBlogPost(insertPost: InsertBlogPost): Promise<BlogPost> {

@@ -3,22 +3,27 @@ import { Link, useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Menu, X, ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useCountry } from "@/lib/country-context";
 import NewsletterSubscription from "./newsletter-subscription";
 
 export default function Navigation() {
+  const { country } = useCountry();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isProgramsOpen, setIsProgramsOpen] = useState(false);
   const [isBlogOpen, setIsBlogOpen] = useState(false);
   const [location] = useLocation();
 
-  const isActive = (path: string) => location === path;
+  const isActive = (path: string) => {
+    const countryPath = `/${country}${path === '/' ? '' : path}`;
+    return location === countryPath || (path === '/' && location === `/${country}`);
+  };
 
   return (
     <nav className="fixed w-full top-0 z-50 bg-card/95 backdrop-blur-sm border-b border-border">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
-          <Link href="/" className="flex items-center" data-testid="logo-link">
+          <Link href={`/${country}`} className="flex items-center" data-testid="logo-link">
             <div className="w-8 h-8 bg-primary rounded flex items-center justify-center text-white font-bold">
               W
             </div>
@@ -28,7 +33,7 @@ export default function Navigation() {
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
             <Link 
-              href="/" 
+              href={`/${country}`} 
               className={cn(
                 "text-foreground hover:text-primary transition-colors duration-200",
                 isActive("/") && "text-primary"
@@ -61,21 +66,21 @@ export default function Navigation() {
                       <h3 className="font-semibold text-primary mb-3">IPARD Programs</h3>
                       <div className="space-y-2">
                         <Link 
-                          href="/programs#ipard1" 
+                          href={`/${country}/programs#ipard1`} 
                           className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted rounded-md transition-colors"
                           data-testid="dropdown-ipard1"
                         >
                           IPARD I - Agricultural Investment
                         </Link>
                         <Link 
-                          href="/programs#ipard2" 
+                          href={`/${country}/programs#ipard2`} 
                           className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted rounded-md transition-colors"
                           data-testid="dropdown-ipard2"
                         >
                           IPARD II - Processing Facilities
                         </Link>
                         <Link 
-                          href="/programs#ipard3" 
+                          href={`/${country}/programs#ipard3`} 
                           className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted rounded-md transition-colors"
                           data-testid="dropdown-ipard3"
                         >
@@ -89,14 +94,14 @@ export default function Navigation() {
                       <h3 className="font-semibold text-primary mb-3">Financial Aid</h3>
                       <div className="space-y-2">
                         <Link 
-                          href="/programs#manufacturing" 
+                          href={`/${country}/programs#manufacturing`} 
                           className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted rounded-md transition-colors"
                           data-testid="dropdown-manufacturing"
                         >
                           Manufacturing Support
                         </Link>
                         <Link 
-                          href="/programs#tourism" 
+                          href={`/${country}/programs#tourism`} 
                           className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted rounded-md transition-colors"
                           data-testid="dropdown-tourism"
                         >
@@ -110,14 +115,14 @@ export default function Navigation() {
                       <h3 className="font-semibold text-primary mb-3">Consulting Services</h3>
                       <div className="space-y-2">
                         <Link 
-                          href="/programs#micro" 
+                          href={`/${country}/programs#micro`} 
                           className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted rounded-md transition-colors"
                           data-testid="dropdown-micro"
                         >
                           Micro Business Consulting
                         </Link>
                         <Link 
-                          href="/programs#business-plans" 
+                          href={`/${country}/programs#business-plans`} 
                           className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted rounded-md transition-colors"
                           data-testid="dropdown-business-plans"
                         >
@@ -153,7 +158,7 @@ export default function Navigation() {
                   <div className="space-y-4">
                     <div>
                       <Link 
-                        href="/blog" 
+                        href={`/${country}/blog`} 
                         className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted rounded-md transition-colors"
                         data-testid="dropdown-blog-all"
                       >
@@ -169,7 +174,7 @@ export default function Navigation() {
               </div>
             </div>
             <Link 
-              href="/about" 
+              href={`/${country}/about`} 
               className={cn(
                 "text-foreground hover:text-primary transition-colors duration-200",
                 isActive("/about") && "text-primary"
@@ -178,7 +183,7 @@ export default function Navigation() {
             >
               About
             </Link>
-            <Link href="/contact" data-testid="nav-contact">
+            <Link href={`/${country}/contact`} data-testid="nav-contact">
               <Button className="bg-primary text-primary-foreground hover:bg-primary/90">
                 Contact
               </Button>
@@ -203,35 +208,35 @@ export default function Navigation() {
           <div className="md:hidden border-t border-border bg-card">
             <div className="px-2 pt-2 pb-3 space-y-1">
               <Link 
-                href="/" 
+                href={`/${country}`} 
                 className="block px-3 py-2 text-foreground hover:text-primary hover:bg-muted rounded-md"
                 data-testid="mobile-nav-home"
               >
                 Home
               </Link>
               <Link 
-                href="/programs" 
+                href={`/${country}/programs`} 
                 className="block px-3 py-2 text-foreground hover:text-primary hover:bg-muted rounded-md"
                 data-testid="mobile-nav-programs"
               >
                 Programs
               </Link>
               <Link 
-                href="/blog" 
+                href={`/${country}/blog`} 
                 className="block px-3 py-2 text-foreground hover:text-primary hover:bg-muted rounded-md"
                 data-testid="mobile-nav-blog"
               >
                 Blog
               </Link>
               <Link 
-                href="/about" 
+                href={`/${country}/about`} 
                 className="block px-3 py-2 text-foreground hover:text-primary hover:bg-muted rounded-md"
                 data-testid="mobile-nav-about"
               >
                 About
               </Link>
               <Link 
-                href="/contact" 
+                href={`/${country}/contact`} 
                 className="block px-3 py-2 text-foreground hover:text-primary hover:bg-muted rounded-md"
                 data-testid="mobile-nav-contact"
               >

@@ -4,6 +4,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
 import { ArrowRight, Calendar } from "lucide-react";
+import { useCountry } from "@/lib/country-context";
 import NewsletterSubscription from "./newsletter-subscription";
 
 const categoryColors: Record<string, string> = {
@@ -16,6 +17,7 @@ const categoryColors: Record<string, string> = {
 };
 
 function BlogCard({ post }: { post: BlogPost }) {
+  const { country } = useCountry();
   const categoryColorClass = categoryColors[post.category] || "bg-muted text-muted-foreground";
   
   return (
@@ -46,7 +48,7 @@ function BlogCard({ post }: { post: BlogPost }) {
         <p className="text-muted-foreground mb-4 line-clamp-3" data-testid="blog-post-excerpt">
           {post.excerpt}
         </p>
-        <Link href={`/blog/${post.slug}`}>
+        <Link href={`/${country}/blog/${post.slug}`}>
           <Button 
             variant="ghost" 
             className="text-primary hover:text-primary/80 hover:bg-primary/10 p-0 h-auto font-semibold"
@@ -61,8 +63,16 @@ function BlogCard({ post }: { post: BlogPost }) {
 }
 
 export default function BlogSection() {
+  const { country } = useCountry();
   const { data: posts, isLoading, error } = useQuery<BlogPost[]>({
-    queryKey: ["/api/blog/featured"],
+    queryKey: ["/api/blog/featured", country],
+    queryFn: async () => {
+      const response = await fetch(`/api/blog/featured?country=${country}`);
+      if (!response.ok) {
+        throw new Error('Failed to fetch featured posts');
+      }
+      return response.json();
+    },
   });
 
   if (isLoading) {
@@ -127,7 +137,7 @@ export default function BlogSection() {
               <p className="text-muted-foreground mb-6">
                 Get our latest insights on IPARD funding, business opportunities, and success stories delivered directly to your inbox.
               </p>
-              <Link href="/blog">
+              <Link href={`/${country}/blog`}>
                 <Button className="bg-primary text-primary-foreground px-8 py-3 hover:bg-primary/90" data-testid="blog-view-all">
                   View All Posts
                 </Button>
