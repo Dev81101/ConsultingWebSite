@@ -30,8 +30,8 @@ export function CountryProvider({ children }: { children: React.ReactNode }) {
   const pathParts = location.split('/').filter(Boolean);
   const currentCountryFromPath = pathParts[0];
   
-  // Get stored country preference or default to 'rs'
-  const getStoredCountry = (): Country => {
+  // Get stored country preference or return undefined for geo-detection
+  const getStoredCountry = (): Country | undefined => {
     try {
       const stored = localStorage.getItem('preferredCountry');
       if (stored && countries.includes(stored as Country)) {
@@ -40,14 +40,14 @@ export function CountryProvider({ children }: { children: React.ReactNode }) {
     } catch {
       // localStorage might not be available
     }
-    return 'rs';
+    return undefined;
   };
   
   const [country, setCountryState] = useState<Country>(() => {
     if (currentCountryFromPath && countries.includes(currentCountryFromPath as Country)) {
       return currentCountryFromPath as Country;
     }
-    return getStoredCountry();
+    return getStoredCountry() || 'rs';
   });
   
   // Auto-detect country if we're on root path
