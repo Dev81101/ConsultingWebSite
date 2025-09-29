@@ -34,18 +34,24 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
 import { queryClient, apiRequest } from "@/lib/queryClient";
-import { insertBlogPostSchema, type BlogPost, type InsertBlogPost, COUNTRY_NAMES, type Country } from "@shared/schema";
+import { insertBlogPostSchema, insertPageContentSchema, type BlogPost, type InsertBlogPost, type PageContent, type InsertPageContent, COUNTRY_NAMES, type Country, type PageType, pageTypeSchema } from "@shared/schema";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useAllPageContent, useCreatePageContent, useUpdatePageContent, useDeletePageContent } from "@/hooks/use-page-content";
 
 const countries: Country[] = ["rs", "mk", "me", "ba"];
 
 export function AdminPage() {
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
   const [editingPost, setEditingPost] = useState<BlogPost | null>(null);
+  const [isCreatePageDialogOpen, setIsCreatePageDialogOpen] = useState(false);
+  const [editingPageContent, setEditingPageContent] = useState<PageContent | null>(null);
   const { toast } = useToast();
 
   const { data: posts = [], isLoading } = useQuery<BlogPost[]>({
     queryKey: ["/api/admin/blog/posts"],
   });
+
+  const { data: pageContents = [], isLoading: isLoadingPages } = useAllPageContent();
 
   const createPostMutation = useMutation({
     mutationFn: (data: InsertBlogPost) => 
@@ -91,37 +97,87 @@ export function AdminPage() {
     }
   };
 
+  // Page content mutations
+  const createPageMutation = useCreatePageContent();
+  const updatePageMutation = useUpdatePageContent();
+  const deletePageMutation = useDeletePageContent();
+
+  const handleCreatePage = (data: InsertPageContent) => {
+    createPageMutation.mutate(data, {
+      onSuccess: () => {
+        setIsCreatePageDialogOpen(false);
+        toast({ title: "Page content created successfully" });
+      },
+      onError: () => {
+        toast({ title: "Failed to create page content", variant: "destructive" });
+      }
+    });
+  };
+
+  const handleUpdatePage = (country: Country, pageType: PageType, data: InsertPageContent) => {
+    updatePageMutation.mutate({ country, pageType, data }, {
+      onSuccess: () => {
+        setEditingPageContent(null);
+        toast({ title: "Page content updated successfully" });
+      },
+      onError: () => {
+        toast({ title: "Failed to update page content", variant: "destructive" });
+      }
+    });
+  };
+
+  const handleDeletePage = (country: Country, pageType: PageType) => {
+    if (confirm("Are you sure you want to delete this page content?")) {
+      deletePageMutation.mutate({ country, pageType }, {
+        onSuccess: () => {
+          toast({ title: "Page content deleted successfully" });
+        },
+        onError: () => {
+          toast({ title: "Failed to delete page content", variant: "destructive" });
+        }
+      });
+    }
+  };
+
   return (
     <div className="min-h-screen bg-background">
       <div className="container mx-auto px-4 py-8">
-        <div className="flex justify-between items-center mb-8">
-          <div>
-            <h1 className="text-3xl font-bold text-foreground">Admin Panel</h1>
-            <p className="text-muted-foreground">Manage blog posts and content</p>
-          </div>
-          
-          <Dialog open={isCreateDialogOpen} onOpenChange={setIsCreateDialogOpen}>
-            <DialogTrigger asChild>
-              <Button data-testid="button-create-post">
-                <Plus className="w-4 h-4 mr-2" />
-                Create Post
-              </Button>
-            </DialogTrigger>
-            <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
-              <DialogHeader>
-                <DialogTitle>Create New Blog Post</DialogTitle>
-                <DialogDescription>
-                  Fill in the details to create a new blog post
-                </DialogDescription>
-              </DialogHeader>
-              <BlogPostForm
-                onSubmit={(data) => createPostMutation.mutate(data)}
-                isPending={createPostMutation.isPending}
-                onCancel={() => setIsCreateDialogOpen(false)}
-              />
-            </DialogContent>
-          </Dialog>
+        <div className="mb-8">
+          <h1 className="text-3xl font-bold text-foreground">Admin Panel</h1>
+          <p className="text-muted-foreground">Manage blog posts and page content</p>
         </div>
+
+        <Tabs defaultValue="blog-posts" className="w-full">
+          <TabsList className="grid w-full grid-cols-2">
+            <TabsTrigger value="blog-posts">Blog Posts</TabsTrigger>
+            <TabsTrigger value="page-content">Page Content</TabsTrigger>
+          </TabsList>
+          
+          <TabsContent value="blog-posts" className="space-y-6">
+            <div className="flex justify-between items-center">
+              <h2 className="text-2xl font-semibold">Blog Posts</h2>
+              <Dialog open={isCreateDialogOpen} onOpenChange={setIsCreateDialogOpen}>
+                <DialogTrigger asChild>
+                  <Button data-testid="button-create-post">
+                    <Plus className="w-4 h-4 mr-2" />
+                    Create Post
+                  </Button>
+                </DialogTrigger>
+                <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
+                  <DialogHeader>
+                    <DialogTitle>Create New Blog Post</DialogTitle>
+                    <DialogDescription>
+                      Fill in the details to create a new blog post
+                    </DialogDescription>
+                  </DialogHeader>
+                  <BlogPostForm
+                    onSubmit={(data) => createPostMutation.mutate(data)}
+                    isPending={createPostMutation.isPending}
+                    onCancel={() => setIsCreateDialogOpen(false)}
+                  />
+                </DialogContent>
+              </Dialog>
+            </div>
 
         {isLoading ? (
           <div className="space-y-4">
@@ -230,6 +286,22 @@ export function AdminPage() {
             </DialogContent>
           </Dialog>
         )}
+          </TabsContent>
+          
+          <TabsContent value="page-content" className="space-y-6">
+            <div className="flex justify-between items-center">
+              <h2 className="text-2xl font-semibold">Page Content</h2>
+              <Button data-testid="button-create-page">
+                <Plus className="w-4 h-4 mr-2" />
+                Create Page Content
+              </Button>
+            </div>
+            
+            <div className="text-center py-8">
+              <p className="text-muted-foreground">Page content management coming soon...</p>
+            </div>
+          </TabsContent>
+        </Tabs>
       </div>
     </div>
   );
