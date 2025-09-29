@@ -1,4 +1,4 @@
-import { type User, type InsertUser, type BlogPost, type InsertBlogPost, type ContactSubmission, type InsertContactSubmission, type Achievement, type InsertAchievement, type NewsletterSubscription, type InsertNewsletterSubscription, type Country } from "@shared/schema";
+import { type User, type InsertUser, type BlogPost, type InsertBlogPost, type ContactSubmission, type InsertContactSubmission, type Achievement, type InsertAchievement, type NewsletterSubscription, type InsertNewsletterSubscription, type PageContent, type InsertPageContent, type Country, type PageType } from "@shared/schema";
 import { randomUUID } from "crypto";
 import { MongoDBStorage } from "./mongodb-storage";
 import { connectToMongoDB } from "./mongodb";
@@ -25,6 +25,12 @@ export interface IStorage {
   
   createNewsletterSubscription(subscription: InsertNewsletterSubscription): Promise<NewsletterSubscription>;
   getNewsletterSubscription(email: string): Promise<NewsletterSubscription | undefined>;
+  
+  getPageContent(country: Country, pageType: PageType): Promise<PageContent | undefined>;
+  createPageContent(content: InsertPageContent): Promise<PageContent>;
+  updatePageContent(country: Country, pageType: PageType, content: InsertPageContent): Promise<PageContent | undefined>;
+  deletePageContent(country: Country, pageType: PageType): Promise<boolean>;
+  getAllPageContent(): Promise<PageContent[]>;
 }
 
 export class HybridStorage implements IStorage {
@@ -32,6 +38,7 @@ export class HybridStorage implements IStorage {
   private contactSubmissions: Map<string, ContactSubmission>;
   private achievements: Map<string, Achievement>;
   private newsletterSubscriptions: Map<string, NewsletterSubscription>;
+  private pageContent: Map<string, PageContent>;
   private mongoStorage: MongoDBStorage;
 
   constructor() {
@@ -39,6 +46,7 @@ export class HybridStorage implements IStorage {
     this.contactSubmissions = new Map();
     this.achievements = new Map();
     this.newsletterSubscriptions = new Map();
+    this.pageContent = new Map();
     this.mongoStorage = new MongoDBStorage();
     
     this.seedData();
@@ -198,6 +206,57 @@ export class HybridStorage implements IStorage {
     return Array.from(this.newsletterSubscriptions.values())
       .find(sub => sub.email === email);
   }
+
+  // Page content methods  
+  private getPageContentKey(country: Country, pageType: PageType): string {
+    return `${country}-${pageType}`;
+  }
+
+  async getPageContent(country: Country, pageType: PageType): Promise<PageContent | undefined> {
+    const key = this.getPageContentKey(country, pageType);
+    return this.pageContent.get(key);
+  }
+
+  async createPageContent(insertContent: InsertPageContent): Promise<PageContent> {
+    const id = randomUUID();
+    const content: PageContent = {
+      ...insertContent,
+      id,
+      metadata: insertContent.metadata || null,
+      createdAt: new Date(),
+      updatedAt: new Date()
+    };
+    const key = this.getPageContentKey(insertContent.country as Country, insertContent.pageType as PageType);
+    this.pageContent.set(key, content);
+    return content;
+  }
+
+  async updatePageContent(country: Country, pageType: PageType, insertContent: InsertPageContent): Promise<PageContent | undefined> {
+    const key = this.getPageContentKey(country, pageType);
+    const existingContent = this.pageContent.get(key);
+    
+    if (!existingContent) {
+      return undefined;
+    }
+
+    const updatedContent: PageContent = {
+      ...existingContent,
+      ...insertContent,
+      updatedAt: new Date()
+    };
+
+    this.pageContent.set(key, updatedContent);
+    return updatedContent;
+  }
+
+  async deletePageContent(country: Country, pageType: PageType): Promise<boolean> {
+    const key = this.getPageContentKey(country, pageType);
+    return this.pageContent.delete(key);
+  }
+
+  async getAllPageContent(): Promise<PageContent[]> {
+    return Array.from(this.pageContent.values());
+  }
 }
 
 // Create and initialize the hybrid storage
@@ -290,5 +349,25 @@ export const storage = {
   async getNewsletterSubscription(email: string): Promise<NewsletterSubscription | undefined> {
     const store = await getStorage();
     return store.getNewsletterSubscription(email);
+  },
+  async getPageContent(country: Country, pageType: PageType): Promise<PageContent | undefined> {
+    const store = await getStorage();
+    return store.getPageContent(country, pageType);
+  },
+  async createPageContent(content: InsertPageContent): Promise<PageContent> {
+    const store = await getStorage();
+    return store.createPageContent(content);
+  },
+  async updatePageContent(country: Country, pageType: PageType, content: InsertPageContent): Promise<PageContent | undefined> {
+    const store = await getStorage();
+    return store.updatePageContent(country, pageType, content);
+  },
+  async deletePageContent(country: Country, pageType: PageType): Promise<boolean> {
+    const store = await getStorage();
+    return store.deletePageContent(country, pageType);
+  },
+  async getAllPageContent(): Promise<PageContent[]> {
+    const store = await getStorage();
+    return store.getAllPageContent();
   }
 };

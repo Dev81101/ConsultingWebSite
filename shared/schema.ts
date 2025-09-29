@@ -63,6 +63,21 @@ export const newsletterSubscriptions = pgTable("newsletter_subscriptions", {
   isActive: boolean("is_active").default(true),
 });
 
+// Page types for country-specific content
+export const pageTypeSchema = z.enum(["home", "programs", "about", "contact"]);
+export type PageType = z.infer<typeof pageTypeSchema>;
+
+export const pageContent = pgTable("page_content", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  country: text("country").notNull(),
+  pageType: text("page_type").notNull(),
+  title: text("title").notNull(),
+  content: text("content").notNull(),
+  metadata: text("metadata"), // JSON string for additional page-specific data
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+});
+
 export const insertUserSchema = createInsertSchema(users).pick({
   username: true,
   password: true,
@@ -90,6 +105,15 @@ export const insertNewsletterSubscriptionSchema = createInsertSchema(newsletterS
   subscribedAt: true,
 });
 
+export const insertPageContentSchema = createInsertSchema(pageContent, {
+  country: countrySchema,
+  pageType: pageTypeSchema
+}).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
 export type InsertUser = z.infer<typeof insertUserSchema>;
 export type User = typeof users.$inferSelect;
 
@@ -104,3 +128,6 @@ export type Achievement = typeof achievements.$inferSelect;
 
 export type InsertNewsletterSubscription = z.infer<typeof insertNewsletterSubscriptionSchema>;
 export type NewsletterSubscription = typeof newsletterSubscriptions.$inferSelect;
+
+export type InsertPageContent = z.infer<typeof insertPageContentSchema>;
+export type PageContent = typeof pageContent.$inferSelect;

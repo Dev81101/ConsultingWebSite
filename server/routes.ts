@@ -1,7 +1,7 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
-import { insertContactSubmissionSchema, insertNewsletterSubscriptionSchema, insertBlogPostSchema, countrySchema, type Country, COUNTRY_NAMES } from "@shared/schema";
+import { insertContactSubmissionSchema, insertNewsletterSubscriptionSchema, insertBlogPostSchema, insertPageContentSchema, countrySchema, pageTypeSchema, type Country, type PageType, COUNTRY_NAMES } from "@shared/schema";
 import { z } from "zod";
 
 export async function registerRoutes(app: Express): Promise<Server> {
@@ -155,6 +155,97 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.json({ message: "Blog post deleted successfully" });
     } catch (error) {
       res.status(500).json({ message: "Failed to delete blog post" });
+    }
+  });
+
+  // Page content routes
+  app.get("/api/page-content/:country/:pageType", async (req, res) => {
+    try {
+      const countryValidation = countrySchema.safeParse(req.params.country);
+      const pageTypeValidation = pageTypeSchema.safeParse(req.params.pageType);
+      
+      if (!countryValidation.success || !pageTypeValidation.success) {
+        return res.status(400).json({ message: "Invalid country or page type" });
+      }
+      
+      const content = await storage.getPageContent(countryValidation.data, pageTypeValidation.data);
+      
+      if (!content) {
+        return res.status(404).json({ message: "Page content not found" });
+      }
+      
+      res.json(content);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch page content" });
+    }
+  });
+
+  // Admin page content routes
+  app.get("/api/admin/page-content", async (req, res) => {
+    try {
+      const content = await storage.getAllPageContent();
+      res.json(content);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch page content" });
+    }
+  });
+
+  app.post("/api/admin/page-content", async (req, res) => {
+    try {
+      const validatedData = insertPageContentSchema.parse(req.body);
+      const content = await storage.createPageContent(validatedData);
+      res.status(201).json(content);
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        return res.status(400).json({ message: "Validation error", errors: error.errors });
+      }
+      res.status(500).json({ message: "Failed to create page content" });
+    }
+  });
+
+  app.put("/api/admin/page-content/:country/:pageType", async (req, res) => {
+    try {
+      const countryValidation = countrySchema.safeParse(req.params.country);
+      const pageTypeValidation = pageTypeSchema.safeParse(req.params.pageType);
+      
+      if (!countryValidation.success || !pageTypeValidation.success) {
+        return res.status(400).json({ message: "Invalid country or page type" });
+      }
+      
+      const validatedData = insertPageContentSchema.parse(req.body);
+      const content = await storage.updatePageContent(countryValidation.data, pageTypeValidation.data, validatedData);
+      
+      if (!content) {
+        return res.status(404).json({ message: "Page content not found" });
+      }
+      
+      res.json(content);
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        return res.status(400).json({ message: "Validation error", errors: error.errors });
+      }
+      res.status(500).json({ message: "Failed to update page content" });
+    }
+  });
+
+  app.delete("/api/admin/page-content/:country/:pageType", async (req, res) => {
+    try {
+      const countryValidation = countrySchema.safeParse(req.params.country);
+      const pageTypeValidation = pageTypeSchema.safeParse(req.params.pageType);
+      
+      if (!countryValidation.success || !pageTypeValidation.success) {
+        return res.status(400).json({ message: "Invalid country or page type" });
+      }
+      
+      const deleted = await storage.deletePageContent(countryValidation.data, pageTypeValidation.data);
+      
+      if (!deleted) {
+        return res.status(404).json({ message: "Page content not found" });
+      }
+      
+      res.json({ message: "Page content deleted successfully" });
+    } catch (error) {
+      res.status(500).json({ message: "Failed to delete page content" });
     }
   });
 
