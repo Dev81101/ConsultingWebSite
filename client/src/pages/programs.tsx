@@ -1,3 +1,5 @@
+import { useCountry } from "@/lib/country-context";
+import { usePageContent } from "@/hooks/use-page-content";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Sprout, Factory, MapPin, Users, FileText, Target, CheckCircle, Euro, Clock, Award } from "lucide-react";
@@ -194,6 +196,39 @@ function ProgramCard({ program, type }: { program: any; type: string }) {
 }
 
 export default function Programs() {
+  const { country } = useCountry();
+  const { data: pageContent, isLoading } = usePageContent(country, 'programs');
+
+  // If we have custom content for this country, show it
+  if (pageContent) {
+    return (
+      <div className="pt-16 min-h-screen bg-background" data-testid="programs-page">
+        <div className="container mx-auto px-4 py-16">
+          <div className="text-center mb-16">
+            <h1 className="text-4xl md:text-5xl font-bold mb-6" data-testid="page-title">
+              {pageContent.title}
+            </h1>
+            <div 
+              className="prose prose-lg max-w-none mx-auto"
+              dangerouslySetInnerHTML={{ __html: pageContent.content }}
+              data-testid="page-content"
+            />
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // Loading state
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen" data-testid="loading-state">
+        <div className="text-lg">Loading programs content...</div>
+      </div>
+    );
+  }
+
+  // Default fallback - use the original program listing if no custom content
   return (
     <div className="pt-16 min-h-screen bg-background" data-testid="programs-page">
       {/* Hero Section */}

@@ -3,7 +3,8 @@ import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { CountryProvider, useCountry } from "@/lib/country-context";
+import { CountryProvider, useCountry, CountryContext } from "@/lib/country-context";
+import { useContext } from "react";
 import Layout from "@/components/layout";
 import Home from "@/pages/home";
 import Blog from "@/pages/blog";
@@ -15,7 +16,17 @@ import { AdminPage } from "@/pages/admin";
 import NotFound from "@/pages/not-found";
 
 function CountryRouter() {
-  const { isLoading } = useCountry();
+  const context = useContext(CountryContext);
+  
+  if (!context) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="text-lg">Loading...</div>
+      </div>
+    );
+  }
+  
+  const { isLoading } = context;
   
   if (isLoading) {
     return (

@@ -10,7 +10,7 @@ interface CountryContextType {
   isLoading: boolean;
 }
 
-const CountryContext = createContext<CountryContextType | undefined>(undefined);
+export const CountryContext = createContext<CountryContextType | undefined>(undefined);
 
 export function useCountry() {
   const context = useContext(CountryContext);
