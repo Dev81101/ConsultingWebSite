@@ -9,6 +9,13 @@ import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Switch } from "@/components/ui/switch";
 import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
   Form,
   FormControl,
   FormField,
@@ -45,13 +52,18 @@ export function AdminPage() {
   const [editingPost, setEditingPost] = useState<BlogPost | null>(null);
   const [isCreatePageDialogOpen, setIsCreatePageDialogOpen] = useState(false);
   const [editingPageContent, setEditingPageContent] = useState<PageContent | null>(null);
+  const [selectedCountry, setSelectedCountry] = useState<Country>("rs");
   const { toast } = useToast();
 
   const { data: posts = [], isLoading } = useQuery<BlogPost[]>({
     queryKey: ["/api/admin/blog/posts"],
   });
 
-  const { data: pageContents = [], isLoading: isLoadingPages } = useAllPageContent();
+  // Page content queries and mutations
+  const { data: pageContents = [], isLoading: isPageContentsLoading } = useAllPageContent();
+  const createPageContentMutation = useCreatePageContent();
+  const updatePageContentMutation = useUpdatePageContent();
+  const deletePageContentMutation = useDeletePageContent();
 
   const createPostMutation = useMutation({
     mutationFn: (data: InsertBlogPost) => 
@@ -291,15 +303,111 @@ export function AdminPage() {
           <TabsContent value="page-content" className="space-y-6">
             <div className="flex justify-between items-center">
               <h2 className="text-2xl font-semibold">Page Content</h2>
-              <Button data-testid="button-create-page">
-                <Plus className="w-4 h-4 mr-2" />
-                Create Page Content
-              </Button>
+              <Dialog open={isCreatePageDialogOpen} onOpenChange={setIsCreatePageDialogOpen}>
+                <DialogTrigger asChild>
+                  <Button data-testid="button-create-page">
+                    <Plus className="w-4 h-4 mr-2" />
+                    Create Page Content
+                  </Button>
+                </DialogTrigger>
+                <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
+                  <DialogHeader>
+                    <DialogTitle>Create Page Content</DialogTitle>
+                    <DialogDescription>
+                      Create country-specific content for different pages
+                    </DialogDescription>
+                  </DialogHeader>
+                  <PageContentForm
+                    onSubmit={(data) => createPageContentMutation.mutate(data)}
+                    isPending={createPageContentMutation.isPending}
+                    onCancel={() => setIsCreatePageDialogOpen(false)}
+                  />
+                </DialogContent>
+              </Dialog>
             </div>
-            
-            <div className="text-center py-8">
-              <p className="text-muted-foreground">Page content management coming soon...</p>
-            </div>
+
+            {isPageContentsLoading ? (
+              <div className="space-y-4">
+                {[...Array(3)].map((_, i) => (
+                  <Card key={i} className="animate-pulse">
+                    <CardContent className="p-6">
+                      <div className="h-4 bg-muted rounded w-1/3 mb-2" />
+                      <div className="h-3 bg-muted rounded w-2/3 mb-4" />
+                      <div className="flex gap-2">
+                        <div className="h-6 bg-muted rounded w-16" />
+                        <div className="h-6 bg-muted rounded w-16" />
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            ) : (
+              <div className="space-y-4">
+                {pageContents.map((content) => (
+                  <Card key={`${content.country}-${content.pageType}`} className="relative">
+                    <CardHeader>
+                      <div className="flex justify-between items-start">
+                        <div className="flex-1">
+                          <CardTitle className="text-xl capitalize">
+                            {content.pageType} - {COUNTRY_NAMES[content.country]}
+                          </CardTitle>
+                          <CardDescription className="mt-2">
+                            {content.title || "No title set"}
+                          </CardDescription>
+                        </div>
+                        <div className="flex gap-2 ml-4">
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            onClick={() => setEditingPageContent(content)}
+                            data-testid={`button-edit-${content.country}-${content.pageType}`}
+                          >
+                            <Edit className="w-4 h-4" />
+                          </Button>
+                          <Button
+                            variant="destructive"
+                            size="sm"
+                            onClick={() => handleDeletePage(content.country, content.pageType)}
+                            data-testid={`button-delete-${content.country}-${content.pageType}`}
+                          >
+                            <Trash2 className="w-4 h-4" />
+                          </Button>
+                        </div>
+                      </div>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="flex flex-wrap gap-2">
+                        <Badge variant="secondary" data-testid={`badge-country-${content.country}`}>
+                          {COUNTRY_NAMES[content.country]}
+                        </Badge>
+                        <Badge variant="outline" data-testid={`badge-page-${content.pageType}`}>
+                          {content.pageType}
+                        </Badge>
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            )}
+
+            {editingPageContent && (
+              <Dialog open={!!editingPageContent} onOpenChange={() => setEditingPageContent(null)}>
+                <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
+                  <DialogHeader>
+                    <DialogTitle>Edit Page Content</DialogTitle>
+                    <DialogDescription>
+                      Update the page content details
+                    </DialogDescription>
+                  </DialogHeader>
+                  <PageContentForm
+                    defaultValues={editingPageContent}
+                    onSubmit={(data) => updatePageContentMutation.mutate({ country: editingPageContent.country, pageType: editingPageContent.pageType, data })}
+                    isPending={updatePageContentMutation.isPending}
+                    onCancel={() => setEditingPageContent(null)}
+                  />
+                </DialogContent>
+              </Dialog>
+            )}
           </TabsContent>
         </Tabs>
       </div>
@@ -564,6 +672,171 @@ function BlogPostForm({ defaultValues, onSubmit, isPending, onCancel }: BlogPost
             Cancel
           </Button>
           <Button type="submit" disabled={isPending} data-testid="button-save">
+            <Save className="w-4 h-4 mr-2" />
+            {isPending ? "Saving..." : "Save"}
+          </Button>
+        </div>
+      </form>
+    </Form>
+  );
+}
+
+interface PageContentFormProps {
+  defaultValues?: PageContent;
+  onSubmit: (data: InsertPageContent) => void;
+  isPending: boolean;
+  onCancel: () => void;
+}
+
+function PageContentForm({ defaultValues, onSubmit, isPending, onCancel }: PageContentFormProps) {
+  const form = useForm<InsertPageContent>({
+    resolver: zodResolver(insertPageContentSchema),
+    defaultValues: defaultValues ? {
+      country: defaultValues.country,
+      pageType: defaultValues.pageType,
+      title: defaultValues.title,
+      content: defaultValues.content,
+      metaDescription: defaultValues.metaDescription,
+    } : {
+      country: "rs",
+      pageType: "home",
+      title: "",
+      content: "",
+      metaDescription: "",
+    },
+  });
+
+  return (
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6" data-testid="form-page-content">
+        <div className="grid grid-cols-2 gap-4">
+          <FormField
+            control={form.control}
+            name="country"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Country</FormLabel>
+                <Select 
+                  onValueChange={field.onChange} 
+                  defaultValue={field.value}
+                  disabled={!!defaultValues}
+                >
+                  <FormControl>
+                    <SelectTrigger data-testid="select-country">
+                      <SelectValue placeholder="Select country" />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    {countries.map((country) => (
+                      <SelectItem key={country} value={country}>
+                        {COUNTRY_NAMES[country]}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="pageType"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Page Type</FormLabel>
+                <Select 
+                  onValueChange={field.onChange} 
+                  defaultValue={field.value}
+                  disabled={!!defaultValues}
+                >
+                  <FormControl>
+                    <SelectTrigger data-testid="select-page-type">
+                      <SelectValue placeholder="Select page type" />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    <SelectItem value="home">Home</SelectItem>
+                    <SelectItem value="programs">Programs</SelectItem>
+                    <SelectItem value="about">About</SelectItem>
+                    <SelectItem value="contact">Contact</SelectItem>
+                  </SelectContent>
+                </Select>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+
+        <FormField
+          control={form.control}
+          name="title"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Title</FormLabel>
+              <FormControl>
+                <Input
+                  placeholder="Enter page title"
+                  {...field}
+                  data-testid="input-page-title"
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="metaDescription"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Meta Description</FormLabel>
+              <FormControl>
+                <Textarea
+                  placeholder="Enter meta description for SEO"
+                  className="resize-none"
+                  rows={2}
+                  {...field}
+                  data-testid="textarea-meta-description"
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="content"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Content (HTML)</FormLabel>
+              <FormControl>
+                <Textarea
+                  placeholder="Enter page content in HTML format"
+                  className="resize-none font-mono text-sm"
+                  rows={10}
+                  {...field}
+                  data-testid="textarea-page-content"
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <div className="flex justify-end gap-4">
+          <Button
+            type="button"
+            variant="outline"
+            onClick={onCancel}
+            data-testid="button-cancel-page"
+          >
+            <X className="w-4 h-4 mr-2" />
+            Cancel
+          </Button>
+          <Button type="submit" disabled={isPending} data-testid="button-save-page">
             <Save className="w-4 h-4 mr-2" />
             {isPending ? "Saving..." : "Save"}
           </Button>
