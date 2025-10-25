@@ -5,6 +5,8 @@ import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
 import { ArrowRight, Calendar } from "lucide-react";
 import { useCountry } from "@/lib/country-context";
+import { useLanguage } from "@/lib/language-context";
+import { useTranslations } from "@/lib/translations";
 import NewsletterSubscription from "./newsletter-subscription";
 
 const categoryColors: Record<string, string> = {
@@ -18,6 +20,8 @@ const categoryColors: Record<string, string> = {
 
 function BlogCard({ post }: { post: BlogPost }) {
   const { country } = useCountry();
+  const { language } = useLanguage();
+  const t = useTranslations()[language];
   const categoryColorClass = categoryColors[post.category] || "bg-muted text-muted-foreground";
   
   return (
@@ -54,7 +58,7 @@ function BlogCard({ post }: { post: BlogPost }) {
             className="text-primary hover:text-primary/80 hover:bg-primary/10 p-0 h-auto font-semibold"
             data-testid="blog-post-read-more"
           >
-            Read More <ArrowRight className="ml-1 h-4 w-4" />
+            {t.blog.readMore} <ArrowRight className="ml-1 h-4 w-4" />
           </Button>
         </Link>
       </CardContent>
@@ -64,6 +68,8 @@ function BlogCard({ post }: { post: BlogPost }) {
 
 export default function BlogSection() {
   const { country } = useCountry();
+  const { language } = useLanguage();
+  const t = useTranslations()[language];
   const { data: posts, isLoading, error } = useQuery<BlogPost[]>({
     queryKey: ["/api/blog/featured", country],
     queryFn: async () => {
@@ -80,8 +86,8 @@ export default function BlogSection() {
       <section className="py-20 bg-background" id="blog">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">Latest Insights & Stories</h2>
-            <p className="text-xl text-muted-foreground">Stay informed with our expert analysis and client success stories</p>
+            <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">{t.blog.title}</h2>
+            <p className="text-xl text-muted-foreground">{t.blog.subtitle}</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {[...Array(6)].map((_, index) => (
@@ -106,8 +112,8 @@ export default function BlogSection() {
       <section className="py-20 bg-background" id="blog">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
-            <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">Latest Insights & Stories</h2>
-            <p className="text-muted-foreground">Unable to load blog posts at this time.</p>
+            <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">{t.blog.title}</h2>
+            <p className="text-muted-foreground">{t.blog.error}</p>
           </div>
         </div>
       </section>
@@ -118,8 +124,8 @@ export default function BlogSection() {
     <section className="py-20 bg-background" id="blog" data-testid="blog-section">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">Latest Insights & Stories</h2>
-          <p className="text-xl text-muted-foreground">Stay informed with our expert analysis and client success stories</p>
+          <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">{t.blog.title}</h2>
+          <p className="text-xl text-muted-foreground">{t.blog.subtitle}</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -132,14 +138,14 @@ export default function BlogSection() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
             <div className="text-center lg:text-left">
               <h3 className="text-2xl font-bold text-foreground mb-4">
-                Want to Read More?
+                {t.blog.wantMore}
               </h3>
               <p className="text-muted-foreground mb-6">
-                Get our latest insights on IPARD funding, business opportunities, and success stories delivered directly to your inbox.
+                {t.blog.newsletterDesc}
               </p>
               <Link href={`/${country}/blog`}>
                 <Button className="bg-primary text-primary-foreground px-8 py-3 hover:bg-primary/90" data-testid="blog-view-all">
-                  View All Posts
+                  {t.blog.viewAll}
                 </Button>
               </Link>
             </div>

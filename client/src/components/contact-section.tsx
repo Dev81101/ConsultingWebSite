@@ -11,12 +11,16 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest } from "@/lib/queryClient";
+import { useLanguage } from "@/lib/language-context";
+import { useTranslations } from "@/lib/translations";
 import { Phone, Mail, MapPin } from "lucide-react";
 import { z } from "zod";
 
 type ContactFormData = z.infer<typeof insertContactSubmissionSchema>;
 
 export default function ContactSection() {
+  const { language } = useLanguage();
+  const t = useTranslations()[language];
   const { toast } = useToast();
   const queryClient = useQueryClient();
 
@@ -37,15 +41,15 @@ export default function ContactSection() {
     },
     onSuccess: () => {
       toast({
-        title: "Message sent successfully!",
-        description: "We will contact you soon.",
+        title: t.contact.successTitle,
+        description: t.contact.successDesc,
       });
       form.reset();
     },
     onError: (error) => {
       toast({
-        title: "Error sending message",
-        description: "Please try again later.",
+        title: t.contact.errorTitle,
+        description: t.contact.errorDesc,
         variant: "destructive",
       });
     },
@@ -60,9 +64,9 @@ export default function ContactSection() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           <div>
-            <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-6">Ready to Grow Your Business?</h2>
+            <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-6">{t.contact.title}</h2>
             <p className="text-xl text-muted-foreground mb-8">
-              Let's discuss how we can help you access funding and achieve your business goals.
+              {t.contact.subtitle}
             </p>
             
             <div className="space-y-6">
@@ -71,7 +75,7 @@ export default function ContactSection() {
                   <Phone className="h-6 w-6 text-primary" />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-foreground">Phone</h3>
+                  <h3 className="font-semibold text-foreground">{t.contact.phone}</h3>
                   <p className="text-muted-foreground">+381 11 123 4567</p>
                 </div>
               </div>
@@ -81,7 +85,7 @@ export default function ContactSection() {
                   <Mail className="h-6 w-6 text-primary" />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-foreground">Email</h3>
+                  <h3 className="font-semibold text-foreground">{t.contact.email}</h3>
                   <p className="text-muted-foreground">info@wvpplus.rs</p>
                 </div>
               </div>
@@ -91,7 +95,7 @@ export default function ContactSection() {
                   <MapPin className="h-6 w-6 text-primary" />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-foreground">Address</h3>
+                  <h3 className="font-semibold text-foreground">{t.contact.address}</h3>
                   <p className="text-muted-foreground">Knez Mihailova 42<br />11000 Belgrade, Serbia</p>
                 </div>
               </div>
@@ -100,7 +104,7 @@ export default function ContactSection() {
 
           <Card className="bg-background border-border">
             <CardContent className="p-8">
-              <h3 className="text-2xl font-semibold text-foreground mb-6">Get Free Consultation</h3>
+              <h3 className="text-2xl font-semibold text-foreground mb-6">{t.contact.formTitle}</h3>
               <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6" data-testid="contact-form">
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -109,7 +113,7 @@ export default function ContactSection() {
                       name="firstName"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>First Name</FormLabel>
+                          <FormLabel>{t.contact.firstName}</FormLabel>
                           <FormControl>
                             <Input placeholder="John" {...field} data-testid="input-firstName" />
                           </FormControl>
@@ -122,7 +126,7 @@ export default function ContactSection() {
                       name="lastName"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Last Name</FormLabel>
+                          <FormLabel>{t.contact.lastName}</FormLabel>
                           <FormControl>
                             <Input placeholder="Doe" {...field} data-testid="input-lastName" />
                           </FormControl>
@@ -137,7 +141,7 @@ export default function ContactSection() {
                     name="email"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Email</FormLabel>
+                        <FormLabel>{t.contact.emailLabel}</FormLabel>
                         <FormControl>
                           <Input type="email" placeholder="john@example.com" {...field} data-testid="input-email" />
                         </FormControl>
@@ -151,18 +155,18 @@ export default function ContactSection() {
                     name="serviceInterest"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Service Interest</FormLabel>
+                        <FormLabel>{t.contact.serviceInterest}</FormLabel>
                         <Select onValueChange={field.onChange} defaultValue={field.value}>
                           <FormControl>
                             <SelectTrigger data-testid="select-serviceInterest">
-                              <SelectValue placeholder="Select a service" />
+                              <SelectValue placeholder={t.contact.selectService} />
                             </SelectTrigger>
                           </FormControl>
                           <SelectContent>
-                            <SelectItem value="IPARD Programs">IPARD Programs</SelectItem>
-                            <SelectItem value="Financial Aid">Financial Aid</SelectItem>
-                            <SelectItem value="Business Consulting">Business Consulting</SelectItem>
-                            <SelectItem value="Business Plan Development">Business Plan Development</SelectItem>
+                            <SelectItem value="IPARD Programs">{t.contact.ipardPrograms}</SelectItem>
+                            <SelectItem value="Financial Aid">{t.contact.financialAid}</SelectItem>
+                            <SelectItem value="Business Consulting">{t.contact.businessConsulting}</SelectItem>
+                            <SelectItem value="Business Plan Development">{t.contact.businessPlanDev}</SelectItem>
                           </SelectContent>
                         </Select>
                         <FormMessage />
@@ -175,11 +179,11 @@ export default function ContactSection() {
                     name="message"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Message</FormLabel>
+                        <FormLabel>{t.contact.message}</FormLabel>
                         <FormControl>
                           <Textarea 
                             rows={4} 
-                            placeholder="Tell us about your project..." 
+                            placeholder={t.contact.messagePlaceholder} 
                             {...field} 
                             data-testid="textarea-message"
                           />
@@ -195,7 +199,7 @@ export default function ContactSection() {
                     disabled={contactMutation.isPending}
                     data-testid="button-submit"
                   >
-                    {contactMutation.isPending ? "Sending..." : "Send Message"}
+                    {contactMutation.isPending ? t.contact.sending : t.contact.send}
                   </Button>
                 </form>
               </Form>

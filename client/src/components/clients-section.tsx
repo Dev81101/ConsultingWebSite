@@ -1,5 +1,7 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Star } from "lucide-react";
+import { useLanguage } from "@/lib/language-context";
+import { useTranslations } from "@/lib/translations";
 
 const clients = [
   "AgroTech", "TourSerbia", "FoodPro", "ManuTech", "RuralEco", "OrganicFarm"
@@ -30,13 +32,16 @@ const testimonials = [
 ];
 
 export default function ClientsSection() {
+  const { language } = useLanguage();
+  const t = useTranslations()[language];
+  
   return (
     <section className="py-20 bg-card" id="clients" data-testid="clients-section">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">Trusted by Leading Businesses</h2>
+          <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">{t.clients.title}</h2>
           <p className="text-xl text-muted-foreground">
-            We've helped hundreds of companies across agriculture, tourism, and manufacturing sectors
+            {t.clients.subtitle}
           </p>
         </div>
 

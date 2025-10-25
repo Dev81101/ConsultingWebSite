@@ -1,51 +1,56 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Sprout, TrendingUp, HandshakeIcon, CheckCircle } from "lucide-react";
-
-const services = [
-  {
-    title: "IPARD Programs",
-    description: "Access EU funding up to €1.3M for agricultural investments, processing facilities, and rural development projects.",
-    icon: Sprout,
-    features: [
-      "IPARD I - Agricultural Investment",
-      "IPARD II - Processing Modernization", 
-      "IPARD III - Rural Tourism"
-    ],
-    color: "text-primary"
-  },
-  {
-    title: "Financial Aid",
-    description: "Comprehensive support for manufacturing and tourism sectors with grants, subsidies, and favorable loans.",
-    icon: TrendingUp,
-    features: [
-      "Manufacturing Support Programs",
-      "Tourism Development Grants",
-      "Export Promotion Funding"
-    ],
-    color: "text-chart-2"
-  },
-  {
-    title: "Business Consulting",
-    description: "Expert guidance for micro businesses and comprehensive business plan development services.",
-    icon: HandshakeIcon,
-    features: [
-      "Micro Business Consulting",
-      "Business Plan Development",
-      "Strategic Planning"
-    ],
-    color: "text-chart-3"
-  }
-];
+import { useLanguage } from "@/lib/language-context";
+import { useTranslations } from "@/lib/translations";
 
 export default function ServicesSection() {
+  const { language } = useLanguage();
+  const t = useTranslations()[language];
+  
+  const services = [
+    {
+      title: t.services.ipardTitle,
+      description: t.services.ipardDesc,
+      icon: Sprout,
+      features: [
+        t.services.ipardFeature1,
+        t.services.ipardFeature2,
+        t.services.ipardFeature3
+      ],
+      color: "text-primary"
+    },
+    {
+      title: t.services.financialTitle,
+      description: t.services.financialDesc,
+      icon: TrendingUp,
+      features: [
+        t.services.financialFeature1,
+        t.services.financialFeature2,
+        t.services.financialFeature3
+      ],
+      color: "text-chart-2"
+    },
+    {
+      title: t.services.consultingTitle,
+      description: t.services.consultingDesc,
+      icon: HandshakeIcon,
+      features: [
+        t.services.consultingFeature1,
+        t.services.consultingFeature2,
+        t.services.consultingFeature3
+      ],
+      color: "text-chart-3"
+    }
+  ];
+
   return (
     <section className="py-20 bg-background" id="services" data-testid="services-section">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">Our Comprehensive Services</h2>
+          <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">{t.services.title}</h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            From IPARD funding to business consulting, we provide end-to-end support for your growth journey
+            {t.services.subtitle}
           </p>
         </div>
 
@@ -79,7 +84,7 @@ export default function ServicesSection() {
                   className="text-primary hover:text-primary/80 hover:bg-primary/10 p-0 h-auto font-semibold"
                   data-testid="service-learn-more"
                 >
-                  Learn More <span className="ml-1">→</span>
+                  {t.services.learnMore} <span className="ml-1">→</span>
                 </Button>
               </CardContent>
             </Card>

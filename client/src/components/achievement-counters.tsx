@@ -1,6 +1,8 @@
 import { useEffect, useState, useRef } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Achievement } from "@shared/schema";
+import { useLanguage } from "@/lib/language-context";
+import { useTranslations } from "@/lib/translations";
 
 function CounterItem({ achievement }: { achievement: Achievement }) {
   const [count, setCount] = useState(0);
@@ -62,6 +64,8 @@ function CounterItem({ achievement }: { achievement: Achievement }) {
 }
 
 export default function AchievementCounters() {
+  const { language } = useLanguage();
+  const t = useTranslations()[language];
   const { data: achievements, isLoading, error } = useQuery<Achievement[]>({
     queryKey: ["/api/achievements"],
   });
@@ -71,8 +75,8 @@ export default function AchievementCounters() {
       <section className="py-16 bg-card">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">Our 2024 Achievements</h2>
-            <p className="text-xl text-muted-foreground">Delivering exceptional results for our clients across all sectors</p>
+            <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">{t.achievements.title}</h2>
+            <p className="text-xl text-muted-foreground">{t.achievements.subtitle}</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {[...Array(4)].map((_, index) => (
@@ -93,8 +97,8 @@ export default function AchievementCounters() {
       <section className="py-16 bg-card">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
-            <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">Our 2024 Achievements</h2>
-            <p className="text-muted-foreground">Unable to load achievements at this time.</p>
+            <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">{t.achievements.title}</h2>
+            <p className="text-muted-foreground">{t.achievements.error}</p>
           </div>
         </div>
       </section>
@@ -105,8 +109,8 @@ export default function AchievementCounters() {
     <section className="py-16 bg-card" data-testid="achievement-counters">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
-          <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">Our 2024 Achievements</h2>
-          <p className="text-xl text-muted-foreground">Delivering exceptional results for our clients across all sectors</p>
+          <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">{t.achievements.title}</h2>
+          <p className="text-xl text-muted-foreground">{t.achievements.subtitle}</p>
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">

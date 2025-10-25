@@ -1,5 +1,6 @@
 import { useCountry } from "@/lib/country-context";
 import { useLanguage } from "@/lib/language-context";
+import { useTranslations } from "@/lib/translations";
 import { usePageContent } from "@/hooks/use-page-content";
 import HeroSlider from "@/components/hero-slider";
 import AchievementCounters from "@/components/achievement-counters";
@@ -11,6 +12,7 @@ import ContactSection from "@/components/contact-section";
 export default function Home() {
   const { country } = useCountry();
   const { language } = useLanguage();
+  const t = useTranslations()[language];
   const { data: pageContent, isLoading, error } = usePageContent(country, 'home', language);
 
   // If we have custom content for this country, show it
@@ -42,7 +44,7 @@ export default function Home() {
   if (isLoading) {
     return (
       <div className="flex items-center justify-center min-h-screen" data-testid="loading-state">
-        <div className="text-lg">Loading page content...</div>
+        <div className="text-lg">{t.home.loadingContent}</div>
       </div>
     );
   }
