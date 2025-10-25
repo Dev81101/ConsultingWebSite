@@ -4,6 +4,7 @@ import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { CountryProvider, useCountry, CountryContext } from "@/lib/country-context";
+import { LanguageProvider } from "@/lib/language-context";
 import { useContext } from "react";
 import Layout from "@/components/layout";
 import Home from "@/pages/home";
@@ -37,24 +38,26 @@ function CountryRouter() {
   }
   
   return (
-    <Layout>
-      <Switch>
-        {/* Root redirect handled by CountryProvider */}
-        <Route path="/" component={() => <div>Redirecting...</div>} />
-        
-        {/* Admin routes */}
-        <Route path="/admin" component={AdminPage} />
-        
-        {/* Country-based routes */}
-        <Route path="/:country" component={Home} />
-        <Route path="/:country/blog" component={Blog} />
-        <Route path="/:country/blog/:slug" component={BlogPost} />
-        <Route path="/:country/programs" component={Programs} />
-        <Route path="/:country/about" component={About} />
-        <Route path="/:country/contact" component={Contact} />
-        <Route component={NotFound} />
-      </Switch>
-    </Layout>
+    <LanguageProvider>
+      <Layout>
+        <Switch>
+          {/* Root redirect handled by CountryProvider */}
+          <Route path="/" component={() => <div>Redirecting...</div>} />
+          
+          {/* Admin routes */}
+          <Route path="/admin" component={AdminPage} />
+          
+          {/* Country-based routes */}
+          <Route path="/:country" component={Home} />
+          <Route path="/:country/blog" component={Blog} />
+          <Route path="/:country/blog/:slug" component={BlogPost} />
+          <Route path="/:country/programs" component={Programs} />
+          <Route path="/:country/about" component={About} />
+          <Route path="/:country/contact" component={Contact} />
+          <Route component={NotFound} />
+        </Switch>
+      </Layout>
+    </LanguageProvider>
   );
 }
 
