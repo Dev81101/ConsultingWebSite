@@ -41,7 +41,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
 import { queryClient, apiRequest } from "@/lib/queryClient";
-import { insertBlogPostSchema, insertPageContentSchema, type BlogPost, type InsertBlogPost, type PageContent, type InsertPageContent, COUNTRY_NAMES, type Country, type PageType, pageTypeSchema } from "@shared/schema";
+import { insertBlogPostSchema, insertPageContentSchema, type BlogPost, type InsertBlogPost, type PageContent, type InsertPageContent, COUNTRY_NAMES, type Country, type PageType, pageTypeSchema, COUNTRY_LANGUAGES, LANGUAGE_NAMES, type Language } from "@shared/schema";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useAllPageContent, useCreatePageContent, useUpdatePageContent, useDeletePageContent } from "@/hooks/use-page-content";
 
@@ -126,8 +126,8 @@ export function AdminPage() {
     });
   };
 
-  const handleUpdatePage = (country: Country, pageType: PageType, data: InsertPageContent) => {
-    updatePageMutation.mutate({ country, pageType, data }, {
+  const handleUpdatePage = (country: Country, pageType: PageType, language: Language, data: InsertPageContent) => {
+    updatePageMutation.mutate({ country, pageType, language, data }, {
       onSuccess: () => {
         setEditingPageContent(null);
         toast({ title: "Page content updated successfully" });
@@ -138,9 +138,9 @@ export function AdminPage() {
     });
   };
 
-  const handleDeletePage = (country: Country, pageType: PageType) => {
+  const handleDeletePage = (country: Country, pageType: PageType, language: Language) => {
     if (confirm("Are you sure you want to delete this page content?")) {
-      deletePageMutation.mutate({ country, pageType }, {
+      deletePageMutation.mutate({ country, pageType, language }, {
         onSuccess: () => {
           toast({ title: "Page content deleted successfully" });
         },
@@ -349,7 +349,7 @@ export function AdminPage() {
                       <div className="flex justify-between items-start">
                         <div className="flex-1">
                           <CardTitle className="text-xl capitalize">
-                            {content.pageType} - {COUNTRY_NAMES[content.country]}
+                            {content.pageType} - {COUNTRY_NAMES[content.country as Country]}
                           </CardTitle>
                           <CardDescription className="mt-2">
                             {content.title || "No title set"}
@@ -367,8 +367,8 @@ export function AdminPage() {
                           <Button
                             variant="destructive"
                             size="sm"
-                            onClick={() => handleDeletePage(content.country, content.pageType)}
-                            data-testid={`button-delete-${content.country}-${content.pageType}`}
+                            onClick={() => handleDeletePage(content.country as Country, content.pageType as PageType, content.language as Language)}
+                            data-testid={`button-delete-${content.country}-${content.pageType}-${content.language}`}
                           >
                             <Trash2 className="w-4 h-4" />
                           </Button>
@@ -378,10 +378,13 @@ export function AdminPage() {
                     <CardContent>
                       <div className="flex flex-wrap gap-2">
                         <Badge variant="secondary" data-testid={`badge-country-${content.country}`}>
-                          {COUNTRY_NAMES[content.country]}
+                          {COUNTRY_NAMES[content.country as Country]}
                         </Badge>
                         <Badge variant="outline" data-testid={`badge-page-${content.pageType}`}>
                           {content.pageType}
+                        </Badge>
+                        <Badge variant="outline" data-testid={`badge-language-${content.language}`}>
+                          {LANGUAGE_NAMES[content.language as Language]}
                         </Badge>
                       </div>
                     </CardContent>
@@ -401,7 +404,7 @@ export function AdminPage() {
                   </DialogHeader>
                   <PageContentForm
                     defaultValues={editingPageContent}
-                    onSubmit={(data) => updatePageContentMutation.mutate({ country: editingPageContent.country, pageType: editingPageContent.pageType, data })}
+                    onSubmit={(data) => updatePageContentMutation.mutate({ country: editingPageContent.country as Country, pageType: editingPageContent.pageType as PageType, language: editingPageContent.language as Language, data })}
                     isPending={updatePageContentMutation.isPending}
                     onCancel={() => setEditingPageContent(null)}
                   />
@@ -692,14 +695,16 @@ function PageContentForm({ defaultValues, onSubmit, isPending, onCancel }: PageC
   const form = useForm<InsertPageContent>({
     resolver: zodResolver(insertPageContentSchema),
     defaultValues: defaultValues ? {
-      country: defaultValues.country,
-      pageType: defaultValues.pageType,
+      country: defaultValues.country as Country,
+      pageType: defaultValues.pageType as PageType,
+      language: defaultValues.language as Language,
       title: defaultValues.title,
       content: defaultValues.content,
-      metaDescription: defaultValues.metaDescription,
+      metaDescription: defaultValues.metaDescription || "",
     } : {
-      country: "rs",
-      pageType: "home",
+      country: "rs" as Country,
+      pageType: "home" as PageType,
+      language: "sr" as Language,
       title: "",
       content: "",
       metaDescription: "",
@@ -709,7 +714,7 @@ function PageContentForm({ defaultValues, onSubmit, isPending, onCancel }: PageC
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6" data-testid="form-page-content">
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-3 gap-4">
           <FormField
             control={form.control}
             name="country"
@@ -766,6 +771,35 @@ function PageContentForm({ defaultValues, onSubmit, isPending, onCancel }: PageC
               </FormItem>
             )}
           />
+
+          <FormField
+            control={form.control}
+            name="language"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Language</FormLabel>
+                <Select 
+                  onValueChange={field.onChange} 
+                  defaultValue={field.value}
+                  disabled={!!defaultValues}
+                >
+                  <FormControl>
+                    <SelectTrigger data-testid="select-language">
+                      <SelectValue placeholder="Select language" />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    {COUNTRY_LANGUAGES[form.watch("country")].map((lang) => (
+                      <SelectItem key={lang} value={lang}>
+                        {LANGUAGE_NAMES[lang]}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
         </div>
 
         <FormField
@@ -798,6 +832,7 @@ function PageContentForm({ defaultValues, onSubmit, isPending, onCancel }: PageC
                   className="resize-none"
                   rows={2}
                   {...field}
+                  value={field.value || ""}
                   data-testid="textarea-meta-description"
                 />
               </FormControl>

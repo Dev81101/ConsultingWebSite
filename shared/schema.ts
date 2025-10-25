@@ -1,5 +1,5 @@
 import { sql } from "drizzle-orm";
-import { pgTable, text, varchar, timestamp, boolean, integer } from "drizzle-orm/pg-core";
+import { pgTable, text, varchar, timestamp, boolean, integer, unique } from "drizzle-orm/pg-core";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
 
@@ -107,7 +107,9 @@ export const pageContent = pgTable("page_content", {
   metadata: text("metadata"), // JSON string for additional page-specific data
   createdAt: timestamp("created_at").defaultNow(),
   updatedAt: timestamp("updated_at").defaultNow(),
-});
+}, (table) => ({
+  uniqueCountryPageLanguage: unique().on(table.country, table.pageType, table.language),
+}));
 
 export const insertUserSchema = createInsertSchema(users).pick({
   username: true,
