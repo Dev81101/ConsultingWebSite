@@ -15,6 +15,35 @@ export const COUNTRY_NAMES: Record<Country, string> = {
   ba: "Bosnia and Herzegovina"
 };
 
+// Language type for multi-language support
+export const languageSchema = z.enum(["sr", "en", "mk", "me", "bs"]);
+export type Language = z.infer<typeof languageSchema>;
+
+// Language display names
+export const LANGUAGE_NAMES: Record<Language, string> = {
+  sr: "Српски", // Serbian
+  en: "English",
+  mk: "Македонски", // Macedonian
+  me: "Crnogorski", // Montenegrin
+  bs: "Bosanski" // Bosnian
+};
+
+// Available languages per country
+export const COUNTRY_LANGUAGES: Record<Country, Language[]> = {
+  rs: ["sr", "en"], // Serbia: Serbian, English
+  mk: ["mk", "en"], // North Macedonia: Macedonian, English
+  me: ["me", "en"], // Montenegro: Montenegrin, English
+  ba: ["bs", "en"]  // Bosnia and Herzegovina: Bosnian, English
+};
+
+// Default language per country
+export const DEFAULT_LANGUAGE: Record<Country, Language> = {
+  rs: "sr",
+  mk: "mk",
+  me: "me",
+  ba: "bs"
+};
+
 export const users = pgTable("users", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
   username: text("username").notNull().unique(),
@@ -71,8 +100,10 @@ export const pageContent = pgTable("page_content", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
   country: text("country").notNull(),
   pageType: text("page_type").notNull(),
+  language: text("language").notNull().default("en"),
   title: text("title").notNull(),
   content: text("content").notNull(),
+  metaDescription: text("meta_description"),
   metadata: text("metadata"), // JSON string for additional page-specific data
   createdAt: timestamp("created_at").defaultNow(),
   updatedAt: timestamp("updated_at").defaultNow(),
@@ -107,7 +138,8 @@ export const insertNewsletterSubscriptionSchema = createInsertSchema(newsletterS
 
 export const insertPageContentSchema = createInsertSchema(pageContent, {
   country: countrySchema,
-  pageType: pageTypeSchema
+  pageType: pageTypeSchema,
+  language: languageSchema
 }).omit({
   id: true,
   createdAt: true,
