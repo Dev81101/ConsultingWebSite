@@ -5,6 +5,7 @@ import { Menu, X, ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useCountry } from "@/lib/country-context";
 import NewsletterSubscription from "./newsletter-subscription";
+import LanguageSelector from "./language-selector";
 
 export default function Navigation() {
   const { country } = useCountry();
@@ -183,6 +184,7 @@ export default function Navigation() {
             >
               About
             </Link>
+            <LanguageSelector />
             <Link href={`/${country}/contact`} data-testid="nav-contact">
               <Button className="bg-primary text-primary-foreground hover:bg-primary/90">
                 Contact
@@ -242,6 +244,9 @@ export default function Navigation() {
               >
                 Contact
               </Link>
+              <div className="px-3 py-2">
+                <LanguageSelector />
+              </div>
             </div>
           </div>
         )}
