@@ -83,3 +83,53 @@ Preferred communication style: Simple, everyday language.
 - **Rich Text**: HTML content storage for blog posts and program descriptions
 - **Image Handling**: External image URLs with Unsplash integration for placeholder content
 - **SEO**: URL slug generation and meta information for blog posts
+- **Multi-Language System**: Language-specific content management with localStorage persistence and country-based language selection
+
+## Multi-Language Content System (Updated: October 25, 2025)
+
+### Overview
+The application now supports multi-language content delivery, allowing each country to have content in multiple languages. For example, Serbia can display content in both Serbian (Српски) and English, while North Macedonia can display content in Macedonian (Македонски) and English.
+
+### Language Configuration
+- **Serbia (rs)**: Serbian (sr), English (en)
+- **North Macedonia (mk)**: Macedonian (mk), English (en)
+- **Montenegro (me)**: Montenegrin (me), English (en)
+- **Bosnia and Herzegovina (ba)**: Bosnian (bs), English (en)
+
+### Implementation Details
+
+#### Frontend Components
+- **Language Context** (`client/src/lib/language-context.tsx`): Manages language state with localStorage persistence per country
+- **Language Selector** (`client/src/components/language-selector.tsx`): Dropdown component in navigation showing available languages for the current country
+- **Navigation Integration** (`client/src/components/navigation.tsx`): Language selector integrated in both desktop and mobile navigation
+
+#### Database Schema
+- **PageContent Table**: Extended with `language` field (text, not null, default "en")
+- **Composite Unique Constraint**: Prevents duplicate content for the same country/pageType/language combination
+- **Fields**: country, pageType, language, title, content, metaDescription, metadata, createdAt, updatedAt
+
+#### API Routes
+- **GET** `/api/page-content/:country/:pageType/:language` - Fetch language-specific page content
+- **POST** `/api/admin/page-content` - Create new page content with language
+- **PUT** `/api/admin/page-content/:country/:pageType/:language` - Update existing page content
+- **DELETE** `/api/admin/page-content/:country/:pageType/:language` - Delete page content
+
+#### Admin Panel Features
+- Language selection dropdown in page content form
+- Shows available languages based on selected country
+- Displays language badges on content cards
+- Prevents editing language after content creation (disabled field)
+- Full CRUD operations for multi-language content
+
+#### User Experience
+- Language persists in localStorage per country
+- Automatic language selection based on country
+- Seamless language switching without page reload
+- Native language names displayed (e.g., "Српски" instead of "Serbian")
+- Language selector visible in navigation bar with globe icon
+
+### Technical Architecture
+- **Type Safety**: Full TypeScript support with Zod validation for language types
+- **Storage Layer**: In-memory storage with Map structure using country-pageType-language composite keys
+- **Data Integrity**: Unique constraint ensures no duplicate content per country/page/language combination
+- **Context Persistence**: Language preference persists across sessions via localStorage
