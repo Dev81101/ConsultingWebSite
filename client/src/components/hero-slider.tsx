@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useLanguage } from "@/lib/language-context";
+import { useTranslations } from "@/lib/translations";
 
 const slides = [
   {
@@ -30,6 +32,8 @@ const slides = [
 ];
 
 export default function HeroSlider() {
+  const { language } = useLanguage();
+  const t = useTranslations()[language];
   const [currentSlide, setCurrentSlide] = useState(0);
 
   useEffect(() => {
@@ -69,24 +73,24 @@ export default function HeroSlider() {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               <div className="max-w-3xl">
                 <h1 className="text-5xl lg:text-6xl font-bold text-white mb-6 animate-fadeInUp">
-                  {slide.title}
+                  {t.hero.title}
                 </h1>
                 <p className="text-xl text-gray-200 mb-8 animate-fadeInUp" style={{ animationDelay: '0.2s' }}>
-                  {slide.subtitle}
+                  {t.hero.subtitle}
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 animate-fadeInUp" style={{ animationDelay: '0.4s' }}>
                   <Button 
                     className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-3 font-semibold"
                     data-testid={`cta-primary-${index}`}
                   >
-                    {slide.cta1}
+                    {t.hero.learnMore}
                   </Button>
                   <Button 
                     variant="outline" 
                     className="border-white text-white hover:bg-white hover:text-black px-8 py-3 font-semibold"
                     data-testid={`cta-secondary-${index}`}
                   >
-                    {slide.cta2}
+                    {t.hero.viewPrograms}
                   </Button>
                 </div>
               </div>

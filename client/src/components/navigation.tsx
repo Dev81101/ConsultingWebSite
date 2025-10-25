@@ -4,11 +4,15 @@ import { Button } from "@/components/ui/button";
 import { Menu, X, ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useCountry } from "@/lib/country-context";
+import { useLanguage } from "@/lib/language-context";
+import { useTranslations } from "@/lib/translations";
 import NewsletterSubscription from "./newsletter-subscription";
 import LanguageSelector from "./language-selector";
 
 export default function Navigation() {
   const { country } = useCountry();
+  const { language } = useLanguage();
+  const t = useTranslations()[language];
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isProgramsOpen, setIsProgramsOpen] = useState(false);
   const [isBlogOpen, setIsBlogOpen] = useState(false);
@@ -41,7 +45,7 @@ export default function Navigation() {
               )}
               data-testid="nav-home"
             >
-              Home
+              {t.nav.home}
             </Link>
             
             {/* Programs Dropdown */}
@@ -54,7 +58,7 @@ export default function Navigation() {
                 className="flex items-center text-foreground hover:text-primary transition-colors duration-200"
                 data-testid="nav-programs"
               >
-                Programs <ChevronDown className="ml-1 h-4 w-4" />
+                {t.nav.programs} <ChevronDown className="ml-1 h-4 w-4" />
               </button>
               <div className={cn(
                 "absolute top-full left-0 w-96 bg-card border border-border rounded-lg shadow-xl mt-2 transition-all duration-300",
@@ -149,7 +153,7 @@ export default function Navigation() {
                 )}
                 data-testid="nav-blog"
               >
-                Blog <ChevronDown className="ml-1 h-4 w-4" />
+                {t.nav.blog} <ChevronDown className="ml-1 h-4 w-4" />
               </button>
               <div className={cn(
                 "absolute top-full left-0 w-80 bg-card border border-border rounded-lg shadow-xl mt-2 transition-all duration-300",
@@ -182,12 +186,12 @@ export default function Navigation() {
               )}
               data-testid="nav-about"
             >
-              About
+              {t.nav.about}
             </Link>
             <LanguageSelector />
             <Link href={`/${country}/contact`} data-testid="nav-contact">
               <Button className="bg-primary text-primary-foreground hover:bg-primary/90">
-                Contact
+                {t.nav.contact}
               </Button>
             </Link>
           </div>
@@ -214,35 +218,35 @@ export default function Navigation() {
                 className="block px-3 py-2 text-foreground hover:text-primary hover:bg-muted rounded-md"
                 data-testid="mobile-nav-home"
               >
-                Home
+                {t.nav.home}
               </Link>
               <Link 
                 href={`/${country}/programs`} 
                 className="block px-3 py-2 text-foreground hover:text-primary hover:bg-muted rounded-md"
                 data-testid="mobile-nav-programs"
               >
-                Programs
+                {t.nav.programs}
               </Link>
               <Link 
                 href={`/${country}/blog`} 
                 className="block px-3 py-2 text-foreground hover:text-primary hover:bg-muted rounded-md"
                 data-testid="mobile-nav-blog"
               >
-                Blog
+                {t.nav.blog}
               </Link>
               <Link 
                 href={`/${country}/about`} 
                 className="block px-3 py-2 text-foreground hover:text-primary hover:bg-muted rounded-md"
                 data-testid="mobile-nav-about"
               >
-                About
+                {t.nav.about}
               </Link>
               <Link 
                 href={`/${country}/contact`} 
                 className="block px-3 py-2 text-foreground hover:text-primary hover:bg-muted rounded-md"
                 data-testid="mobile-nav-contact"
               >
-                Contact
+                {t.nav.contact}
               </Link>
               <div className="px-3 py-2">
                 <LanguageSelector />
