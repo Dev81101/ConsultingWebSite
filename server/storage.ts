@@ -1,4 +1,4 @@
-import { type User, type InsertUser, type BlogPost, type InsertBlogPost, type ContactSubmission, type InsertContactSubmission, type Achievement, type InsertAchievement, type NewsletterSubscription, type InsertNewsletterSubscription, type PageContent, type InsertPageContent, type Country, type PageType } from "@shared/schema";
+import { type User, type InsertUser, type BlogPost, type InsertBlogPost, type ContactSubmission, type InsertContactSubmission, type Achievement, type InsertAchievement, type NewsletterSubscription, type InsertNewsletterSubscription, type PageContent, type InsertPageContent, type Country, type PageType, type Language } from "@shared/schema";
 import { randomUUID } from "crypto";
 import { MongoDBStorage } from "./mongodb-storage";
 import { connectToMongoDB } from "./mongodb";
@@ -26,10 +26,10 @@ export interface IStorage {
   createNewsletterSubscription(subscription: InsertNewsletterSubscription): Promise<NewsletterSubscription>;
   getNewsletterSubscription(email: string): Promise<NewsletterSubscription | undefined>;
   
-  getPageContent(country: Country, pageType: PageType): Promise<PageContent | undefined>;
+  getPageContent(country: Country, pageType: PageType, language: Language): Promise<PageContent | undefined>;
   createPageContent(content: InsertPageContent): Promise<PageContent>;
-  updatePageContent(country: Country, pageType: PageType, content: InsertPageContent): Promise<PageContent | undefined>;
-  deletePageContent(country: Country, pageType: PageType): Promise<boolean>;
+  updatePageContent(country: Country, pageType: PageType, language: Language, content: InsertPageContent): Promise<PageContent | undefined>;
+  deletePageContent(country: Country, pageType: PageType, language: Language): Promise<boolean>;
   getAllPageContent(): Promise<PageContent[]>;
 }
 
@@ -208,12 +208,12 @@ export class HybridStorage implements IStorage {
   }
 
   // Page content methods  
-  private getPageContentKey(country: Country, pageType: PageType): string {
-    return `${country}-${pageType}`;
+  private getPageContentKey(country: Country, pageType: PageType, language: Language): string {
+    return `${country}-${pageType}-${language}`;
   }
 
-  async getPageContent(country: Country, pageType: PageType): Promise<PageContent | undefined> {
-    const key = this.getPageContentKey(country, pageType);
+  async getPageContent(country: Country, pageType: PageType, language: Language): Promise<PageContent | undefined> {
+    const key = this.getPageContentKey(country, pageType, language);
     return this.pageContent.get(key);
   }
 
@@ -223,16 +223,21 @@ export class HybridStorage implements IStorage {
       ...insertContent,
       id,
       metadata: insertContent.metadata || null,
+      metaDescription: insertContent.metaDescription || null,
       createdAt: new Date(),
       updatedAt: new Date()
     };
-    const key = this.getPageContentKey(insertContent.country as Country, insertContent.pageType as PageType);
+    const key = this.getPageContentKey(
+      insertContent.country as Country, 
+      insertContent.pageType as PageType,
+      insertContent.language as Language
+    );
     this.pageContent.set(key, content);
     return content;
   }
 
-  async updatePageContent(country: Country, pageType: PageType, insertContent: InsertPageContent): Promise<PageContent | undefined> {
-    const key = this.getPageContentKey(country, pageType);
+  async updatePageContent(country: Country, pageType: PageType, language: Language, insertContent: InsertPageContent): Promise<PageContent | undefined> {
+    const key = this.getPageContentKey(country, pageType, language);
     const existingContent = this.pageContent.get(key);
     
     if (!existingContent) {
@@ -249,8 +254,8 @@ export class HybridStorage implements IStorage {
     return updatedContent;
   }
 
-  async deletePageContent(country: Country, pageType: PageType): Promise<boolean> {
-    const key = this.getPageContentKey(country, pageType);
+  async deletePageContent(country: Country, pageType: PageType, language: Language): Promise<boolean> {
+    const key = this.getPageContentKey(country, pageType, language);
     return this.pageContent.delete(key);
   }
 
@@ -350,21 +355,21 @@ export const storage = {
     const store = await getStorage();
     return store.getNewsletterSubscription(email);
   },
-  async getPageContent(country: Country, pageType: PageType): Promise<PageContent | undefined> {
+  async getPageContent(country: Country, pageType: PageType, language: Language): Promise<PageContent | undefined> {
     const store = await getStorage();
-    return store.getPageContent(country, pageType);
+    return store.getPageContent(country, pageType, language);
   },
   async createPageContent(content: InsertPageContent): Promise<PageContent> {
     const store = await getStorage();
     return store.createPageContent(content);
   },
-  async updatePageContent(country: Country, pageType: PageType, content: InsertPageContent): Promise<PageContent | undefined> {
+  async updatePageContent(country: Country, pageType: PageType, language: Language, content: InsertPageContent): Promise<PageContent | undefined> {
     const store = await getStorage();
-    return store.updatePageContent(country, pageType, content);
+    return store.updatePageContent(country, pageType, language, content);
   },
-  async deletePageContent(country: Country, pageType: PageType): Promise<boolean> {
+  async deletePageContent(country: Country, pageType: PageType, language: Language): Promise<boolean> {
     const store = await getStorage();
-    return store.deletePageContent(country, pageType);
+    return store.deletePageContent(country, pageType, language);
   },
   async getAllPageContent(): Promise<PageContent[]> {
     const store = await getStorage();

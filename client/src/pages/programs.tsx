@@ -1,4 +1,5 @@
 import { useCountry } from "@/lib/country-context";
+import { useLanguage } from "@/lib/language-context";
 import { usePageContent } from "@/hooks/use-page-content";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -197,7 +198,8 @@ function ProgramCard({ program, type }: { program: any; type: string }) {
 
 export default function Programs() {
   const { country } = useCountry();
-  const { data: pageContent, isLoading } = usePageContent(country, 'programs');
+  const { language } = useLanguage();
+  const { data: pageContent, isLoading } = usePageContent(country, 'programs', language);
 
   // If we have custom content for this country, show it
   if (pageContent) {

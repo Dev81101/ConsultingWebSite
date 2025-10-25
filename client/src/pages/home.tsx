@@ -1,4 +1,5 @@
 import { useCountry } from "@/lib/country-context";
+import { useLanguage } from "@/lib/language-context";
 import { usePageContent } from "@/hooks/use-page-content";
 import HeroSlider from "@/components/hero-slider";
 import AchievementCounters from "@/components/achievement-counters";
@@ -9,7 +10,8 @@ import ContactSection from "@/components/contact-section";
 
 export default function Home() {
   const { country } = useCountry();
-  const { data: pageContent, isLoading, error } = usePageContent(country, 'home');
+  const { language } = useLanguage();
+  const { data: pageContent, isLoading, error } = usePageContent(country, 'home', language);
 
   // If we have custom content for this country, show it
   if (pageContent) {

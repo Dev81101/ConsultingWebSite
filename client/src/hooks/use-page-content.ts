@@ -1,11 +1,11 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { apiRequest } from "@/lib/queryClient";
-import type { PageContent, InsertPageContent, Country, PageType } from "@shared/schema";
+import type { PageContent, InsertPageContent, Country, PageType, Language } from "@shared/schema";
 
-export function usePageContent(country: Country, pageType: PageType) {
+export function usePageContent(country: Country, pageType: PageType, language: Language) {
   return useQuery<PageContent>({
-    queryKey: ['/api/page-content', country, pageType],
-    enabled: !!(country && pageType)
+    queryKey: ['/api/page-content', country, pageType, language],
+    enabled: !!(country && pageType && language)
   });
 }
 
@@ -34,17 +34,18 @@ export function useUpdatePageContent() {
   const queryClient = useQueryClient();
   
   return useMutation({
-    mutationFn: async ({ country, pageType, data }: { 
+    mutationFn: async ({ country, pageType, language, data }: { 
       country: Country; 
-      pageType: PageType; 
+      pageType: PageType;
+      language: Language;
       data: InsertPageContent 
     }): Promise<PageContent> => {
-      const res = await apiRequest('PUT', `/api/admin/page-content/${country}/${pageType}`, data);
+      const res = await apiRequest('PUT', `/api/admin/page-content/${country}/${pageType}/${language}`, data);
       return res.json();
     },
-    onSuccess: (_, { country, pageType }) => {
+    onSuccess: (_, { country, pageType, language }) => {
       queryClient.invalidateQueries({ queryKey: ['/api/admin/page-content'] });
-      queryClient.invalidateQueries({ queryKey: ['/api/page-content', country, pageType] });
+      queryClient.invalidateQueries({ queryKey: ['/api/page-content', country, pageType, language] });
     }
   });
 }
@@ -53,12 +54,16 @@ export function useDeletePageContent() {
   const queryClient = useQueryClient();
   
   return useMutation({
-    mutationFn: async ({ country, pageType }: { country: Country; pageType: PageType }): Promise<void> => {
-      await apiRequest('DELETE', `/api/admin/page-content/${country}/${pageType}`);
+    mutationFn: async ({ country, pageType, language }: { 
+      country: Country; 
+      pageType: PageType;
+      language: Language;
+    }): Promise<void> => {
+      await apiRequest('DELETE', `/api/admin/page-content/${country}/${pageType}/${language}`);
     },
-    onSuccess: (_, { country, pageType }) => {
+    onSuccess: (_, { country, pageType, language }) => {
       queryClient.invalidateQueries({ queryKey: ['/api/admin/page-content'] });
-      queryClient.invalidateQueries({ queryKey: ['/api/page-content', country, pageType] });
+      queryClient.invalidateQueries({ queryKey: ['/api/page-content', country, pageType, language] });
     }
   });
 }

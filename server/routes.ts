@@ -1,7 +1,7 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
-import { insertContactSubmissionSchema, insertNewsletterSubscriptionSchema, insertBlogPostSchema, insertPageContentSchema, countrySchema, pageTypeSchema, type Country, type PageType, COUNTRY_NAMES } from "@shared/schema";
+import { insertContactSubmissionSchema, insertNewsletterSubscriptionSchema, insertBlogPostSchema, insertPageContentSchema, countrySchema, pageTypeSchema, languageSchema, type Country, type PageType, type Language, COUNTRY_NAMES } from "@shared/schema";
 import { z } from "zod";
 
 export async function registerRoutes(app: Express): Promise<Server> {
@@ -159,16 +159,17 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Page content routes
-  app.get("/api/page-content/:country/:pageType", async (req, res) => {
+  app.get("/api/page-content/:country/:pageType/:language", async (req, res) => {
     try {
       const countryValidation = countrySchema.safeParse(req.params.country);
       const pageTypeValidation = pageTypeSchema.safeParse(req.params.pageType);
+      const languageValidation = languageSchema.safeParse(req.params.language);
       
-      if (!countryValidation.success || !pageTypeValidation.success) {
-        return res.status(400).json({ message: "Invalid country or page type" });
+      if (!countryValidation.success || !pageTypeValidation.success || !languageValidation.success) {
+        return res.status(400).json({ message: "Invalid country, page type, or language" });
       }
       
-      const content = await storage.getPageContent(countryValidation.data, pageTypeValidation.data);
+      const content = await storage.getPageContent(countryValidation.data, pageTypeValidation.data, languageValidation.data);
       
       if (!content) {
         return res.status(404).json({ message: "Page content not found" });
@@ -203,17 +204,23 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.put("/api/admin/page-content/:country/:pageType", async (req, res) => {
+  app.put("/api/admin/page-content/:country/:pageType/:language", async (req, res) => {
     try {
       const countryValidation = countrySchema.safeParse(req.params.country);
       const pageTypeValidation = pageTypeSchema.safeParse(req.params.pageType);
+      const languageValidation = languageSchema.safeParse(req.params.language);
       
-      if (!countryValidation.success || !pageTypeValidation.success) {
-        return res.status(400).json({ message: "Invalid country or page type" });
+      if (!countryValidation.success || !pageTypeValidation.success || !languageValidation.success) {
+        return res.status(400).json({ message: "Invalid country, page type, or language" });
       }
       
       const validatedData = insertPageContentSchema.parse(req.body);
-      const content = await storage.updatePageContent(countryValidation.data, pageTypeValidation.data, validatedData);
+      const content = await storage.updatePageContent(
+        countryValidation.data, 
+        pageTypeValidation.data, 
+        languageValidation.data, 
+        validatedData
+      );
       
       if (!content) {
         return res.status(404).json({ message: "Page content not found" });
@@ -228,16 +235,21 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.delete("/api/admin/page-content/:country/:pageType", async (req, res) => {
+  app.delete("/api/admin/page-content/:country/:pageType/:language", async (req, res) => {
     try {
       const countryValidation = countrySchema.safeParse(req.params.country);
       const pageTypeValidation = pageTypeSchema.safeParse(req.params.pageType);
+      const languageValidation = languageSchema.safeParse(req.params.language);
       
-      if (!countryValidation.success || !pageTypeValidation.success) {
-        return res.status(400).json({ message: "Invalid country or page type" });
+      if (!countryValidation.success || !pageTypeValidation.success || !languageValidation.success) {
+        return res.status(400).json({ message: "Invalid country, page type, or language" });
       }
       
-      const deleted = await storage.deletePageContent(countryValidation.data, pageTypeValidation.data);
+      const deleted = await storage.deletePageContent(
+        countryValidation.data, 
+        pageTypeValidation.data,
+        languageValidation.data
+      );
       
       if (!deleted) {
         return res.status(404).json({ message: "Page content not found" });
