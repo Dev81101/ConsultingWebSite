@@ -1,6 +1,7 @@
-import { type User, type InsertUser, type BlogPost, type InsertBlogPost, type ContactSubmission, type InsertContactSubmission, type Achievement, type InsertAchievement, type NewsletterSubscription, type InsertNewsletterSubscription, type PageContent, type InsertPageContent, type Country, type PageType, type Language } from "@shared/schema";
+import { type User, type InsertUser, type BlogPost, type InsertBlogPost, type ContactSubmission, type InsertContactSubmission, type Achievement, type InsertAchievement, type NewsletterSubscription, type InsertNewsletterSubscription, type PageContent, type InsertPageContent, type Country, type PageType, type Language, type AdminUser, type AdminLog, type InsertAdminLog, type AdminAction } from "@shared/schema";
 import { randomUUID } from "crypto";
 import { MongoDBStorage } from "./mongodb-storage";
+import { MongoDBAdminStorage } from "./mongodb-admin";
 import { connectToMongoDB } from "./mongodb";
 
 export interface IStorage {
@@ -31,6 +32,14 @@ export interface IStorage {
   updatePageContent(country: Country, pageType: PageType, language: Language, content: InsertPageContent): Promise<PageContent | undefined>;
   deletePageContent(country: Country, pageType: PageType, language: Language): Promise<boolean>;
   getAllPageContent(): Promise<PageContent[]>;
+  
+  // Admin methods
+  getAdminUserByUsername(username: string): Promise<AdminUser | undefined>;
+  verifyAdminPassword(username: string, password: string): Promise<boolean>;
+  updateAdminLastLogin(username: string): Promise<void>;
+  createAdminLog(log: InsertAdminLog): Promise<AdminLog>;
+  getAdminLogs(limit?: number, skip?: number): Promise<AdminLog[]>;
+  getAdminLogsByUser(adminUserId: string, limit?: number): Promise<AdminLog[]>;
 }
 
 export class HybridStorage implements IStorage {
@@ -40,6 +49,7 @@ export class HybridStorage implements IStorage {
   private newsletterSubscriptions: Map<string, NewsletterSubscription>;
   private pageContent: Map<string, PageContent>;
   private mongoStorage: MongoDBStorage;
+  private adminStorage: MongoDBAdminStorage;
 
   constructor() {
     this.users = new Map();
@@ -48,6 +58,7 @@ export class HybridStorage implements IStorage {
     this.newsletterSubscriptions = new Map();
     this.pageContent = new Map();
     this.mongoStorage = new MongoDBStorage();
+    this.adminStorage = new MongoDBAdminStorage();
     
     this.seedData();
   }
@@ -55,6 +66,7 @@ export class HybridStorage implements IStorage {
   async initialize() {
     await connectToMongoDB();
     await this.mongoStorage.seedData();
+    await this.adminStorage.seedDefaultAdmin();
   }
 
   private seedData() {
@@ -262,6 +274,31 @@ export class HybridStorage implements IStorage {
   async getAllPageContent(): Promise<PageContent[]> {
     return Array.from(this.pageContent.values());
   }
+
+  // Admin methods delegated to MongoDB
+  async getAdminUserByUsername(username: string): Promise<AdminUser | undefined> {
+    return this.adminStorage.getAdminUserByUsername(username);
+  }
+
+  async verifyAdminPassword(username: string, password: string): Promise<boolean> {
+    return this.adminStorage.verifyPassword(username, password);
+  }
+
+  async updateAdminLastLogin(username: string): Promise<void> {
+    return this.adminStorage.updateAdminLastLogin(username);
+  }
+
+  async createAdminLog(log: InsertAdminLog): Promise<AdminLog> {
+    return this.adminStorage.createAdminLog(log);
+  }
+
+  async getAdminLogs(limit?: number, skip?: number): Promise<AdminLog[]> {
+    return this.adminStorage.getAdminLogs(limit, skip);
+  }
+
+  async getAdminLogsByUser(adminUserId: string, limit?: number): Promise<AdminLog[]> {
+    return this.adminStorage.getAdminLogsByUser(adminUserId, limit);
+  }
 }
 
 // Create and initialize the hybrid storage
@@ -374,5 +411,29 @@ export const storage = {
   async getAllPageContent(): Promise<PageContent[]> {
     const store = await getStorage();
     return store.getAllPageContent();
+  },
+  async getAdminUserByUsername(username: string): Promise<AdminUser | undefined> {
+    const store = await getStorage();
+    return store.getAdminUserByUsername(username);
+  },
+  async verifyAdminPassword(username: string, password: string): Promise<boolean> {
+    const store = await getStorage();
+    return store.verifyAdminPassword(username, password);
+  },
+  async updateAdminLastLogin(username: string): Promise<void> {
+    const store = await getStorage();
+    return store.updateAdminLastLogin(username);
+  },
+  async createAdminLog(log: InsertAdminLog): Promise<AdminLog> {
+    const store = await getStorage();
+    return store.createAdminLog(log);
+  },
+  async getAdminLogs(limit?: number, skip?: number): Promise<AdminLog[]> {
+    const store = await getStorage();
+    return store.getAdminLogs(limit, skip);
+  },
+  async getAdminLogsByUser(adminUserId: string, limit?: number): Promise<AdminLog[]> {
+    const store = await getStorage();
+    return store.getAdminLogsByUser(adminUserId, limit);
   }
 };
