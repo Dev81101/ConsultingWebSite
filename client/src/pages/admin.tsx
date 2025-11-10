@@ -209,9 +209,10 @@ export function AdminPage() {
         </div>
 
         <Tabs defaultValue="blog-posts" className="w-full">
-          <TabsList className="grid w-full grid-cols-2">
+          <TabsList className="grid w-full grid-cols-3">
             <TabsTrigger value="blog-posts">Blog Posts</TabsTrigger>
             <TabsTrigger value="page-content">Page Content</TabsTrigger>
+            <TabsTrigger value="admin-logs">Admin Logs</TabsTrigger>
           </TabsList>
           
           <TabsContent value="blog-posts" className="space-y-6">
@@ -461,7 +462,97 @@ export function AdminPage() {
               </Dialog>
             )}
           </TabsContent>
+
+          <TabsContent value="admin-logs" className="space-y-6">
+            <AdminLogsSection />
+          </TabsContent>
         </Tabs>
+      </div>
+    </div>
+  );
+}
+
+function AdminLogsSection() {
+  const { data: logs = [], isLoading } = useQuery<any[]>({
+    queryKey: ["/api/admin/logs"],
+    refetchInterval: 30000, // Refresh every 30 seconds
+  });
+
+  if (isLoading) {
+    return (
+      <div className="space-y-4">
+        {[...Array(5)].map((_, i) => (
+          <Card key={i} className="animate-pulse">
+            <CardContent className="p-4">
+              <div className="h-4 bg-muted rounded w-1/2 mb-2" />
+              <div className="h-3 bg-muted rounded w-3/4" />
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+    );
+  }
+
+  if (logs.length === 0) {
+    return (
+      <Card>
+        <CardContent className="p-8 text-center text-muted-foreground">
+          <p>No admin activity logs yet</p>
+        </CardContent>
+      </Card>
+    );
+  }
+
+  const getActionBadge = (action: string) => {
+    if (action === "login") return <Badge className="bg-green-500">Login</Badge>;
+    if (action === "logout") return <Badge className="bg-gray-500">Logout</Badge>;
+    if (action.includes("create")) return <Badge className="bg-blue-500">Create</Badge>;
+    if (action.includes("update")) return <Badge className="bg-yellow-500">Update</Badge>;
+    if (action.includes("delete")) return <Badge className="bg-red-500">Delete</Badge>;
+    return <Badge>{action}</Badge>;
+  };
+
+  return (
+    <div className="space-y-4">
+      <div className="flex justify-between items-center">
+        <h2 className="text-2xl font-semibold">Admin Activity Logs</h2>
+        <p className="text-sm text-muted-foreground">
+          Showing last {logs.length} actions
+        </p>
+      </div>
+
+      <div className="space-y-2">
+        {logs.map((log: any, index) => (
+          <Card key={log.id || index} data-testid={`log-entry-${index}`}>
+            <CardContent className="p-4">
+              <div className="flex items-start justify-between gap-4">
+                <div className="flex-1">
+                  <div className="flex items-center gap-2 mb-2">
+                    {getActionBadge(log.action)}
+                    <span className="font-semibold">{log.adminUsername}</span>
+                    {log.resourceType && (
+                      <span className="text-sm text-muted-foreground">
+                        → {log.resourceType}
+                      </span>
+                    )}
+                  </div>
+                  {log.details && (
+                    <p className="text-sm text-foreground mb-1">{log.details}</p>
+                  )}
+                  {log.resourceId && (
+                    <p className="text-xs text-muted-foreground">
+                      Resource ID: {log.resourceId}
+                    </p>
+                  )}
+                  <div className="flex gap-4 mt-2 text-xs text-muted-foreground">
+                    <span>🕒 {new Date(log.timestamp).toLocaleString()}</span>
+                    {log.ipAddress && <span>📍 {log.ipAddress}</span>}
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        ))}
       </div>
     </div>
   );
