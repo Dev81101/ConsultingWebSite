@@ -59,6 +59,9 @@ That's it! 🎉
 The application will be available at:
 - **Application**: http://localhost:5000
 - **MongoDB**: localhost:27017
+- **Mongo Express** (Database Admin UI): http://localhost:8081
+  - Username: `admin`
+  - Password: `pass`
 
 Default blog posts will be seeded automatically on first run!
 
@@ -87,6 +90,7 @@ Development mode features:
 docker compose up
 ```
 - `mongodb` - MongoDB 7 database
+- `mongo-express` - Web-based MongoDB admin interface
 - `app` - Production Node.js application
 
 ### Development Stack
@@ -94,6 +98,7 @@ docker compose up
 docker compose --profile dev up
 ```
 - `mongodb` - MongoDB 7 database
+- `mongo-express` - Web-based MongoDB admin interface
 - `app-dev` - Development Node.js application with hot-reload
 
 ## 🔧 Common Commands
@@ -126,6 +131,14 @@ docker compose logs -f mongodb
 
 ### Database Management
 
+#### Using Mongo Express (Web UI)
+Access the web interface at **http://localhost:8081**
+- Browse databases and collections visually
+- View, edit, and delete documents
+- Run queries with a user-friendly interface
+- No command-line needed!
+
+#### Using MongoDB Shell (CLI)
 ```bash
 # Access MongoDB shell
 docker compose exec mongodb mongosh -u admin -p adminpassword --authenticationDatabase admin wvp_consulting
@@ -190,6 +203,9 @@ Key variables in `.env`:
 | `MONGO_ROOT_PASSWORD` | adminpassword | MongoDB root password |
 | `MONGODB_DB_NAME` | wvp_consulting | MongoDB database name |
 | `MONGO_PORT` | 27017 | MongoDB port |
+| `MONGO_EXPRESS_PORT` | 8081 | Mongo Express web UI port |
+| `MONGO_EXPRESS_USER` | admin | Mongo Express login username |
+| `MONGO_EXPRESS_PASSWORD` | pass | Mongo Express login password |
 | `APP_PORT` | 5000 | Application port |
 | `SESSION_SECRET` | (random) | Session encryption key |
 | `NODE_ENV` | production | Environment mode |
@@ -217,6 +233,7 @@ docker compose ps
 # Change ports in .env
 APP_PORT=8080
 MONGO_PORT=27018
+MONGO_EXPRESS_PORT=8082
 
 # Then restart
 docker compose down
