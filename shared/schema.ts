@@ -148,6 +148,59 @@ export const insertPageContentSchema = createInsertSchema(pageContent, {
   updatedAt: true,
 });
 
+// Admin user schema (for MongoDB)
+export const adminUserSchema = z.object({
+  id: z.string(),
+  username: z.string().min(3).max(50),
+  passwordHash: z.string(),
+  email: z.string().email().optional(),
+  createdAt: z.date(),
+  lastLoginAt: z.date().optional(),
+});
+
+export const insertAdminUserSchema = adminUserSchema.omit({
+  id: true,
+  createdAt: true,
+  lastLoginAt: true,
+});
+
+export const adminLoginSchema = z.object({
+  username: z.string().min(1, "Username is required"),
+  password: z.string().min(1, "Password is required"),
+});
+
+// Admin log schema (for MongoDB)
+export const adminActionSchema = z.enum([
+  "login",
+  "logout",
+  "create_blog_post",
+  "update_blog_post",
+  "delete_blog_post",
+  "create_page_content",
+  "update_page_content",
+  "delete_page_content",
+]);
+
+export type AdminAction = z.infer<typeof adminActionSchema>;
+
+export const adminLogSchema = z.object({
+  id: z.string(),
+  adminUserId: z.string(),
+  adminUsername: z.string(),
+  action: adminActionSchema,
+  resourceType: z.string().optional(),
+  resourceId: z.string().optional(),
+  details: z.string().optional(),
+  ipAddress: z.string().optional(),
+  userAgent: z.string().optional(),
+  timestamp: z.date(),
+});
+
+export const insertAdminLogSchema = adminLogSchema.omit({
+  id: true,
+  timestamp: true,
+});
+
 export type InsertUser = z.infer<typeof insertUserSchema>;
 export type User = typeof users.$inferSelect;
 
@@ -165,3 +218,9 @@ export type NewsletterSubscription = typeof newsletterSubscriptions.$inferSelect
 
 export type InsertPageContent = z.infer<typeof insertPageContentSchema>;
 export type PageContent = typeof pageContent.$inferSelect;
+
+export type AdminUser = z.infer<typeof adminUserSchema>;
+export type InsertAdminUser = z.infer<typeof insertAdminUserSchema>;
+export type AdminLogin = z.infer<typeof adminLoginSchema>;
+export type AdminLog = z.infer<typeof adminLogSchema>;
+export type InsertAdminLog = z.infer<typeof insertAdminLogSchema>;
