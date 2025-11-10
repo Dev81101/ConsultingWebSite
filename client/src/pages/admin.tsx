@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Plus, Edit, Trash2, Save, X, Eye } from "lucide-react";
+import { Plus, Edit, Trash2, Save, X, Eye, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -44,6 +44,7 @@ import { queryClient, apiRequest } from "@/lib/queryClient";
 import { insertBlogPostSchema, insertPageContentSchema, type BlogPost, type InsertBlogPost, type PageContent, type InsertPageContent, COUNTRY_NAMES, type Country, type PageType, pageTypeSchema, COUNTRY_LANGUAGES, LANGUAGE_NAMES, type Language } from "@shared/schema";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useAllPageContent, useCreatePageContent, useUpdatePageContent, useDeletePageContent } from "@/hooks/use-page-content";
+import { AdminLoginPage } from "./admin-login";
 
 const countries: Country[] = ["rs", "mk", "me", "ba"];
 
@@ -54,6 +55,41 @@ export function AdminPage() {
   const [editingPageContent, setEditingPageContent] = useState<PageContent | null>(null);
   const [selectedCountry, setSelectedCountry] = useState<Country>("rs");
   const { toast } = useToast();
+
+  // Check authentication
+  const { data: session, isLoading: sessionLoading, refetch: refetchSession } = useQuery<{
+    authenticated: boolean;
+    user?: { id: string; username: string };
+  }>({
+    queryKey: ["/api/admin/session"],
+    retry: false,
+  });
+
+  const logoutMutation = useMutation({
+    mutationFn: () => apiRequest("POST", "/api/admin/logout", {}),
+    onSuccess: () => {
+      queryClient.clear();
+      refetchSession();
+      toast({ title: "Logged out successfully" });
+    },
+  });
+
+  // Show loading while checking session
+  if (sessionLoading) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
+          <p className="text-muted-foreground">Loading...</p>
+        </div>
+      </div>
+    );
+  }
+
+  // Show login page if not authenticated
+  if (!session?.authenticated) {
+    return <AdminLoginPage onLoginSuccess={() => refetchSession()} />;
+  }
 
   const { data: posts = [], isLoading } = useQuery<BlogPost[]>({
     queryKey: ["/api/admin/blog/posts"],
@@ -154,9 +190,22 @@ export function AdminPage() {
   return (
     <div className="min-h-screen bg-background">
       <div className="container mx-auto px-4 py-8">
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-foreground">Admin Panel</h1>
-          <p className="text-muted-foreground">Manage blog posts and page content</p>
+        <div className="mb-8 flex justify-between items-center">
+          <div>
+            <h1 className="text-3xl font-bold text-foreground">Admin Panel</h1>
+            <p className="text-muted-foreground">
+              Logged in as <span className="font-semibold">{session.user?.username}</span>
+            </p>
+          </div>
+          <Button
+            variant="outline"
+            onClick={() => logoutMutation.mutate()}
+            disabled={logoutMutation.isPending}
+            data-testid="button-logout"
+          >
+            <LogOut className="w-4 h-4 mr-2" />
+            Logout
+          </Button>
         </div>
 
         <Tabs defaultValue="blog-posts" className="w-full">

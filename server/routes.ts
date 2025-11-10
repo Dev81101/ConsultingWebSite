@@ -1,10 +1,103 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
+import passport from "passport";
 import { storage } from "./storage";
-import { insertContactSubmissionSchema, insertNewsletterSubscriptionSchema, insertBlogPostSchema, insertPageContentSchema, countrySchema, pageTypeSchema, languageSchema, type Country, type PageType, type Language, COUNTRY_NAMES } from "@shared/schema";
+import { insertContactSubmissionSchema, insertNewsletterSubscriptionSchema, insertBlogPostSchema, insertPageContentSchema, countrySchema, pageTypeSchema, languageSchema, adminLoginSchema, type Country, type PageType, type Language, COUNTRY_NAMES } from "@shared/schema";
 import { z } from "zod";
+import { requireAuth, createAdminLogger, adminStorage } from "./auth";
 
 export async function registerRoutes(app: Express): Promise<Server> {
+  // Admin authentication routes
+  app.post("/api/admin/login", async (req, res, next) => {
+    try {
+      const validatedData = adminLoginSchema.parse(req.body);
+      
+      passport.authenticate("local", (err: any, user: any, info: any) => {
+        if (err) {
+          return res.status(500).json({ message: "Authentication error" });
+        }
+        if (!user) {
+          return res.status(401).json({ message: info?.message || "Invalid credentials" });
+        }
+        
+        req.logIn(user, async (err) => {
+          if (err) {
+            return res.status(500).json({ message: "Login error" });
+          }
+          
+          // Log successful login
+          await storage.createAdminLog({
+            adminUserId: user.id,
+            adminUsername: user.username,
+            action: "login",
+            ipAddress: req.ip || req.socket.remoteAddress,
+            userAgent: req.headers['user-agent'],
+          });
+          
+          res.json({ 
+            message: "Login successful", 
+            user: { 
+              id: user.id, 
+              username: user.username 
+            } 
+          });
+        });
+      })(req, res, next);
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        return res.status(400).json({ message: "Validation error", errors: error.errors });
+      }
+      res.status(500).json({ message: "Login failed" });
+    }
+  });
+
+  app.post("/api/admin/logout", requireAuth, async (req, res) => {
+    const user = req.user as { id: string; username: string };
+    
+    // Log logout
+    await storage.createAdminLog({
+      adminUserId: user.id,
+      adminUsername: user.username,
+      action: "logout",
+      ipAddress: req.ip || req.socket.remoteAddress,
+      userAgent: req.headers['user-agent'],
+    });
+    
+    req.logout((err) => {
+      if (err) {
+        return res.status(500).json({ message: "Logout error" });
+      }
+      res.json({ message: "Logout successful" });
+    });
+  });
+
+  app.get("/api/admin/session", (req, res) => {
+    if (req.isAuthenticated()) {
+      const user = req.user as { id: string; username: string };
+      res.json({ 
+        authenticated: true, 
+        user: { 
+          id: user.id, 
+          username: user.username 
+        } 
+      });
+    } else {
+      res.json({ authenticated: false });
+    }
+  });
+
+  // Admin logs routes (protected)
+  app.get("/api/admin/logs", requireAuth, async (req, res) => {
+    try {
+      const limit = parseInt(req.query.limit as string) || 100;
+      const skip = parseInt(req.query.skip as string) || 0;
+      const logs = await storage.getAdminLogs(limit, skip);
+      res.json(logs);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch admin logs" });
+    }
+  });
+
   // Geo detection route
   app.get("/api/geo", (req, res) => {
     // Try to detect country from headers or Accept-Language
@@ -101,8 +194,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Admin routes for blog management
-  app.get("/api/admin/blog/posts", async (req, res) => {
+  // Admin routes for blog management (protected)
+  app.get("/api/admin/blog/posts", requireAuth, async (req, res) => {
     try {
       const posts = await storage.getBlogPosts();
       res.json(posts);
@@ -111,10 +204,24 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.post("/api/admin/blog/posts", async (req, res) => {
+  app.post("/api/admin/blog/posts", requireAuth, async (req, res) => {
     try {
+      const user = req.user as { id: string; username: string };
       const validatedData = insertBlogPostSchema.parse(req.body);
       const post = await storage.createBlogPost(validatedData);
+      
+      // Log the action
+      await storage.createAdminLog({
+        adminUserId: user.id,
+        adminUsername: user.username,
+        action: "create_blog_post",
+        resourceType: "blog_post",
+        resourceId: post.slug,
+        details: `Created blog post: ${post.title}`,
+        ipAddress: req.ip || req.socket.remoteAddress,
+        userAgent: req.headers['user-agent'],
+      });
+      
       res.status(201).json(post);
     } catch (error) {
       if (error instanceof z.ZodError) {
@@ -124,8 +231,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.put("/api/admin/blog/posts/:slug", async (req, res) => {
+  app.put("/api/admin/blog/posts/:slug", requireAuth, async (req, res) => {
     try {
+      const user = req.user as { id: string; username: string };
       const { slug } = req.params;
       const validatedData = insertBlogPostSchema.parse(req.body);
       const post = await storage.updateBlogPost(slug, validatedData);
@@ -133,6 +241,18 @@ export async function registerRoutes(app: Express): Promise<Server> {
       if (!post) {
         return res.status(404).json({ message: "Blog post not found" });
       }
+      
+      // Log the action
+      await storage.createAdminLog({
+        adminUserId: user.id,
+        adminUsername: user.username,
+        action: "update_blog_post",
+        resourceType: "blog_post",
+        resourceId: slug,
+        details: `Updated blog post: ${post.title}`,
+        ipAddress: req.ip || req.socket.remoteAddress,
+        userAgent: req.headers['user-agent'],
+      });
       
       res.json(post);
     } catch (error) {
@@ -143,14 +263,27 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.delete("/api/admin/blog/posts/:slug", async (req, res) => {
+  app.delete("/api/admin/blog/posts/:slug", requireAuth, async (req, res) => {
     try {
+      const user = req.user as { id: string; username: string };
       const { slug } = req.params;
       const deleted = await storage.deleteBlogPost(slug);
       
       if (!deleted) {
         return res.status(404).json({ message: "Blog post not found" });
       }
+      
+      // Log the action
+      await storage.createAdminLog({
+        adminUserId: user.id,
+        adminUsername: user.username,
+        action: "delete_blog_post",
+        resourceType: "blog_post",
+        resourceId: slug,
+        details: `Deleted blog post: ${slug}`,
+        ipAddress: req.ip || req.socket.remoteAddress,
+        userAgent: req.headers['user-agent'],
+      });
       
       res.json({ message: "Blog post deleted successfully" });
     } catch (error) {
@@ -181,8 +314,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Admin page content routes
-  app.get("/api/admin/page-content", async (req, res) => {
+  // Admin page content routes (protected)
+  app.get("/api/admin/page-content", requireAuth, async (req, res) => {
     try {
       const content = await storage.getAllPageContent();
       res.json(content);
@@ -191,7 +324,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.post("/api/admin/page-content", async (req, res) => {
+  app.post("/api/admin/page-content", requireAuth, async (req, res) => {
     try {
       const validatedData = insertPageContentSchema.parse(req.body);
       const content = await storage.createPageContent(validatedData);
@@ -204,7 +337,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.put("/api/admin/page-content/:country/:pageType/:language", async (req, res) => {
+  app.put("/api/admin/page-content/:country/:pageType/:language", requireAuth, async (req, res) => {
     try {
       const countryValidation = countrySchema.safeParse(req.params.country);
       const pageTypeValidation = pageTypeSchema.safeParse(req.params.pageType);
@@ -235,7 +368,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.delete("/api/admin/page-content/:country/:pageType/:language", async (req, res) => {
+  app.delete("/api/admin/page-content/:country/:pageType/:language", requireAuth, async (req, res) => {
     try {
       const countryValidation = countrySchema.safeParse(req.params.country);
       const pageTypeValidation = pageTypeSchema.safeParse(req.params.pageType);
