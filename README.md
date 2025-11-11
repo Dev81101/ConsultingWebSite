@@ -1,136 +1,94 @@
-# WVP Plus Consulting Website
+# WVP Plus Consulting
 
-A comprehensive business consulting website built with React, TypeScript, and Express.js, featuring IPARD funding programs, blog functionality, and newsletter subscriptions.
+Multi-country business consulting platform with MongoDB persistence and Docker deployment.
 
-## Features
+## Quick Start
 
-- **Professional Landing Page** with hero slider and animated counters
-- **IPARD Programs** information and guidance
-- **Blog System** with categories, search, and newsletter subscription
-- **Contact Forms** with service selection
-- **Responsive Design** optimized for all devices
-- **Newsletter Subscription** in multiple locations
-
-## Local Development Setup
-
-### Prerequisites
-
-- **Node.js** (version 18 or higher)
-- **npm** or **yarn** package manager
-
-### Installation
-
-1. **Download/Clone the project files** to your local machine
-
-2. **Install dependencies**:
-   ```bash
-   npm install
-   ```
-
-3. **Set up environment variables** (optional):
-   ```bash
-   # Copy the example environment file
-   copy .env .env
-   # or on macOS/Linux:
-   # cp .env .env
-   ```
-
-4. **Start the development server**:
-   ```bash
-   npm run dev
-   ```
-
-5. **Open your browser** and navigate to:
-   ```
-   http://localhost:3000
-   ```
-
-### Available Scripts
-
-- `npm run dev` - Start development server with hot reloading
-- `npm run build` - Build the application for production
-- `npm run start` - Start the production server
-- `npm run check` - Run TypeScript type checking
-
-### Project Structure
-
-```
-├── client/                 # Frontend React application
-│   ├── src/
-│   │   ├── components/     # Reusable React components
-│   │   ├── pages/         # Page components
-│   │   ├── lib/           # Utility functions
-│   │   └── hooks/         # Custom React hooks
-├── server/                # Backend Express application
-│   ├── index.ts           # Server entry point
-│   ├── routes.ts          # API routes
-│   ├── storage.ts         # Data storage interface
-│   └── vite.ts            # Vite development setup
-├── shared/                # Shared types and schemas
-└── attached_assets/       # Static assets (images, etc.)
+### 1. Install Dependencies
+```bash
+npm install
 ```
 
-### Technology Stack
+### 2. Configure Environment
+Copy `.env.example` to `.env` and update if needed:
+```bash
+cp .env.example .env
+```
 
-**Frontend:**
-- React 18 with TypeScript
-- Vite for development and building
-- Tailwind CSS for styling
-- Radix UI components
-- TanStack Query for data fetching
-- React Hook Form with Zod validation
+### 3. Start with Docker
+```bash
+# Start MongoDB and application
+docker-compose up -d
 
-**Backend:**
-- Express.js with TypeScript
-- In-memory data storage (easily replaceable with database)
-- RESTful API design
+# View logs
+docker-compose logs -f app
+```
 
-### Development Notes
+The application will be available at:
+- **App:** http://localhost:5000
+- **Admin Panel:** http://localhost:5000/admin (username: `admin`, password: `admin123`)
+- **Mongo Express:** http://localhost:8081 (username: `admin`, password: `pass`)
 
-- The application uses **in-memory storage** by default, which means data resets when you restart the server
-- For production use, you can easily switch to a PostgreSQL database by updating the storage configuration
-- The development server supports **hot module replacement** for instant updates during development
+### 4. Local Development (Without Docker)
+```bash
+# Start only MongoDB
+docker-compose up mongodb mongo-express -d
 
-### Building for Production
+# Run app locally
+npm run dev
+```
 
-1. **Build the application**:
-   ```bash
-   npm run build
-   ```
+## What's Stored in MongoDB
 
-2. **Start the production server**:
-   ```bash
-   npm run start
-   ```
+- ✅ **Blog Posts** - All articles with content, categories, tags
+- ✅ **Admin Users** - Secure login credentials (bcrypt hashed)
+- ✅ **Admin Logs** - Activity tracking for all admin actions
 
-The built application will be ready for deployment with optimized assets and server-side rendering.
+Other data (contacts, achievements, page content) uses in-memory storage.
 
-### Troubleshooting
+## Useful Commands
 
-**Port already in use:**
-- Change the PORT in your `.env` file or set it when starting:
-  ```bash
-  # Windows Command Prompt
-  set PORT=3001 && npm run dev
+```bash
+# Start everything
+docker-compose up -d
 
-  # Windows PowerShell
-  $env:PORT=3001; npm run dev
+# Stop everything
+docker-compose down
 
-  # macOS/Linux
-  PORT=3001 npm run dev
-  ```
+# Reset database (⚠️ deletes all data)
+docker-compose down -v
 
-**Dependencies issues:**
-- Delete `node_modules` and `package-lock.json`, then run `npm install` again
+# View logs
+docker-compose logs -f
 
-**Permission errors on Windows:**
-- Run your terminal as Administrator if you encounter permission issues
-- Make sure your antivirus isn't blocking the development server
+# Start only MongoDB
+docker-compose up mongodb mongo-express -d
 
-**Environment variable issues on Windows:**
-- If you see errors like `'NODE_ENV' is not recognized as an internal or external command`, the scripts have been updated to use cross-env to fix this issue
-- Make sure to run `npm install` to get the latest dependencies including cross-env
+# Development mode
+npm run dev
+```
 
-## Support
+## Project Structure
 
-For technical support or questions about the application, please contact the development team.
+```
+├── client/              # React frontend
+├── server/              # Express backend
+├── shared/              # Shared TypeScript types
+├── docker-compose.yml   # Docker configuration
+└── .env                 # Environment variables
+```
+
+## Tech Stack
+
+- **Frontend:** React, TypeScript, Tailwind CSS, Shadcn UI
+- **Backend:** Node.js, Express, TypeScript
+- **Database:** MongoDB (Docker)
+- **Authentication:** Passport.js with bcrypt
+
+## Environment Variables
+
+See `.env.example` for all available configuration options.
+
+---
+
+Built with ❤️ for business consulting services in the Balkans region.
