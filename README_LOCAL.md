@@ -1,6 +1,17 @@
 # Quick Start - Local Development
 
-Get the WVP Plus Consulting application running on your PC in 5 minutes!
+Get the WVP Plus Consulting application running **on your PC** in 5 minutes!
+
+## ⚠️ Important: Are You on Replit or Your PC?
+
+**If you're currently on Replit:**
+- MongoDB won't work here (Docker not supported)
+- The app uses in-memory storage (temporary data)
+- You need to **download this project** to your PC first
+- See **BEFORE_YOU_DOWNLOAD.md** for instructions
+
+**If you're on your PC after downloading:**
+- Continue with the setup below! ✅
 
 ## Prerequisites
 - Node.js (v18+)
