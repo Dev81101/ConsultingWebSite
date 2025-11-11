@@ -2,7 +2,7 @@ import passport from 'passport';
 import { Strategy as LocalStrategy } from 'passport-local';
 import session from 'express-session';
 import { type Express, type Request, type Response, type NextFunction } from 'express';
-import { MongoDBAdminStorage } from './mongodb-admin';
+import { MongoDBAdminStorage } from './mongodb';
 
 const adminStorage = new MongoDBAdminStorage();
 

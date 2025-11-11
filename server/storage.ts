@@ -1,8 +1,6 @@
 import { type User, type InsertUser, type BlogPost, type InsertBlogPost, type ContactSubmission, type InsertContactSubmission, type Achievement, type InsertAchievement, type NewsletterSubscription, type InsertNewsletterSubscription, type PageContent, type InsertPageContent, type Country, type PageType, type Language, type AdminUser, type AdminLog, type InsertAdminLog, type AdminAction } from "@shared/schema";
 import { randomUUID } from "crypto";
-import { MongoDBStorage } from "./mongodb-storage";
-import { MongoDBAdminStorage } from "./mongodb-admin";
-import { connectToMongoDB } from "./mongodb";
+import { MongoDBStorage, MongoDBAdminStorage } from "./mongodb";
 
 export interface IStorage {
   getUser(id: string): Promise<User | undefined>;
@@ -64,7 +62,6 @@ export class HybridStorage implements IStorage {
   }
 
   async initialize() {
-    await connectToMongoDB();
     await this.mongoStorage.seedData();
     await this.adminStorage.seedDefaultAdmin();
   }
