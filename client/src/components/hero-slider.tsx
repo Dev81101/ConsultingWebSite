@@ -144,23 +144,23 @@ export default function HeroSlider() {
           <div className="relative z-10 h-full flex items-center">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               <div className="max-w-3xl">
-                {/* Animated Title */}
+                {/* Animated Title - Using slide-specific content */}
                 <motion.h1
                   variants={titleVariants}
                   className="text-5xl lg:text-6xl font-bold text-white mb-6"
                 >
-                  {t.hero.title}
+                  {slides[currentSlide].title}
                 </motion.h1>
                 
-                {/* Animated Subtitle */}
+                {/* Animated Subtitle - Using slide-specific content */}
                 <motion.p
                   variants={subtitleVariants}
                   className="text-xl text-gray-200 mb-8"
                 >
-                  {t.hero.subtitle}
+                  {slides[currentSlide].subtitle}
                 </motion.p>
                 
-                {/* Floating CTA Buttons */}
+                {/* Floating CTA Buttons - Using slide-specific content */}
                 <motion.div
                   className="flex flex-col sm:flex-row gap-4"
                   variants={buttonVariants}
@@ -180,7 +180,7 @@ export default function HeroSlider() {
                       className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-3 font-semibold transition-all duration-300 hover:shadow-lg hover:shadow-primary/50"
                       data-testid={`cta-primary-${currentSlide}`}
                     >
-                      {t.hero.learnMore}
+                      {slides[currentSlide].cta1}
                     </Button>
                   </motion.div>
                   
@@ -201,7 +201,7 @@ export default function HeroSlider() {
                       className="border-2 border-white text-white hover:bg-white hover:text-black px-8 py-3 font-semibold transition-all duration-300 backdrop-blur-sm"
                       data-testid={`cta-secondary-${currentSlide}`}
                     >
-                      {t.hero.viewPrograms}
+                      {slides[currentSlide].cta2}
                     </Button>
                   </motion.div>
                 </motion.div>

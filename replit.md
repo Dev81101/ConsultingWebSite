@@ -2,7 +2,14 @@
 
 ## Overview
 
-WVP Plus Consulting is a comprehensive business consulting application focused on financial services, IPARD funding programs, and business development support. The platform serves agriculture, tourism, and manufacturing sectors in Serbia, providing funding guidance, business plan development, and strategic consulting services. The application features a modern web interface with blog functionality, contact management, and detailed program information to help clients access EU funding opportunities.
+WVP Plus Consulting is a comprehensive business consulting application focused on financial services, IPARD funding programs, and business development support. The platform serves agriculture, tourism, and manufacturing sectors across the Balkans, providing funding guidance, business plan development, and strategic consulting services. The application features a modern web interface with blog functionality, contact management, and detailed program information to help clients access EU funding opportunities.
+
+## Recent Changes (November 11, 2025)
+
+- **Design Updates**: Changed primary color from bright red (#eb1a4e) to darker red (#b91c2e) for better professional appearance
+- **Homepage Animations**: Implemented Framer Motion for smooth, continuous animations including parallax background effects, staggered text reveals, and floating CTA buttons
+- **Documentation Cleanup**: Removed unnecessary README files, created single consolidated README.md
+- **Docker MongoDB**: Enhanced .env.example with comprehensive Docker MongoDB setup instructions
 
 ## User Preferences
 
