@@ -8,7 +8,12 @@
     "build": "vite build && esbuild server/index.ts --platform=node --packages=external --bundle --format=esm --outdir=dist",
     "start": "cross-env NODE_ENV=production node dist/index.js",
     "check": "tsc",
-    "db:push": "drizzle-kit push"
+    "db:push": "drizzle-kit push",
+    "docker:start": "docker-compose up mongodb mongo-express -d",
+    "docker:stop": "docker-compose down",
+    "docker:logs": "docker-compose logs -f mongodb",
+    "docker:reset": "docker-compose down -v && docker-compose up mongodb mongo-express -d",
+    "test:mongodb": "node test-mongodb-connection.js"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",
