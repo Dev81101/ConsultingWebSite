@@ -30,7 +30,9 @@ RUN npm ci --only=production
 
 # Copy built files from builder
 COPY --from=builder /app/dist ./dist
-COPY --from=builder /app/client/dist ./client/dist
+
+# ❌ Removed — does not exist in your project
+# COPY --from=builder /app/client/dist ./client/dist
 
 # Copy necessary config files
 COPY drizzle.config.ts ./

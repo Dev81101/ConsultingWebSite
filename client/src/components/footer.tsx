@@ -2,6 +2,7 @@ import { Link } from "wouter";
 import { useCountry } from "@/lib/country-context";
 import { useLanguage } from "@/lib/language-context";
 import { useTranslations } from "@/lib/translations";
+import {Facebook,Instagram,Twitter,Linkedin} from "lucide-react";
 
 export default function Footer() {
   const { country } = useCountry();
@@ -14,48 +15,46 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           <div className="lg:col-span-2">
             <div className="flex items-center mb-4">
-              <div className="w-8 h-8 bg-primary rounded flex items-center justify-center text-white font-bold">
-                W
-              </div>
-              <span className="ml-2 text-xl font-bold">WVP Plus Consulting</span>
+                <img src="../images/LogoWhite.png" className="h-28" alt="Logo"/>
             </div>
             <p className="text-gray-300 mb-6 max-w-md">
               {t.footer.tagline}
             </p>
-            <div className="flex space-x-4">
-              <a 
-                href="#" 
-                className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center hover:bg-primary/80 transition-colors"
-                data-testid="social-facebook"
-              >
-                <span className="text-white text-sm">f</span>
-              </a>
-              <a 
-                href="#" 
-                className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center hover:bg-primary/80 transition-colors"
-                data-testid="social-twitter"
-              >
-                <span className="text-white text-sm">t</span>
-              </a>
-              <a 
-                href="#" 
-                className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center hover:bg-primary/80 transition-colors"
-                data-testid="social-linkedin"
-              >
-                <span className="text-white text-sm">in</span>
-              </a>
-              <a 
-                href="#" 
-                className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center hover:bg-primary/80 transition-colors"
-                data-testid="social-instagram"
-              >
-                <span className="text-white text-sm">ig</span>
-              </a>
-            </div>
+              <div className="flex space-x-4">
+                  <a
+                      href="https://www.facebook.com"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-white hover:text-red-600 transition-colors"
+                  >
+                      <Facebook className="w-6 h-6" />
+                  </a>
+
+                  <a
+                      href="https://www.facebook.com"
+                      className="text-white hover:text-red-600 transition-colors"
+                  >
+                      <Twitter className="w-6 h-6" />
+                  </a>
+
+                  <a
+                      href="www.LinkedIn.com"
+                      className="text-white hover:text-red-600 transition-colors"
+                  >
+                      <Linkedin className="w-6 h-6" />
+                  </a>
+
+                  <a
+                      href="www.instagram.com"
+                      className="text-white hover:text-red-600 transition-colors"
+                  >
+                      <Instagram className="w-6 h-6" />
+                  </a>
+              </div>
           </div>
 
           <div>
-            <h3 className="text-lg font-semibold mb-4">{t.footer.servicesTitle}</h3>
+            <h2 className="text-lg font-semibold mb-4">{t.footer.servicesTitle}</h2>
             <ul className="space-y-2 text-gray-300">
               <li>
                 <Link href={`/${country}/programs#ipard`} className="hover:text-white transition-colors" data-testid="footer-ipard">
@@ -77,11 +76,21 @@ export default function Footer() {
                   {t.footer.businessPlans}
                 </Link>
               </li>
+                <li>
+                    <Link href={`/${country}/programs#business-plans`} className="hover:text-white transition-colors" data-testid="footer-business-plans">
+                        {t.footer.marketAccess}
+                    </Link>
+                </li>
+                <li>
+                    <Link href={`/${country}/programs#business-plans`} className="hover:text-white transition-colors" data-testid="footer-business-plans">
+                        {t.footer.GrantsAndFinancing}
+                    </Link>
+                </li>
             </ul>
           </div>
 
           <div>
-            <h3 className="text-lg font-semibold mb-4">{t.footer.companyTitle}</h3>
+            <h2 className="text-lg font-semibold mb-4">{t.footer.companyTitle}</h2>
             <ul className="space-y-2 text-gray-300">
               <li>
                 <Link href={`/${country}/about`} className="hover:text-white transition-colors" data-testid="footer-about">

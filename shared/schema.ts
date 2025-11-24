@@ -116,12 +116,28 @@ export const insertUserSchema = createInsertSchema(users).pick({
   password: true,
 });
 
+const preprocessTags = z.preprocess(
+    (val) => {
+        if (Array.isArray(val)) return val;
+        if (typeof val === "string") {
+            return val
+                .split(",")
+                .map((s) => s.trim())
+                .filter(Boolean);
+        }
+        return [];
+    },
+    z.array(z.string()).optional()
+);
+
+// Then update insertBlogPostSchema:
 export const insertBlogPostSchema = createInsertSchema(blogPosts, {
-  countries: z.array(countrySchema).min(1, "At least one country must be selected")
+    countries: z.array(countrySchema).min(1, "At least one country must be selected"),
+    tags: preprocessTags, // ✅ override the default generated schema
 }).omit({
-  id: true,
-  createdAt: true,
-  updatedAt: true,
+    id: true,
+    createdAt: true,
+    updatedAt: true,
 });
 
 export const insertContactSubmissionSchema = createInsertSchema(contactSubmissions).omit({

@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Achievement } from "@shared/schema";
 import { useLanguage } from "@/lib/language-context";
 import { useTranslations } from "@/lib/translations";
+import { BackgroundBeamsWithCollision } from "@/components/ui/background-beams-with-collision";
 
 function CounterItem({ achievement }: { achievement: Achievement }) {
   const [count, setCount] = useState(0);
@@ -48,15 +49,15 @@ function CounterItem({ achievement }: { achievement: Achievement }) {
 
   return (
     <div ref={elementRef} className="text-center" data-testid={`achievement-${achievement.label.toLowerCase().replace(/\s+/g, '-')}`}>
-      <div className="text-5xl font-bold text-primary mb-2" data-testid="counter-value">
+      <div className="text-5xl font text-white mb-2" data-testid="counter-value">
         {count}
         {achievement.label.includes('%') && '%'}
         {achievement.label.includes('Million') && 'M'}
       </div>
-      <h3 className="text-lg font-semibold text-foreground mb-2" data-testid="counter-label">
+      <h3 className="text-lg font-semibold text-neutral-300 mb-2" data-testid="counter-label">
         {achievement.label}
       </h3>
-      <p className="text-muted-foreground" data-testid="counter-description">
+      <p className="text-neutral-100 text-muted-white" data-testid="counter-description">
         {achievement.description}
       </p>
     </div>
@@ -72,11 +73,11 @@ export default function AchievementCounters() {
 
   if (isLoading) {
     return (
-      <section className="py-16 bg-card">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="py-16 bg-red-700 min-h-[60vh]">
+        <div className="h-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">{t.achievements.title}</h2>
-            <p className="text-xl text-muted-foreground">{t.achievements.subtitle}</p>
+            <h2 className="text-3xl lg:text-4xl font-bold text-neutral-100 mb-4">{t.achievements.title}</h2>
+            <p className="text-xl text-neutral-100">{t.achievements.subtitle}</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {[...Array(4)].map((_, index) => (
@@ -94,11 +95,11 @@ export default function AchievementCounters() {
 
   if (error) {
     return (
-      <section className="py-16 bg-card">
+      <section className=" h-full py-16 bg-red-700 min-h-[60vh]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
-            <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">{t.achievements.title}</h2>
-            <p className="text-muted-foreground">{t.achievements.error}</p>
+            <h2 className="text-3xl lg:text-4xl font-bold text-neutral-100 mb-4">{t.achievements.title}</h2>
+            <p className="text-neutral-100">{t.achievements.error}</p>
           </div>
         </div>
       </section>
@@ -106,19 +107,21 @@ export default function AchievementCounters() {
   }
 
   return (
-    <section className="py-16 bg-card" data-testid="achievement-counters">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">{t.achievements.title}</h2>
-          <p className="text-xl text-muted-foreground">{t.achievements.subtitle}</p>
+    <section className="py-16 min-h-[60vh]" data-testid="achievement-counters">
+      <BackgroundBeamsWithCollision className="h-full">
+        <div className="h-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl lg:text-4xl font-bold text-neutral-100 mb-4">{t.achievements.title}</h2>
+            <p className="text-xl text-neutral-100">{t.achievements.subtitle}</p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {achievements?.map((achievement) => (
+              <CounterItem key={achievement.id} achievement={achievement} />
+            ))}
+          </div>
         </div>
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {achievements?.map((achievement) => (
-            <CounterItem key={achievement.id} achievement={achievement} />
-          ))}
-        </div>
-      </div>
+      </BackgroundBeamsWithCollision>
     </section>
   );
 }

@@ -15,6 +15,7 @@ import About from "@/pages/about";
 import Contact from "@/pages/contact";
 import { AdminPage } from "@/pages/admin";
 import NotFound from "@/pages/not-found";
+import ScrollToTop from "@/components/ui/ScrollToTop.tsx";
 
 function CountryRouter() {
   const context = useContext(CountryContext);
@@ -74,9 +75,12 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
         <Toaster />
+        <ScrollToTop />
         <Router />
       </TooltipProvider>
     </QueryClientProvider>
+
+
   );
 }
 

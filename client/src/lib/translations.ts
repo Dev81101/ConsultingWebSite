@@ -86,6 +86,8 @@ export const translations: Record<Language, {
     financialAid: string;
     consulting: string;
     businessPlans: string;
+    marketAccess: string;
+    GrantsAndFinancing:string;
     companyTitle: string;
     aboutUs: string;
     ourTeam: string;
@@ -109,12 +111,97 @@ export const translations: Record<Language, {
   home: {
     loadingContent: string;
   };
+  about: {
+    heroTitle: string;
+    heroSubtitle: string;
+  };
+  team: {
+    title: string;
+    subtitle: string;
+    description: string;
+    cta: string;
+  };
+  contactPage: {
+    heroTitle: string;
+    heroSubtitle: string;
+    methodsTitle: string;
+    methodsSubtitle: string;
+    getDirections: string;
+    headquartersLabel: string;
+    officesTitle: string;
+    businessHoursTitle: string;
+    dayMonFri: string;
+    daySaturday: string;
+    daySunday: string;
+    closed: string;
+    monFriHours: string;
+    saturdayHours: string;
+    mapIntro: string;
+    mapClickHint: string;
+    emergencySupportTitle: string;
+    emergencySupportDesc: string;
+    faqsTitle: string;
+    methods: {
+      phone: { title: string; description: string; details: string; availability: string; };
+      email: { title: string; description: string; details: string; availability: string; };
+      inPerson: { title: string; description: string; details: string; availability: string; };
+      online: { title: string; description: string; details: string; availability: string; };
+    };
+    faqs: { question: string; answer: string; }[];
+  };
+  programs: {
+    viewAllServices: string;
+    services: {
+      financialConsulting: {
+        title: string;
+        subtitle: string;
+        description: string;
+        items: string[];
+      };
+      accessToFinance: {
+        title: string;
+        subtitle: string;
+        description: string;
+        items: string[];
+      };
+      grants: {
+        title: string;
+        subtitle: string;
+        description: string;
+        items: string[];
+      };
+      businessConsulting: {
+        title: string;
+        subtitle: string;
+        description: string;
+        items: string[];
+      };
+      marketing: {
+        title: string;
+        subtitle: string;
+        description: string;
+        items: string[];
+      };
+      marketAccess: {
+        title: string;
+        subtitle: string;
+        description: string;
+        items: string[];
+      };
+      esg: {
+        title: string;
+        subtitle: string;
+        description: string;
+        items: string[];
+      };
+    };
+  };
 }> = {
   sr: {
     nav: {
       home: "Почетна",
       programs: "Програми",
-      blog: "Блог",
+      blog: "Совети",
       about: "О нама",
       contact: "Контакт",
     },
@@ -196,6 +283,8 @@ export const translations: Record<Language, {
       financialAid: "Финансијска помоћ",
       consulting: "Пословно консалтинг",
       businessPlans: "Пословни планови",
+      marketAccess:"",
+      GrantsAndFinancing:"",
       companyTitle: "Компанија",
       aboutUs: "О нама",
       ourTeam: "Наш тим",
@@ -219,13 +308,147 @@ export const translations: Record<Language, {
     home: {
       loadingContent: "Учитавање садржаја странице...",
     },
+    about: {
+      heroTitle: "Ко смо ми?",
+      heroSubtitle: "Водимо пут у финансијском консалтингу и ЕУ финансирању на Балкану.",
+    },
+    team: {
+      title: "",
+      subtitle: "",
+      description: "",
+      cta: "",
+    },
+    contactPage: {
+      heroTitle: "",
+      heroSubtitle: "",
+      methodsTitle: "",
+      methodsSubtitle: "",
+      getDirections: "",
+      headquartersLabel: "",
+      officesTitle: "",
+      businessHoursTitle: "",
+      dayMonFri: "",
+      daySaturday: "",
+      daySunday: "",
+      closed: "",
+      monFriHours: "",
+      saturdayHours: "",
+      mapIntro: "",
+      mapClickHint: "",
+      emergencySupportTitle: "",
+      emergencySupportDesc: "",
+      faqsTitle: "",
+      methods: {
+        phone: { title: "", description: "", details: "", availability: "" },
+        email: { title: "", description: "", details: "", availability: "" },
+        inPerson: { title: "", description: "", details: "", availability: "" },
+        online: { title: "", description: "", details: "", availability: "" },
+      },
+      faqs: [
+        { question: "", answer: "" },
+        { question: "", answer: "" },
+        { question: "", answer: "" },
+        { question: "", answer: "" },
+      ],
+    },
+    programs: {
+      viewAllServices: "Погледај све услуге",
+      services: {
+        financialConsulting: {
+          title: "Финансијско савјетовање",
+          subtitle: "Кредитна дијагностика • Пословно планирање • Структурирање инвестicija",
+          description:
+            "Оптимизација финансијских операција и креирање робусних билансних структура. Испоручујемо пословне планове, due diligence, инвестиционе програме и cost-benefit анализе прилагођене очекивањима инвеститора и кредитора.",
+          items: [
+            "Пословни план",
+            "Due diligence",
+            "Инвестициони програм",
+            "Cost-benefit анализа",
+          ],
+        },
+        accessToFinance: {
+          title: "Приступ финансијама",
+          subtitle: "Кредитни саветници • Структурно финансирање",
+          description:
+            "Испоручујемо кредитну дијагностику и препоруке структуре за нове и постојеће инвестиције. Наши кредитни саветници истражују понуде и препоручују оптималну рочност, валуту, динамику и камату.",
+          items: [
+            "Банкарски кредитни производи",
+            "Лизинг",
+            "Факторинг",
+            "Осигурање потраживања",
+            "Алтернативно финансирање",
+          ],
+        },
+        grants: {
+          title: "Грантови и суфинансирање",
+          subtitle: "Припрема пројеката • Праћење грантова",
+          description:
+            "Пуна припрема и праћење пријава за грантове и суфинансирање за националне и међународне инструменте, укључујући ИПАРД, ИПА, GIZ, ФИТД и ЕУ средства — максимизирање могућности.",
+          items: [
+            "IPARD / IPA / GIZ",
+            "FITD и национални програми",
+            "EBRD blended finance",
+            "ЕУ структурни инструменти",
+            "До 90% поврата",
+          ],
+        },
+        businessConsulting: {
+          title: "Бизнис консалтинг",
+          subtitle: "Организациона дијагностика • QUINTAUM",
+          description:
+            "Користећи QUINTAUM методологију (210 индикатора) дијагностикујемо културу, благостање запослених и ефикасност менаџмента, уз коучинг и програме развоја запослених.",
+          items: [
+            "QUINTAUM дијагностика (210 KPI)",
+            "Коучинг и лидерски програми",
+            "Планови развоја запослених",
+            "Дугорочно праћење организације",
+          ],
+        },
+        marketing: {
+          title: "Маркетинг и развој бизниса",
+          subtitle: "Брендирање • Стратегија раста • Дигитал",
+          description:
+            "Интегрисани маркетинг и развој бизниса који повећава видљивост бренда и доноси мерљив раст — од истраживања и стратегије до извршења кампања и оптимизације РОИ.",
+          items: [
+            "Стратешко планирање",
+            "Истраживање тржишта",
+            "Брендинг и идентитет",
+            "Дигиталне кампање и аналитика",
+          ],
+        },
+        marketAccess: {
+          title: "Приступ тржишту",
+          subtitle: "Експорт стратегија • Идентификација купаца",
+          description:
+            "Подршка компанијама које траже нова међународна тржишта: истраживања, план извоза, дигитална спремност, енергетски аудити и проналажење купаца за структуриран и ниско-ризичан улазак.",
+          items: [
+            "Истраживање тржишта и анализа потенцијала",
+            "Спремност за дигитализацију",
+            "Енергетски аудит (PiNE)",
+            "План извоза и проналазак купаца",
+          ],
+        },
+        esg: {
+          title: "ESG стандардизација",
+          subtitle: "Нефинансијско извештавање • Пут мапа усаглашености",
+          description:
+            "Дијагностика и софтверски подржана имплементација ESG стандарда: еколошки, друштвени и управљачки индикатори, мапирање ризика и нефинансијско извештавање у складу са прописима.",
+          items: [
+            "ESG дијагностика и извештавање",
+            "Еколошки и друштвени индикатори",
+            "Мапирање корпоративног управљања",
+            "Пут мапа усаглашености",
+          ],
+        },
+      },
+    },
   },
   en: {
     nav: {
       home: "Home",
       programs: "Programs",
-      blog: "Blog",
-      about: "About",
+      blog: "Financial Advices",
+      about: "About Us",
       contact: "Contact",
     },
     hero: {
@@ -235,7 +458,7 @@ export const translations: Record<Language, {
       viewPrograms: "View Programs",
     },
     achievements: {
-      title: "Our 2024 Achievements",
+      title: "Our  Achievements",
       subtitle: "Delivering exceptional results for our clients across all sectors",
       loading: "Loading...",
       error: "Unable to load achievements at this time.",
@@ -243,7 +466,7 @@ export const translations: Record<Language, {
     services: {
       title: "Our Comprehensive Services",
       subtitle: "From IPARD funding to business consulting, we provide end-to-end support for your growth journey",
-      ipardTitle: "IPARD Programs",
+      ipardTitle: "Financial Consulting",
       ipardDesc: "Access EU funding up to €1.3M for agricultural investments, processing facilities, and rural development projects.",
       ipardFeature1: "IPARD I - Agricultural Investment",
       ipardFeature2: "IPARD II - Processing Modernization",
@@ -265,7 +488,7 @@ export const translations: Record<Language, {
       subtitle: "We've helped hundreds of companies across agriculture, tourism, and manufacturing sectors",
     },
     blog: {
-      title: "Latest Insights & Stories",
+      title: "Insights & Financial Advices",
       subtitle: "Stay informed with our expert analysis and client success stories",
       readMore: "Read More",
       viewAll: "View All Posts",
@@ -280,7 +503,7 @@ export const translations: Record<Language, {
       phone: "Phone",
       email: "Email",
       address: "Address",
-      formTitle: "Get Free Consultation",
+      formTitle: "Ask question - Solve your dilema",
       firstName: "First Name",
       lastName: "Last Name",
       emailLabel: "Email",
@@ -300,12 +523,14 @@ export const translations: Record<Language, {
       errorDesc: "Please try again later.",
     },
     footer: {
-      tagline: "Expert financial consulting and funding solutions for agriculture, tourism, and manufacturing sectors. Your success is our mission.",
+      tagline: "For our clients we always choose the best !",
       servicesTitle: "Services",
-      ipard: "IPARD Programs",
-      financialAid: "Financial Aid",
+      ipard: "Financial Consulting",
+      financialAid: "Access to finance through credit products",
       consulting: "Business Consulting",
-      businessPlans: "Business Plans",
+      businessPlans: "Marketing and business development",
+      marketAccess: "Market access",
+      GrantsAndFinancing: "Grants and co-financing",
       companyTitle: "Company",
       aboutUs: "About Us",
       ourTeam: "Our Team",
@@ -328,6 +553,140 @@ export const translations: Record<Language, {
     },
     home: {
       loadingContent: "Loading page content...",
+    },
+    about: {
+      heroTitle: "Who we are?",
+      heroSubtitle: "Leading the way in financial consulting and EU funding solutions in the Balkan.",
+    },
+    team: {
+      title: "Our Team",
+      subtitle: "Largest team of Experts",
+      description: "Our diverse team brings together decades of expertise in financial consulting, market access, and agri-food technology. We are passionate about supporting farmers and businesses to achieve sustainable growth and unlock new opportunities in the European and global markets. We are here to partner with you every step of the way.",
+      cta: "Connect With Our Experts",
+    },
+    contactPage: {
+      heroTitle: "Contact Us",
+      heroSubtitle: "Ready to take your business to the next level? Get in touch with our expert consultants today",
+      methodsTitle: "How Can We Help You?",
+      methodsSubtitle: "Choose the most convenient way to reach our team",
+      getDirections: "Get Directions",
+      headquartersLabel: "Headquarters",
+      officesTitle: "Our Office",
+      businessHoursTitle: "Business Hours",
+      dayMonFri: "Monday - Friday",
+      daySaturday: "Saturday",
+      daySunday: "Sunday",
+      closed: "Closed",
+      monFriHours: "08:00 - 17:00",
+      saturdayHours: "09:00 - 13:00",
+      mapIntro: "Interactive map showing all office locations",
+      mapClickHint: "Click on any office card above to get directions",
+      emergencySupportTitle: "Emergency Support:",
+      emergencySupportDesc: "For urgent matters outside business hours, please email us and we'll respond as soon as possible.",
+      faqsTitle: "Frequently Asked Questions",
+      methods: {
+        phone: { title: "Phone Support", description: "Speak directly with our consultants", details: "+381 11 123 4567", availability: "Mon-Fri 8:00-17:00" },
+        email: { title: "Email Support", description: "Get detailed responses to your questions", details: "info@wvpplus.rs", availability: "24/7 response within 24 hours" },
+        inPerson: { title: "In-Person Consultation", description: "Schedule a face-to-face meeting", details: "Available in all offices", availability: "By appointment only" },
+        online: { title: "Online Consultation", description: "Video calls for remote clients", details: "Zoom, Teams, or preferred platform", availability: "Flexible scheduling" },
+      },
+      faqs: [
+        { question: "How long does the IPARD application process take?", answer: "The typical IPARD application process takes 3-6 months from initial consultation to funding approval, depending on the complexity of your project and completeness of documentation." },
+        { question: "What documents do I need to prepare for funding applications?", answer: "Required documents typically include business registration, financial statements, project documentation, environmental permits, and a detailed business plan. We provide a complete checklist during consultation." },
+        { question: "Do you provide support for businesses outside Serbia?", answer: "While our primary focus is on Serbian businesses, we do provide consulting services for international companies looking to invest in Serbia or access EU funding programs." },
+        { question: "What are your consultation fees?", answer: "We offer free initial consultations to assess your project. Our service fees are transparent and discussed upfront, typically structured as a percentage of successfully secured funding." },
+      ],
+    },
+    programs: {
+      viewAllServices: "View All Services",
+      services: {
+        financialConsulting: {
+          title: "Financial Consulting",
+          subtitle: "Credit diagnostics • Business planning • Investment structuring",
+          description:
+            "Optimization of financial operations and creation of robust balance-sheet structures. We deliver full business plans, due diligence, investment programs and cost-benefit analyses tailored to investor and lender expectations.",
+          items: [
+            "Business plan",
+            "Due diligence",
+            "Investment program",
+            "Cost-benefit analysis",
+          ],
+        },
+        accessToFinance: {
+          title: "Access to Finance",
+          subtitle: "Credit advisors • Structured financing",
+          description:
+            "We deliver credit diagnostics and structure recommendations for new and existing investments. Our credit advisors research market offers and recommend optimal maturity, currency, dynamics and interest arrangements.",
+          items: [
+            "Banking credit products",
+            "Leasing",
+            "Factoring",
+            "Accounts receivable insurance",
+            "Alternative financing",
+          ],
+        },
+        grants: {
+          title: "Grants & Co-Financing",
+          subtitle: "Project preparation • Grant monitoring",
+          description:
+            "Full preparation and monitoring of grant and co-financing applications for national and international instruments, including IPARD, IPA, GIZ, FITD and EU funds — maximizing grant capture opportunities.",
+          items: [
+            "IPARD / IPA / GIZ",
+            "FITD & national programs",
+            "EBRD blended finance",
+            "EU structural instruments",
+            "Up to 90% return potential",
+          ],
+        },
+        businessConsulting: {
+          title: "Business Consulting",
+          subtitle: "Organizational diagnostics • QUINTAUM",
+          description:
+            "Using the QUINTAUM methodology (210 indicators) we diagnose organizational culture, employee well-being and management effectiveness, then deliver coaching and employee development programs.",
+          items: [
+            "QUINTAUM diagnostics (210 KPIs)",
+            "Coaching & leadership programs",
+            "Employee development plans",
+            "Long-term organizational monitoring",
+          ],
+        },
+        marketing: {
+          title: "Marketing & Business Development",
+          subtitle: "Branding • Growth strategy • Digital",
+          description:
+            "Integrated marketing and business development that increases brand visibility and drives measurable growth — from market research and strategic planning to campaign execution and ROI optimization.",
+          items: [
+            "Strategic planning",
+            "Market research",
+            "Branding & identity",
+            "Digital campaigns & analytics",
+          ],
+        },
+        marketAccess: {
+          title: "Market Access",
+          subtitle: "Export strategy • Buyer identification",
+          description:
+            "Support for companies seeking new international markets: research, export planning, digital readiness, energy audits and buyer discovery to make export entry structured and low-risk.",
+          items: [
+            "Market research & potential analysis",
+            "Digitalization readiness",
+            "Energy efficiency audit (PiNE)",
+            "Export plan & buyer sourcing",
+          ],
+        },
+        esg: {
+          title: "ESG Standardization",
+          subtitle: "Non-financial reporting • Compliance roadmap",
+          description:
+            "Diagnostics and software-enabled implementation of ESG standards: environmental, social and governance metrics, risk mapping and non-financial reporting aligned with legal requirements.",
+          items: [
+            "ESG diagnostics & reporting",
+            "Environmental & social indicators",
+            "Governance mapping",
+            "Compliance roadmap",
+          ],
+        },
+      },
     },
   },
   mk: {
@@ -416,6 +775,8 @@ export const translations: Record<Language, {
       financialAid: "Финансиска помош",
       consulting: "Бизнис консалтинг",
       businessPlans: "Бизнис планови",
+      marketAccess:"",
+      GrantsAndFinancing:"",
       companyTitle: "Компанија",
       aboutUs: "За нас",
       ourTeam: "Наш тим",
@@ -438,6 +799,61 @@ export const translations: Record<Language, {
     },
     home: {
       loadingContent: "Вчитување на содржина на страницата...",
+    },
+    about: {
+      heroTitle: "",
+      heroSubtitle: "",
+    },
+    team: {
+      title: "",
+      subtitle: "",
+      description: "",
+      cta: "",
+    },
+    contactPage: {
+      heroTitle: "",
+      heroSubtitle: "",
+      methodsTitle: "",
+      methodsSubtitle: "",
+      getDirections: "",
+      headquartersLabel: "",
+      officesTitle: "",
+      businessHoursTitle: "",
+      dayMonFri: "",
+      daySaturday: "",
+      daySunday: "",
+      closed: "",
+      monFriHours: "",
+      saturdayHours: "",
+      mapIntro: "",
+      mapClickHint: "",
+      emergencySupportTitle: "",
+      emergencySupportDesc: "",
+      faqsTitle: "",
+      methods: {
+        phone: { title: "", description: "", details: "", availability: "" },
+        email: { title: "", description: "", details: "", availability: "" },
+        inPerson: { title: "", description: "", details: "", availability: "" },
+        online: { title: "", description: "", details: "", availability: "" },
+      },
+      faqs: [
+        { question: "", answer: "" },
+        { question: "", answer: "" },
+        { question: "", answer: "" },
+        { question: "", answer: "" },
+      ],
+    },
+    programs: {
+      viewAllServices: "Погледнете ги сите услуги",
+      services: {
+        financialConsulting: { title: "", subtitle: "", description: "", items: ["", "", "", ""] },
+        accessToFinance: { title: "", subtitle: "", description: "", items: ["", "", "", "", ""] },
+        grants: { title: "", subtitle: "", description: "", items: ["", "", "", "", ""] },
+        businessConsulting: { title: "", subtitle: "", description: "", items: ["", "", "", ""] },
+        marketing: { title: "", subtitle: "", description: "", items: ["", "", "", ""] },
+        marketAccess: { title: "", subtitle: "", description: "", items: ["", "", "", ""] },
+        esg: { title: "", subtitle: "", description: "", items: ["", "", "", ""] },
+      },
     },
   },
   me: {
@@ -526,6 +942,8 @@ export const translations: Record<Language, {
       financialAid: "Finansijska pomoć",
       consulting: "Poslovno konsalting",
       businessPlans: "Poslovni planovi",
+      marketAccess:"",
+        GrantsAndFinancing:"",
       companyTitle: "Kompanija",
       aboutUs: "O nama",
       ourTeam: "Naš tim",
@@ -548,6 +966,61 @@ export const translations: Record<Language, {
     },
     home: {
       loadingContent: "Učitavanje sadržaja stranice...",
+    },
+    about: {
+      heroTitle: "",
+      heroSubtitle: "",
+    },
+    team: {
+      title: "",
+      subtitle: "",
+      description: "",
+      cta: "",
+    },
+    contactPage: {
+      heroTitle: "",
+      heroSubtitle: "",
+      methodsTitle: "",
+      methodsSubtitle: "",
+      getDirections: "",
+      headquartersLabel: "",
+      officesTitle: "",
+      businessHoursTitle: "",
+      dayMonFri: "",
+      daySaturday: "",
+      daySunday: "",
+      closed: "",
+      monFriHours: "",
+      saturdayHours: "",
+      mapIntro: "",
+      mapClickHint: "",
+      emergencySupportTitle: "",
+      emergencySupportDesc: "",
+      faqsTitle: "",
+      methods: {
+        phone: { title: "", description: "", details: "", availability: "" },
+        email: { title: "", description: "", details: "", availability: "" },
+        inPerson: { title: "", description: "", details: "", availability: "" },
+        online: { title: "", description: "", details: "", availability: "" },
+      },
+      faqs: [
+        { question: "", answer: "" },
+        { question: "", answer: "" },
+        { question: "", answer: "" },
+        { question: "", answer: "" },
+      ],
+    },
+    programs: {
+      viewAllServices: "Pogledaj sve usluge",
+      services: {
+        financialConsulting: { title: "", subtitle: "", description: "", items: ["", "", "", ""] },
+        accessToFinance: { title: "", subtitle: "", description: "", items: ["", "", "", "", ""] },
+        grants: { title: "", subtitle: "", description: "", items: ["", "", "", "", ""] },
+        businessConsulting: { title: "", subtitle: "", description: "", items: ["", "", "", ""] },
+        marketing: { title: "", subtitle: "", description: "", items: ["", "", "", ""] },
+        marketAccess: { title: "", subtitle: "", description: "", items: ["", "", "", ""] },
+        esg: { title: "", subtitle: "", description: "", items: ["", "", "", ""] },
+      },
     },
   },
   bs: {
@@ -636,6 +1109,8 @@ export const translations: Record<Language, {
       financialAid: "Finansijska pomoć",
       consulting: "Poslovno konsalting",
       businessPlans: "Poslovni planovi",
+        marketAccess:"",
+      GrantsAndFinancing:"",
       companyTitle: "Kompanija",
       aboutUs: "O nama",
       ourTeam: "Naš tim",
@@ -659,9 +1134,118 @@ export const translations: Record<Language, {
     home: {
       loadingContent: "Učitavanje sadržaja stranice...",
     },
+    about: {
+      heroTitle: "",
+      heroSubtitle: "",
+    },
+    team: {
+      title: "",
+      subtitle: "",
+      description: "",
+      cta: "",
+    },
+    contactPage: {
+        heroTitle: "",
+        heroSubtitle: "",
+        methodsTitle: "",
+        methodsSubtitle: "",
+        getDirections: "",
+        headquartersLabel: "",
+        businessHoursTitle: "",
+        dayMonFri: "",
+        daySaturday: "",
+        daySunday: "",
+        closed: "",
+        faqsTitle: "",
+        methods: {
+            phone: {
+                title: "", description: "", availability: "",
+                details: ""
+            },
+            email: {
+                title: "", description: "", availability: "",
+                details: ""
+            },
+            inPerson: {
+                title: "", description: "", availability: "",
+                details: ""
+            },
+            online: {
+                title: "", description: "", availability: "",
+                details: ""
+            },
+        },
+        faqs: [
+            {question: "", answer: ""},
+            {question: "", answer: ""},
+            {question: "", answer: ""},
+            {question: "", answer: ""},
+        ],
+        officesTitle: "",
+        monFriHours: "",
+        saturdayHours: "",
+        mapIntro: "",
+        mapClickHint: "",
+        emergencySupportTitle: "",
+        emergencySupportDesc: ""
+    },
+    programs: {
+      viewAllServices: "Pogledaj sve usluge",
+      services: {
+        financialConsulting: { title: "", subtitle: "", description: "", items: ["", "", "", ""] },
+        accessToFinance: { title: "", subtitle: "", description: "", items: ["", "", "", "", ""] },
+        grants: { title: "", subtitle: "", description: "", items: ["", "", "", "", ""] },
+        businessConsulting: { title: "", subtitle: "", description: "", items: ["", "", "", ""] },
+        marketing: { title: "", subtitle: "", description: "", items: ["", "", "", ""] },
+        marketAccess: { title: "", subtitle: "", description: "", items: ["", "", "", ""] },
+        esg: { title: "", subtitle: "", description: "", items: ["", "", "", ""] },
+      },
+    },
   },
 };
 
+// --- Fallback mechanism ---
+// Some languages may have missing keys or intentionally empty strings while translation is in progress.
+// This utility deeply merges language dictionaries with English (en) as the base, and
+// treats undefined, null or empty-string values in the override as "missing" and thus falls back to English.
+function isObject(value: unknown): value is Record<string, unknown> {
+  return typeof value === "object" && value !== null && !Array.isArray(value);
+}
+
+function deepMergeWithEnglishFallback<T>(enBase: T, langObj: any): T {
+  if (!isObject(enBase)) return (langObj ?? enBase) as T;
+
+  const result: any = Array.isArray(enBase) ? [...(langObj ?? enBase)] : { ...enBase };
+
+  for (const key of Object.keys(enBase as any)) {
+    const baseVal: any = (enBase as any)[key];
+    const overrideVal: any = isObject(langObj) ? langObj[key] : undefined;
+
+    if (isObject(baseVal)) {
+      result[key] = deepMergeWithEnglishFallback(baseVal, overrideVal);
+    } else {
+      // If override is missing or an empty string, fall back to English base value
+      const isMissing = overrideVal === undefined || overrideVal === null || (typeof overrideVal === "string" && overrideVal.trim() === "");
+      result[key] = isMissing ? baseVal : overrideVal;
+    }
+  }
+  return result as T;
+}
+
+// Build merged translations once at module load
+const mergedTranslations: typeof translations = (() => {
+  const en = translations.en;
+  const out: any = { ...translations };
+  for (const lang of Object.keys(translations) as Language[]) {
+    if (lang === "en") {
+      out[lang] = en;
+      continue;
+    }
+    out[lang] = deepMergeWithEnglishFallback(en, translations[lang]);
+  }
+  return out as typeof translations;
+})();
+
 export function useTranslations() {
-  return translations;
+  return mergedTranslations;
 }

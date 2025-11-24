@@ -2,6 +2,8 @@ import ContactSection from "@/components/contact-section";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { MapPin, Phone, Mail, Clock, Globe, Users } from "lucide-react";
+import { useLanguage } from "@/lib/language-context";
+import { useTranslations } from "@/lib/translations";
 
 const offices = [
   {
@@ -30,63 +32,15 @@ const offices = [
   }
 ];
 
-const businessHours = [
-  { day: "Monday - Friday", hours: "08:00 - 17:00" },
-  { day: "Saturday", hours: "09:00 - 13:00" },
-  { day: "Sunday", hours: "Closed" }
-];
+type ContactMethod = {
+  icon: React.ComponentType<any>;
+  title: string;
+  description: string;
+  details: string;
+  availability: string;
+};
 
-const contactMethods = [
-  {
-    icon: Phone,
-    title: "Phone Support",
-    description: "Speak directly with our consultants",
-    details: "+381 11 123 4567",
-    availability: "Mon-Fri 8:00-17:00"
-  },
-  {
-    icon: Mail,
-    title: "Email Support",
-    description: "Get detailed responses to your questions",
-    details: "info@wvpplus.rs",
-    availability: "24/7 response within 24 hours"
-  },
-  {
-    icon: Users,
-    title: "In-Person Consultation",
-    description: "Schedule a face-to-face meeting",
-    details: "Available in all offices",
-    availability: "By appointment only"
-  },
-  {
-    icon: Globe,
-    title: "Online Consultation",
-    description: "Video calls for remote clients",
-    details: "Zoom, Teams, or preferred platform",
-    availability: "Flexible scheduling"
-  }
-];
-
-const faqs = [
-  {
-    question: "How long does the IPARD application process take?",
-    answer: "The typical IPARD application process takes 3-6 months from initial consultation to funding approval, depending on the complexity of your project and completeness of documentation."
-  },
-  {
-    question: "What documents do I need to prepare for funding applications?",
-    answer: "Required documents typically include business registration, financial statements, project documentation, environmental permits, and a detailed business plan. We provide a complete checklist during consultation."
-  },
-  {
-    question: "Do you provide support for businesses outside Serbia?",
-    answer: "While our primary focus is on Serbian businesses, we do provide consulting services for international companies looking to invest in Serbia or access EU funding programs."
-  },
-  {
-    question: "What are your consultation fees?",
-    answer: "We offer free initial consultations to assess your project. Our service fees are transparent and discussed upfront, typically structured as a percentage of successfully secured funding."
-  }
-];
-
-function OfficeCard({ office }: { office: typeof offices[0] }) {
+function OfficeCard({ office, headquartersLabel, getDirections }: { office: typeof offices[0]; headquartersLabel: string; getDirections: string; }) {
   return (
     <Card className="hover:shadow-lg transition-shadow duration-300" data-testid={`office-card-${office.city.toLowerCase()}`}>
       <CardContent className="p-6">
@@ -97,7 +51,7 @@ function OfficeCard({ office }: { office: typeof offices[0] }) {
               {office.city}
               {office.isPrimary && (
                 <span className="ml-2 bg-primary text-primary-foreground px-2 py-1 rounded text-xs">
-                  Headquarters
+                  {headquartersLabel}
                 </span>
               )}
             </h3>
@@ -125,14 +79,14 @@ function OfficeCard({ office }: { office: typeof offices[0] }) {
         </div>
         
         <Button className="w-full mt-6 bg-primary hover:bg-primary/90" data-testid="office-directions">
-          Get Directions
+          {getDirections}
         </Button>
       </CardContent>
     </Card>
   );
 }
 
-function ContactMethodCard({ method }: { method: typeof contactMethods[0] }) {
+function ContactMethodCard({ method }: { method: ContactMethod }) {
   return (
     <Card className="hover:shadow-lg transition-shadow duration-300" data-testid={`contact-method-${method.title.toLowerCase().replace(/\s+/g, '-')}`}>
       <CardContent className="p-6">
@@ -161,17 +115,28 @@ function ContactMethodCard({ method }: { method: typeof contactMethods[0] }) {
 }
 
 export default function Contact() {
+  const { language } = useLanguage();
+  const t = useTranslations()[language];
+
+  const methods: ContactMethod[] = [
+    { icon: Phone, title: t.contactPage.methods.phone.title, description: t.contactPage.methods.phone.description, details: t.contactPage.methods.phone.details, availability: t.contactPage.methods.phone.availability },
+    { icon: Mail, title: t.contactPage.methods.email.title, description: t.contactPage.methods.email.description, details: t.contactPage.methods.email.details, availability: t.contactPage.methods.email.availability },
+    { icon: Users, title: t.contactPage.methods.inPerson.title, description: t.contactPage.methods.inPerson.description, details: t.contactPage.methods.inPerson.details, availability: t.contactPage.methods.inPerson.availability },
+    { icon: Globe, title: t.contactPage.methods.online.title, description: t.contactPage.methods.online.description, details: t.contactPage.methods.online.details, availability: t.contactPage.methods.online.availability },
+  ];
+
+  const businessHours = [
+    { day: t.contactPage.dayMonFri, hours: t.contactPage.monFriHours },
+    { day: t.contactPage.daySaturday, hours: t.contactPage.saturdayHours },
+    { day: t.contactPage.daySunday, hours: t.contactPage.closed },
+  ];
   return (
     <div className="pt-16 min-h-screen bg-background" data-testid="contact-page">
       {/* Hero Section */}
       <section className="py-20 bg-gradient-to-r from-primary/10 to-chart-2/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-4xl lg:text-5xl font-bold text-foreground mb-6">
-            Contact Us
-          </h1>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Ready to take your business to the next level? Get in touch with our expert consultants today
-          </p>
+          <h1 className="text-4xl lg:text-5xl font-bold text-foreground mb-6">{t.contactPage.heroTitle}</h1>
+          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">{t.contactPage.heroSubtitle}</p>
         </div>
       </section>
 
@@ -179,15 +144,11 @@ export default function Contact() {
       <section className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">
-              How Can We Help You?
-            </h2>
-            <p className="text-xl text-muted-foreground">
-              Choose the most convenient way to reach our team
-            </p>
+            <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">{t.contactPage.methodsTitle}</h2>
+            <p className="text-xl text-muted-foreground">{t.contactPage.methodsSubtitle}</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {contactMethods.map((method, index) => (
+            {methods.map((method, index) => (
               <ContactMethodCard key={index} method={method} />
             ))}
           </div>
@@ -200,7 +161,7 @@ export default function Contact() {
       {/* Office Locations */}
       <section className="py-20 bg-card">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
+            {/*<div className="text-center mb-16">
             <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">
               Our Offices
             </h2>
@@ -212,17 +173,16 @@ export default function Contact() {
             {offices.map((office, index) => (
               <OfficeCard key={index} office={office} />
             ))}
-          </div>
+          </div>*/}
           
           {/* Map Placeholder */}
+            <h2 className="text-3xl lg:text-4xl font-bold text-foreground text-center mb-4">{t.contactPage.officesTitle}</h2>
           <Card className="overflow-hidden">
             <div className="h-64 bg-muted flex items-center justify-center" data-testid="map-placeholder">
               <div className="text-center">
                 <MapPin className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
-                <p className="text-muted-foreground">Interactive map showing all office locations</p>
-                <p className="text-sm text-muted-foreground mt-2">
-                  Click on any office card above to get directions
-                </p>
+                <p className="text-muted-foreground">{t.contactPage.mapIntro}</p>
+                <p className="text-sm text-muted-foreground mt-2">{t.contactPage.mapClickHint}</p>
               </div>
             </div>
           </Card>
@@ -237,7 +197,7 @@ export default function Contact() {
             <div>
               <h2 className="text-3xl font-bold text-foreground mb-8 flex items-center">
                 <Clock className="h-8 w-8 text-primary mr-3" />
-                Business Hours
+                {t.contactPage.businessHoursTitle}
               </h2>
               <Card>
                 <CardContent className="p-6">
@@ -251,21 +211,20 @@ export default function Contact() {
                   </div>
                   <div className="mt-6 p-4 bg-primary/10 rounded-lg">
                     <p className="text-sm text-foreground">
-                      <strong>Emergency Support:</strong> For urgent matters outside business hours, 
-                      please email us and we'll respond as soon as possible.
+                      <strong>{t.contactPage.emergencySupportTitle}</strong> {t.contactPage.emergencySupportDesc}
                     </p>
                   </div>
                 </CardContent>
               </Card>
             </div>
 
-            {/* FAQ */}
+            {/* FAQ
             <div>
               <h2 className="text-3xl font-bold text-foreground mb-8">
-                Frequently Asked Questions
+                {t.contactPage.faqsTitle}
               </h2>
               <div className="space-y-4">
-                {faqs.map((faq, index) => (
+                {t.contactPage.faqs.map((faq, index) => (
                   <Card key={index} data-testid={`faq-${index}`}>
                     <CardContent className="p-6">
                       <h3 className="font-semibold text-foreground mb-3" data-testid="faq-question">
@@ -278,7 +237,7 @@ export default function Contact() {
                   </Card>
                 ))}
               </div>
-            </div>
+            </div>*/}
           </div>
         </div>
       </section>

@@ -8,27 +8,27 @@ import { useTranslations } from "@/lib/translations";
 const slides = [
   {
     id: 1,
-    title: "Transform Your Agricultural Business",
-    subtitle: "Access up to €1.3M in IPARD funding for agricultural modernization and rural development",
-    image: "https://images.unsplash.com/photo-1500595046743-cd271d694d30?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&h=1080",
-    cta1: "Learn More",
-    cta2: "View Programs"
+    title: "For the clients we choose the best!",
+    subtitle: "3000 clients and counting",
+    image: "../images/zgrada.png",
+    cta1: "Contact",
+    cta2: "Services"
   },
   {
     id: 2,
-    title: "Develop Rural Tourism Excellence",
-    subtitle: "Create sustainable tourism businesses with our comprehensive support and funding guidance",
+    title: "Our way of work",
+    subtitle: "Meet how we work, and learn why our aproach gives best results",
     image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&h=1080",
-    cta1: "Tourism Programs",
-    cta2: "Success Stories"
+      cta1: "Contact",
+      cta2: "Services"
   },
   {
     id: 3,
-    title: "Expert Financial Consulting",
+    title: "Experts in the finance field",
     subtitle: "Strategic business planning and financial advisory services to accelerate your growth",
-    image: "https://images.unsplash.com/photo-1560472354-b33ff0c44a43?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&h=1080",
-    cta1: "Our Services",
-    cta2: "Get Consultation"
+    image: "../images/TimPic1.jpg",
+    cta1: "Contact",
+    cta2: "Services"
   }
 ];
 
@@ -113,7 +113,7 @@ export default function HeroSlider() {
   };
 
   return (
-    <section className="relative h-screen overflow-hidden mt-16" data-testid="hero-slider">
+    <section className="relative h-screen overflow-hidden" data-testid="hero-slider">
       <AnimatePresence mode="wait">
         <motion.div
           key={currentSlide}
@@ -198,7 +198,7 @@ export default function HeroSlider() {
                   >
                     <Button 
                       variant="outline" 
-                      className="border-2 border-white text-white hover:bg-white hover:text-black px-8 py-3 font-semibold transition-all duration-300 backdrop-blur-sm"
+                      className="border-2 border-white text-primary hover:bg-white hover:text-black px-8 py-3 font-semibold transition-all duration-300 backdrop-blur-sm"
                       data-testid={`cta-secondary-${currentSlide}`}
                     >
                       {slides[currentSlide].cta2}

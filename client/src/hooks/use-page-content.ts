@@ -9,7 +9,7 @@ export function usePageContent(country: Country, pageType: PageType, language: L
   });
 }
 
-export function useAllPageContent() {
+export function useAllPageContent(p0: { enabled: boolean; }) {
   return useQuery<PageContent[]>({
     queryKey: ['/api/admin/page-content']
   });

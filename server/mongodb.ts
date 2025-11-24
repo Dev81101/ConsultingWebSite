@@ -1,3 +1,5 @@
+import dotenv from 'dotenv';
+dotenv.config();
 import { MongoClient, Db, Collection, ObjectId } from 'mongodb';
 import { randomUUID } from 'crypto';
 import bcrypt from 'bcryptjs';

@@ -8,6 +8,7 @@ import ServicesSection from "@/components/services-section";
 import ClientsSection from "@/components/clients-section";
 import BlogSection from "@/components/blog-section";
 import ContactSection from "@/components/contact-section";
+import TeamTextMain from "@/components/teamtextmain.tsx";
 
 export default function Home() {
   const { country } = useCountry();
@@ -53,11 +54,13 @@ export default function Home() {
   return (
     <div data-testid="home-page">
       <HeroSlider />
-      <AchievementCounters />
       <ServicesSection />
-      <ClientsSection />
+      <AchievementCounters />
+      <TeamTextMain />
+
       <BlogSection />
       <ContactSection />
     </div>
+
   );
 }

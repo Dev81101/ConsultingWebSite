@@ -2,35 +2,31 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Users, Target, Award, TrendingUp, CheckCircle, Star, Globe, Calendar } from "lucide-react";
+import { motion } from "framer-motion";
+import { useLanguage } from "@/lib/language-context";
+import { useTranslations } from "@/lib/translations";
 
 const teamMembers = [
   {
-    name: "Marija Stojanović",
-    position: "CEO & Founder",
-    description: "20+ years in financial consulting and EU funding programs",
-    image: "https://images.unsplash.com/photo-1494790108755-2616b612b47c?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&h=300",
-    expertise: ["IPARD Programs", "Strategic Planning", "Business Development"]
+    name: "Martin Dimitrievski",
+    position: "CEO & Co-Founder",
+    description: "20+ years in finance",
+    image: "../images/direktor.png",
+    expertise: [""]
   },
   {
-    name: "Nikola Petrović",
-    position: "Senior Financial Advisor",
-    description: "Expert in manufacturing and tourism sector funding",
-    image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&h=300",
-    expertise: ["Manufacturing Grants", "Financial Analysis", "Risk Assessment"]
+    name: "Nikola Nikoloski",
+    position: "",
+    description: "",
+    image: "",
+    expertise: [""]
   },
   {
-    name: "Ana Jovanović",
-    position: "Agricultural Consultant",
-    description: "Specialist in rural development and agricultural modernization",
-    image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&h=300",
-    expertise: ["Rural Development", "Agricultural Policy", "Sustainability"]
-  },
-  {
-    name: "Stefan Milosavljević",
-    position: "Business Plan Specialist",
-    description: "Expert in business plan development and market analysis",
-    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&h=300",
-    expertise: ["Business Planning", "Market Research", "Financial Modeling"]
+    name: "Nikola Nikoloski",
+    position: "",
+    description: "",
+    image: "",
+    expertise: [""]
   }
 ];
 
@@ -94,6 +90,8 @@ const certifications = [
 ];
 
 export default function About() {
+  const { language } = useLanguage();
+  const t = useTranslations()[language];
   return (
     <div className="pt-16 min-h-screen bg-background" data-testid="about-page">
       {/* Hero Section */}
@@ -101,88 +99,186 @@ export default function About() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <h1 className="text-4xl lg:text-5xl font-bold text-foreground mb-6">
-              About WVP Plus Consulting
+              {t.about.heroTitle}
             </h1>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Leading the way in financial consulting and EU funding solutions for agriculture, 
-              tourism, and manufacturing sectors since 2015
+              {t.about.heroSubtitle}
             </p>
           </div>
         </div>
       </section>
 
       {/* Company Overview */}
-      <section className="py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-6">
-                Our Story
-              </h2>
-              <div className="space-y-6 text-muted-foreground">
-                <p className="text-lg leading-relaxed">
-                  Founded in 2015 with a vision to bridge the gap between ambitious businesses and 
-                  available funding opportunities, WVP Plus Consulting has grown to become one of 
-                  Serbia's most trusted financial advisory firms.
-                </p>
-                <p className="text-lg leading-relaxed">
-                  Our expertise spans across IPARD programs, manufacturing grants, tourism development 
-                  funding, and comprehensive business consulting. We've successfully helped over 350 
-                  businesses secure more than €86 million in funding, transforming ideas into thriving enterprises.
-                </p>
-                <p className="text-lg leading-relaxed">
-                  What sets us apart is our deep understanding of both local market dynamics and 
-                  international funding mechanisms. Our team combines decades of experience in 
-                  financial consulting, agricultural development, and business strategy.
-                </p>
-              </div>
-            </div>
-            <div className="relative">
-              <img 
-                src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400" 
-                alt="Professional team meeting"
-                className="rounded-lg shadow-lg w-full"
-                data-testid="about-hero-image"
-              />
-              <div className="absolute -bottom-6 -right-6 bg-primary text-primary-foreground p-6 rounded-lg shadow-lg">
-                <div className="text-center">
-                  <div className="text-3xl font-bold">9</div>
-                  <div className="text-sm">Years of Excellence</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+        <section className="py-20 bg-background">
+            {/* MAIN CENTERED WRAPPER */}
+            <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
 
-      {/* Company Values */}
-      <section className="py-20 bg-card">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">Our Values</h2>
-            <p className="text-xl text-muted-foreground">
-              The principles that guide everything we do
-            </p>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {companyValues.map((value, index) => (
-              <Card key={index} className="text-center hover:shadow-lg transition-shadow duration-300" data-testid={`value-card-${index}`}>
-                <CardContent className="p-8">
-                  <div className="w-16 h-16 bg-primary/10 rounded-lg flex items-center justify-center mx-auto mb-6">
-                    <value.icon className="h-8 w-8 text-primary" />
-                  </div>
-                  <h3 className="text-xl font-semibold text-foreground mb-4" data-testid="value-title">
-                    {value.title}
-                  </h3>
-                  <p className="text-muted-foreground" data-testid="value-description">
-                    {value.description}
-                  </p>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
+                {/* LEFT CONTENT ONLY */}
+                <div>
+                    <h2 className="text-4xl font-bold text-foreground mb-6">Who We Are</h2>
+
+                    <p className="text-lg text-muted-foreground leading-relaxed mb-6">
+                        <strong className="text-foreground">WVP PLUS CONSULTING</strong> is part of the
+                        Austrian <strong className="text-foreground">WVP GROUP</strong>, whose primary focus is financial
+                        consulting. Founded in 1985 in Graz, Austria, the group now operates in 10 Southeastern European countries
+                        and has been active in Macedonia since 2005.
+                    </p>
+
+                    <p className="text-lg text-muted-foreground leading-relaxed mb-6">
+                        Since its establishment in 2019, WVP PLUS CONSULTING has aimed to provide full financial access to Macedonian
+                        companies and citizens. Over five years, we have supported more than <strong className="text-foreground">3,000 clients</strong>,
+                        facilitated over <strong className="text-foreground">€80M</strong> in loans, and secured more than
+                        <strong className="text-foreground"> €25M</strong> in grants.
+                    </p>
+
+                    <h3 className="text-2xl font-semibold text-foreground mt-10 mb-4">
+                        Regional Development
+                    </h3>
+
+                    <ul className="space-y-2 text-muted-foreground">
+                        <li>• 2022 — WVP PLUS CONSULTING LLC Serbia</li>
+                        <li>• 2024 — WFP PLUS CONSULTING LLC Bosnia</li>
+                        <li>• 2024 — WVP ACCOUNTING LLC Macedonia (tax, accounting, auditing)</li>
+                    </ul>
+                </div>
+            </div>
+
+            {/* 🔴 FULL-WIDTH RED SECTION */}
+            <div className="w-full bg-primary mt-12 py-12">
+                <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+
+                    <h3 className="text-2xl font-bold text-white mb-6">What We Offer</h3>
+
+                    {/* FINANCE */}
+                    <div className="mb-8">
+                        <h4 className="font-semibold text-lg text-gray-300 mb-2">
+                            Access to Finance:
+                        </h4>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-gray-100 text-base">
+                            <span>• Banking credit products</span>
+                            <span>• Leasing</span>
+                            <span>• Factoring</span>
+                            <span>• Government support instruments</span>
+                            <span>• Non-banking financial support</span>
+                            <span>• Mergers & acquisitions</span>
+                            <span>• Equity crowdfunding</span>
+                            <span>• Business angels</span>
+                            <span>• Capital instruments</span>
+                            <span>• Grants / co-financing</span>
+                        </div>
+                    </div>
+
+                    {/* MARKET ACCESS */}
+                    <div className="mb-8">
+                        <h4 className="font-semibold text-lg text-gray-300 mb-2">
+                            Market Access:
+                        </h4>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-gray-100 text-base">
+                            <span>• Company digitalization</span>
+                            <span>• Energy efficiency audit (PiNE model)</span>
+                            <span>• Circular economy development</span>
+                            <span>• Employee protection matrix</span>
+                            <span>• Export strategy & planning</span>
+                            <span>• Product design & development</span>
+                            <span>• Marketing strategy & branding</span>
+                            <span>• Financial capacity diagnostics</span>
+                        </div>
+                    </div>
+
+                    {/* REPORTS */}
+                    <div>
+                        <h4 className="font-semibold text-lg text-gray-300 mb-2">
+                            Specialized Reports:
+                        </h4>
+                        <ul className="space-y-1 text-gray-100">
+                            <li>• Business plans</li>
+                            <li>• Investment programs</li>
+                            <li>• Due diligence</li>
+                            <li>• Cost-benefit analysis</li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+
+            {/* FINAL PARAGRAPH BELOW RED BLOCK */}
+            <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 mt-10">
+                <p className="text-lg text-muted-foreground leading-relaxed">
+                    Our mission is to deeply understand each company, identify its financial and market needs, and connect it with
+                    the right instruments to achieve real, measurable results. With over
+                    <strong className="text-foreground"> 25 experts</strong>, we ensure top-level consulting and long-term partnerships.
+                </p>
+            </div>
+
+        </section>
+
+
+
+
+        {/* Company Values */}
+        <section className="py-24 bg-card relative overflow-hidden">
+
+            {/* Subtle gradient glow */}
+            <div className="absolute inset-0 -z-10 bg-gradient-to-br from-primary/5 via-transparent to-primary/10" />
+
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+                {/* HEADER */}
+                <div className="text-center mb-20">
+                    <h2 className="text-4xl lg:text-5xl font-bold text-foreground mb-6 tracking-tight">
+                        Our Values
+                    </h2>
+                    <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+                        The principles that drive our work and shape our commitment to excellence.
+                    </p>
+                </div>
+
+                {/* VALUES GRID */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
+                    {companyValues.map((value, index) => (
+                        <motion.div
+                            key={index}
+                            initial={{ opacity: 0, y: 40 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.6, delay: index * 0.1 }}
+                        >
+                            <Card
+                                className="group h-full bg-background/60 backdrop-blur-sm border border-border/50
+                       hover:border-primary/40 hover:shadow-xl transition-all duration-300 rounded-2xl"
+                                data-testid={`value-card-${index}`}
+                            >
+                                <CardContent className="p-10">
+
+                                    {/* ICON */}
+                                    <div className="
+                  w-20 h-20 rounded-2xl mx-auto mb-8 flex items-center justify-center
+                  bg-gradient-to-br from-primary/10 to-primary/20
+                  group-hover:from-primary/20 group-hover:to-primary/30
+                  transition-all duration-300
+              ">
+                                        <value.icon className="h-10 w-10 text-primary group-hover:scale-110 transition-transform" />
+                                    </div>
+
+                                    {/* TITLE */}
+                                    <h3
+                                        className="text-2xl font-semibold text-foreground mb-4 group-hover:text-primary transition-colors"
+                                        data-testid="value-title"
+                                    >
+                                        {value.title}
+                                    </h3>
+
+                                    {/* DESCRIPTION */}
+                                    <p className="text-muted-foreground leading-relaxed" data-testid="value-description">
+                                        {value.description}
+                                    </p>
+                                </CardContent>
+                            </Card>
+                        </motion.div>
+                    ))}
+                </div>
+            </div>
+        </section>
 
       {/* Our Team */}
       <section className="py-20" id="team" data-testid="team-section">
@@ -193,14 +289,14 @@ export default function About() {
               Experienced professionals dedicated to your success
             </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {teamMembers.map((member, index) => (
               <Card key={index} className="hover:shadow-lg transition-shadow duration-300" data-testid={`team-member-${index}`}>
                 <CardContent className="p-6 text-center">
                   <img 
                     src={member.image} 
                     alt={member.name}
-                    className="w-24 h-24 rounded-full mx-auto mb-4 object-cover"
+                    className="w-250 h-28 rounded-full mx-auto mb-4 object-cover"
                     data-testid="team-member-image"
                   />
                   <h3 className="text-xl font-semibold text-foreground mb-2" data-testid="team-member-name">
@@ -212,13 +308,6 @@ export default function About() {
                   <p className="text-sm text-muted-foreground mb-4" data-testid="team-member-description">
                     {member.description}
                   </p>
-                  <div className="flex flex-wrap gap-2 justify-center">
-                    {member.expertise.map((skill, skillIndex) => (
-                      <Badge key={skillIndex} variant="secondary" className="text-xs" data-testid={`team-skill-${skillIndex}`}>
-                        {skill}
-                      </Badge>
-                    ))}
-                  </div>
                 </CardContent>
               </Card>
             ))}
@@ -226,7 +315,7 @@ export default function About() {
         </div>
       </section>
 
-      {/* Company Timeline */}
+      {/* Company Timeline
       <section className="py-20 bg-card">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
@@ -236,7 +325,7 @@ export default function About() {
             </p>
           </div>
           <div className="relative">
-            {/* Timeline line */}
+
             <div className="absolute left-1/2 transform -translate-x-1/2 w-0.5 h-full bg-primary/20 hidden lg:block"></div>
             
             <div className="space-y-12">
@@ -265,7 +354,7 @@ export default function About() {
                     </Card>
                   </div>
                   
-                  {/* Timeline dot */}
+                   Timeline dot
                   <div className="hidden lg:block">
                     <div className="w-4 h-4 bg-primary rounded-full border-4 border-background shadow-lg"></div>
                   </div>
@@ -276,9 +365,9 @@ export default function About() {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
 
-      {/* Certifications & Accreditations */}
+      {/* Certifications & Accreditations
       <section className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
@@ -301,6 +390,7 @@ export default function About() {
           </div>
         </div>
       </section>
+      */}
 
       {/* CTA Section */}
       <section className="py-20 bg-primary text-primary-foreground" id="careers">
@@ -313,7 +403,7 @@ export default function About() {
             <Button 
               size="lg" 
               variant="secondary" 
-              className="bg-white text-primary hover:bg-gray-100"
+              className="bg-white text-black hover:bg-gray-300 hover:text-primary"
               data-testid="careers-button"
             >
               View Open Positions
@@ -321,7 +411,7 @@ export default function About() {
             <Button 
               size="lg" 
               variant="outline" 
-              className="border-white text-white hover:bg-white hover:text-primary"
+              className="border-white text-black hover:bg-gray-300 hover:text-primary"
               data-testid="contact-us-button"
             >
               Contact Us

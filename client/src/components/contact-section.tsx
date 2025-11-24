@@ -76,7 +76,7 @@ export default function ContactSection() {
                 </div>
                 <div>
                   <h3 className="font-semibold text-foreground">{t.contact.phone}</h3>
-                  <p className="text-muted-foreground">+381 11 123 4567</p>
+                  <p className="text-muted-foreground">+389 076/337-800 </p>
                 </div>
               </div>
               
@@ -86,7 +86,7 @@ export default function ContactSection() {
                 </div>
                 <div>
                   <h3 className="font-semibold text-foreground">{t.contact.email}</h3>
-                  <p className="text-muted-foreground">info@wvpplus.rs</p>
+                  <p className="text-muted-foreground">info@wvpplus.mk</p>
                 </div>
               </div>
               
@@ -96,7 +96,7 @@ export default function ContactSection() {
                 </div>
                 <div>
                   <h3 className="font-semibold text-foreground">{t.contact.address}</h3>
-                  <p className="text-muted-foreground">Knez Mihailova 42<br />11000 Belgrade, Serbia</p>
+                  <p className="text-muted-foreground">Bul. Koco Racin No: 3, <br />1000 Skopje - Center</p>
                 </div>
               </div>
             </div>
@@ -115,7 +115,7 @@ export default function ContactSection() {
                         <FormItem>
                           <FormLabel>{t.contact.firstName}</FormLabel>
                           <FormControl>
-                            <Input placeholder="John" {...field} data-testid="input-firstName" />
+                            <Input placeholder="Your Firstame" {...field} data-testid="input-firstName" />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -128,7 +128,7 @@ export default function ContactSection() {
                         <FormItem>
                           <FormLabel>{t.contact.lastName}</FormLabel>
                           <FormControl>
-                            <Input placeholder="Doe" {...field} data-testid="input-lastName" />
+                            <Input placeholder="Your Lastname" {...field} data-testid="input-lastName" />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -143,14 +143,14 @@ export default function ContactSection() {
                       <FormItem>
                         <FormLabel>{t.contact.emailLabel}</FormLabel>
                         <FormControl>
-                          <Input type="email" placeholder="john@example.com" {...field} data-testid="input-email" />
+                          <Input type="email" placeholder="email@example.com" {...field} data-testid="input-email" />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
                     )}
                   />
-                  
-                  <FormField
+
+                    {/*<FormField
                     control={form.control}
                     name="serviceInterest"
                     render={({ field }) => (
@@ -172,7 +172,7 @@ export default function ContactSection() {
                         <FormMessage />
                       </FormItem>
                     )}
-                  />
+                  />*/}
                   
                   <FormField
                     control={form.control}
