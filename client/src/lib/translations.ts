@@ -110,11 +110,51 @@ export const translations: Record<Language, {
   };
   home: {
     loadingContent: string;
+    slide1Title: string;
+    slide1Subtitle: string;
+    slide2Title: string;
+    slide2Subtitle: string;
+    slide3Title: string;
+    slide3Subtitle: string;
   };
-  about: {
-    heroTitle: string;
-    heroSubtitle: string;
-  };
+    about: {
+        heroTitle: string;
+        heroSubtitle: string;
+        whoWeAreTitle: string;
+        overviewP1: string;
+        overviewP2: string;
+        regionalDevTitle: string;
+        serbiaOffice: string;
+        bosniaOffice: string;
+        accountingOffice: string;
+        whatWeOfferTitle: string;
+        accessFinanceTitle: string;
+        accessFinanceList: string[];
+        marketAccessTitle: string;
+        marketAccessList: string[];
+        specialReportsTitle: string;
+        specialReportsList: string[];
+        missionStatement: string;
+        valuesTitle: string; // The title for the section
+        valuesSubtitle: string; // The subtitle for the section
+        teamTitle: string;
+        teamSubtitle: string;
+        ctaJoinTitle: string;
+        ctaJoinSubtitle: string;
+        viewPositions: string;
+        contactUsCta: string;
+        // 👇 NEW: Define the nested values object here
+        values: {
+            "Results-Oriented": string;
+            "We focus on delivering measurable outcomes and tangible value to our clients": string;
+            "Client-Centric": string;
+            "Your success is our priority. We build long-term partnerships based on trust": string;
+            "Excellence": string;
+            "We maintain the highest standards of professionalism and expertise": string;
+            "Innovation": string;
+            "We leverage the latest technologies and methodologies to drive success": string;
+        };
+    };
   team: {
     title: string;
     subtitle: string;
@@ -151,6 +191,7 @@ export const translations: Record<Language, {
   };
   programs: {
     viewAllServices: string;
+    buttonText:string;
     services: {
       financialConsulting: {
         title: string;
@@ -307,11 +348,87 @@ export const translations: Record<Language, {
     },
     home: {
       loadingContent: "Учитавање садржаја странице...",
+        slide1Title: "For the clients we choose the best!",
+        slide1Subtitle: "3000 clients and counting",
+        slide2Title: "Our way of work",
+        slide2Subtitle: "Meet how we work, and learn why our aproach gives best results",
+        slide3Title: "Experts in the finance field",
+        slide3Subtitle: "Strategic business planning and financial advisory services to accelerate your growth",
     },
-    about: {
-      heroTitle: "Ко смо ми?",
-      heroSubtitle: "Водимо пут у финансијском консалтингу и ЕУ финансирању на Балкану.",
-    },
+      about: {
+          // Hero Section
+          heroTitle: "Our Company", // Placeholder for the actual content of t.about.heroTitle
+          heroSubtitle: "Dedicated to providing comprehensive financial and market access consulting.", // Placeholder for the actual content of t.about.heroSubtitle
+
+          // Company Overview
+          whoWeAreTitle: "Who We Are",
+          overviewP1: "WVP PLUS CONSULTING is part of the Austrian WVP GROUP, whose primary focus is financial consulting. Founded in 1985 in Graz, Austria, the group now operates in 10 Southeastern European countries and has been active in Macedonia since 2005.",
+          overviewP2: "Since its establishment in 2019, WVP PLUS CONSULTING has aimed to provide full financial access to Macedonian companies and citizens. Over five years, we have supported more than 3,000 clients, facilitated over €80M in loans, and secured more than €25M in grants.",
+          regionalDevTitle: "Regional Development",
+          serbiaOffice: "2022 — WVP PLUS CONSULTING LLC Serbia",
+          bosniaOffice: "2024 — WFP PLUS CONSULTING LLC Bosnia",
+          accountingOffice: "2024 — WVP ACCOUNTING LLC Macedonia (tax, accounting, auditing)",
+          whatWeOfferTitle: "What We Offer",
+
+          // What We Offer
+          accessFinanceTitle: "Access to Finance:",
+          accessFinanceList: [
+              "Banking credit products",
+              "Leasing",
+              "Factoring",
+              "Government support instruments",
+              "Non-banking financial support",
+              "Mergers & acquisitions",
+              "Equity crowdfunding",
+              "Business angels",
+              "Capital instruments",
+              "Grants / co-financing"
+          ],
+          marketAccessTitle: "Market Access:",
+          marketAccessList: [
+              "Company digitalization",
+              "Energy efficiency audit (PiNE model)",
+              "Circular economy development",
+              "Employee protection matrix",
+              "Export strategy & planning",
+              "Product design & development",
+              "Marketing strategy & branding",
+              "Financial capacity diagnostics"
+          ],
+          specialReportsTitle: "Specialized Reports:",
+          specialReportsList: [
+              "Business plans",
+              "Investment programs",
+              "Due diligence",
+              "Cost-benefit analysis"
+          ],
+          missionStatement: "Our mission is to deeply understand each company, identify its financial and market needs, and connect it with the right instruments to achieve real, measurable results. With over 25 experts, we ensure top-level consulting and long-term partnerships.",
+
+          // Company Values
+          valuesTitle: "Our Values",
+          valuesSubtitle: "The principles that drive our work and shape our commitment to excellence.",
+
+          // Team Section
+          teamTitle: "Meet Our Team",
+          teamSubtitle: "Experienced professionals dedicated to your success",
+
+          // CTA Section
+          ctaJoinTitle: "Join Our Team",
+          ctaJoinSubtitle: "We're always looking for talented professionals to join our growing team",
+          viewPositions: "View Open Positions",
+          contactUsCta: "Contact Us",
+
+          values: {
+              "Results-Oriented": "Ориентираност кон Резултати",
+              "We focus on delivering measurable outcomes and tangible value to our clients": "Се фокусираме на испорака на мерливи резултати и опиплива вредност за нашите клиенти",
+              "Client-Centric": "Фокус на Клиентот",
+              "Your success is our priority. We build long-term partnerships based on trust": "Вашиот успех е наш приоритет. Градиме долгорочни партнерства засновани на доверба",
+              "Excellence": "Извонредност",
+              "We maintain the highest standards of professionalism and expertise": "Одржуваме највисоки стандарди на професионалност и експертиза",
+              "Innovation": "Иновација",
+              "We leverage the latest technologies and methodologies to drive success": "Користиме најнови технологии и методологии за да постигнеме успех"
+          },
+      },
     team: {
       title: "",
       subtitle: "",
@@ -353,6 +470,7 @@ export const translations: Record<Language, {
     },
     programs: {
       viewAllServices: "Погледај све услуге",
+        buttonText:"Закажете консултације",
       services: {
         financialConsulting: {
           title: "Финансијско савјетовање",
@@ -464,6 +582,7 @@ export const translations: Record<Language, {
       error: "Unable to load achievements at this time.",
     },
     services: {
+
       title: "Our Comprehensive Services",
       subtitle: "From IPARD funding to business consulting, we provide end-to-end support for your growth journey",
       ipardTitle: "Financial Consulting",
@@ -553,11 +672,87 @@ export const translations: Record<Language, {
     },
     home: {
       loadingContent: "Loading page content...",
+        slide1Title: "For the clients we choose the best!",
+        slide1Subtitle: "3000 clients and counting",
+        slide2Title: "Our way of work",
+        slide2Subtitle: "Meet how we work, and learn why our aproach gives best results",
+        slide3Title: "Experts in the finance field",
+        slide3Subtitle: "Strategic business planning and financial advisory services to accelerate your growth",
     },
-    about: {
-      heroTitle: "Who we are?",
-      heroSubtitle: "Leading the way in financial consulting and EU funding solutions in the Balkan.",
-    },
+      about: {
+          // Hero Section
+          heroTitle: "Our Company", // Placeholder for the actual content of t.about.heroTitle
+          heroSubtitle: "Dedicated to providing comprehensive financial and market access consulting.", // Placeholder for the actual content of t.about.heroSubtitle
+
+          // Company Overview
+          whoWeAreTitle: "Who We Are",
+          overviewP1: "WVP PLUS CONSULTING is part of the Austrian WVP GROUP, whose primary focus is financial consulting. Founded in 1985 in Graz, Austria, the group now operates in 10 Southeastern European countries and has been active in Macedonia since 2005.",
+          overviewP2: "Since its establishment in 2019, WVP PLUS CONSULTING has aimed to provide full financial access to Macedonian companies and citizens. Over five years, we have supported more than 3,000 clients, facilitated over €80M in loans, and secured more than €25M in grants.",
+          regionalDevTitle: "Regional Development",
+          serbiaOffice: "2022 — WVP PLUS CONSULTING LLC Serbia",
+          bosniaOffice: "2024 — WFP PLUS CONSULTING LLC Bosnia",
+          accountingOffice: "2024 — WVP ACCOUNTING LLC Macedonia (tax, accounting, auditing)",
+          whatWeOfferTitle: "What We Offer",
+
+          // What We Offer
+          accessFinanceTitle: "Access to Finance:",
+          accessFinanceList: [
+              "Banking credit products",
+              "Leasing",
+              "Factoring",
+              "Government support instruments",
+              "Non-banking financial support",
+              "Mergers & acquisitions",
+              "Equity crowdfunding",
+              "Business angels",
+              "Capital instruments",
+              "Grants / co-financing"
+          ],
+          marketAccessTitle: "Market Access:",
+          marketAccessList: [
+              "Company digitalization",
+              "Energy efficiency audit (PiNE model)",
+              "Circular economy development",
+              "Employee protection matrix",
+              "Export strategy & planning",
+              "Product design & development",
+              "Marketing strategy & branding",
+              "Financial capacity diagnostics"
+          ],
+          specialReportsTitle: "Specialized Reports:",
+          specialReportsList: [
+              "Business plans",
+              "Investment programs",
+              "Due diligence",
+              "Cost-benefit analysis"
+          ],
+          missionStatement: "Our mission is to deeply understand each company, identify its financial and market needs, and connect it with the right instruments to achieve real, measurable results. With over 25 experts, we ensure top-level consulting and long-term partnerships.",
+
+          // Company Values
+          valuesTitle: "Our Values",
+          valuesSubtitle: "The principles that drive our work and shape our commitment to excellence.",
+
+          // Team Section
+          teamTitle: "Meet Our Team",
+          teamSubtitle: "Experienced professionals dedicated to your success",
+
+          // CTA Section
+          ctaJoinTitle: "Join Our Team",
+          ctaJoinSubtitle: "We're always looking for talented professionals to join our growing team",
+          viewPositions: "View Open Positions",
+          contactUsCta: "Contact Us",
+
+          values: {
+              "Results-Oriented": "Results-Oriented",
+              "We focus on delivering measurable outcomes and tangible value to our clients": "We focus on delivering measurable outcomes and tangible value to our clients",
+              "Client-Centric": "Client-Centric",
+              "Your success is our priority. We build long-term partnerships based on trust": "Your success is our priority. We build long-term partnerships based on trust",
+              "Excellence": "Excellence",
+              "We maintain the highest standards of professionalism and expertise": "We maintain the highest standards of professionalism and expertise",
+              "Innovation": "Innovation",
+              "We leverage the latest technologies and methodologies to drive success": "We leverage the latest technologies and methodologies to drive success"
+          },
+      },
     team: {
       title: "Our Team",
       subtitle: "Largest team of Experts",
@@ -599,6 +794,7 @@ export const translations: Record<Language, {
     },
     programs: {
       viewAllServices: "View All Services",
+      buttonText:"Scheldue Consultation",
       services: {
         financialConsulting: {
           title: "Financial Consulting",
@@ -689,173 +885,330 @@ export const translations: Record<Language, {
       },
     },
   },
-  mk: {
-    nav: {
-      home: "Дома",
-      programs: "Програми",
-      blog: "Блог",
-      about: "За нас",
-      contact: "Контакт",
+    mk: {
+        nav: {
+            home: "Почетна",
+            programs: "Програми",
+            blog: "Финансиски Совети",
+            about: "За нас",
+            contact: "Контакт",
+        },
+        hero: {
+            title: "Трансформирајте го вашиот земјоделски бизнис",
+            subtitle: "Пристапете до 1.3 милиони евра преку IPARD фондовите за земјоделска модернизација и рурален развој",
+            learnMore: "Дознајте повеќе",
+            viewPrograms: "Видете ги програмите",
+        },
+        achievements: {
+            title: "Нашите достигнувања",
+            subtitle: "Испорачуваме исклучителни резултати за нашите клиенти во сите сектори",
+            loading: "Се вчитува...",
+            error: "Не може да се вчитаат достигнувањата во моментов.",
+        },
+        services: {
+            title: "Нашите сеопфатни услуги",
+            subtitle: "Од IPARD финансирање до бизнис консалтинг, обезбедуваме целосна поддршка за вашиот раст",
+            ipardTitle: "Финансиски Консалтинг",
+            ipardDesc: "Пристап до ЕУ фондови до 1.3 милиони евра за земјоделски инвестиции, преработувачки капацитети и проекти за рурален развој.",
+            ipardFeature1: "IPARD I - Земјоделски инвестиции",
+            ipardFeature2: "IPARD II - Модернизација на преработка",
+            ipardFeature3: "IPARD III - Рурален туризам",
+            financialTitle: "Финансиска Помош",
+            financialDesc: "Сеопфатна поддршка за производствениот и туристичкиот сектор со грантови, субвенции и поволни заеми.",
+            financialFeature1: "Програми за поддршка на производството",
+            financialFeature2: "Грантови за развој на туризмот",
+            financialFeature3: "Финансирање за промоција на извозот",
+            consultingTitle: "Бизнис Консалтинг",
+            consultingDesc: "Стручно водство за микро бизниси и услуги за развој на сеопфатни бизнис планови.",
+            consultingFeature1: "Консалтинг за микро бизниси",
+            consultingFeature2: "Изработка на бизнис планови",
+            consultingFeature3: "Стратешко планирање",
+            learnMore: "Дознајте повеќе",
+        },
+        clients: {
+            title: "Доверба од водечки компании",
+            subtitle: "Помогнавме на стотици компании во секторите земјоделство, туризам и производство",
+        },
+        blog: {
+            title: "Увиди и Финансиски Совети",
+            subtitle: "Бидете информирани со нашите стручни анализи и успешни приказни",
+            readMore: "Прочитај повеќе",
+            viewAll: "Сите објави",
+            wantMore: "Сакате да прочитате повеќе?",
+            newsletterDesc: "Добивајте ги најновите увиди за финансирање, деловни можности и успешни приказни директно во вашето сандаче.",
+            loading: "Се вчитува...",
+            error: "Не може да се вчитаат објавите во моментов.",
+        },
+        contact: {
+            title: "Подготвени за раст на вашиот бизнис?",
+            subtitle: "Ајде да разговараме како можеме да ви помогнеме да пристапите до средства и да ги остварите вашите деловни цели.",
+            phone: "Телефон",
+            email: "Е-пошта",
+            address: "Адреса",
+            formTitle: "Поставете прашање - Решете ја дилемата",
+            firstName: "Име",
+            lastName: "Презиме",
+            emailLabel: "Е-пошта",
+            serviceInterest: "Услуга од интерес",
+            message: "Порака",
+            selectService: "Изберете услуга",
+            ipardPrograms: "IPARD Програми",
+            financialAid: "Финансиска помош",
+            businessConsulting: "Бизнис консалтинг",
+            businessPlanDev: "Изработка на бизнис план",
+            messagePlaceholder: "Кажете ни нешто повеќе за вашиот проект...",
+            send: "Испрати порака",
+            sending: "Се испраќа...",
+            successTitle: "Пораката е успешно испратена!",
+            successDesc: "Ќе ве контактираме наскоро.",
+            errorTitle: "Грешка при испраќање",
+            errorDesc: "Ве молиме обидете се повторно подоцна.",
+        },
+        footer: {
+            tagline: "За нашите клиенти секогаш го избираме најдоброто!",
+            servicesTitle: "Услуги",
+            ipard: "Финансиски консалтинг",
+            financialAid: "Пристап до финансии преку кредитни производи",
+            consulting: "Бизнис консалтинг",
+            businessPlans: "Маркетинг и бизнис развој",
+            marketAccess: "Пристап до пазари",
+            GrantsAndFinancing: "Грантови и кофинансирање",
+            companyTitle: "Компанија",
+            aboutUs: "За нас",
+            ourTeam: "Нашиот тим",
+            careers: "Кариера",
+            contactUs: "Контакт",
+            copyright: "© 2025 WVP Plus Consulting. Сите права се задржани.",
+            privacy: "Политика за приватност",
+            terms: "Услови за користење",
+        },
+        newsletter: {
+            title: "Бидете во тек",
+            subtitle: "Добивајте ги најновите IPARD насоки и бизнис совети",
+            placeholder: "Внесете ја вашата е-пошта",
+            subscribe: "Претплати се",
+            subscribing: "Се претплатувате...",
+            successTitle: "Успешна претплата!",
+            successDesc: "Ви благодариме што се претплативте на нашиот билтен.",
+            errorTitle: "Неуспешна претплата",
+            errorDesc: "Ве молиме обидете се повторно подоцна.",
+        },
+        home: {
+            loadingContent: "Вчитување на содржината...",
+            slide1Title: "За клиентите го бираме најдоброто!",
+            slide1Subtitle: "3000 клиенти и повеќе",
+            slide2Title: "Нашиот начин на работа",
+            slide2Subtitle: "Запознајте се како работиме и зошто нашиот пристап дава најдобри резултати",
+            slide3Title: "Експерти во областа на финансиите",
+            slide3Subtitle: "Стратешко бизнис планирање и финансиски советодавни услуги за забрзување на вашиот раст",
+        },
+        about: {
+            // Hero Section
+            heroTitle: "Нашата Компанија",
+            heroSubtitle: "Посветени на обезбедување сеопфатно финансиско и пазарно пристапно консалтинг.",
+
+            // Company Overview
+            whoWeAreTitle: "Кои Сме Ние",
+            overviewP1: "ВВП ПЛУС КОНСАЛТИНГ е дел од австриската ВВП ГРУПА, чиј примарен фокус е финансиски консалтинг. Основана во 1985 година во Грац, Австрија, групата сега работи во 10 земји од Југоисточна Европа и е активна во Македонија од 2005 година.",
+            overviewP2: "Од своето основање во 2019 година, ВВП ПЛУС КОНСАЛТИНГ има за цел да обезбеди целосен финансиски пристап до македонските компании и граѓани. За пет години, поддржавме повеќе од 3.000 клиенти, овозможивме преку 80 милиони евра заеми и обезбедивме повеќе од 25 милиони евра грантови.",
+            regionalDevTitle: "Регионален Развој",
+            serbiaOffice: "2022 — ВВП ПЛУС КОНСАЛТИНГ ДОО Србија",
+            bosniaOffice: "2024 — ВФП ПЛУС КОНСАЛТИНГ ДОО Босна",
+            accountingOffice: "2024 — ВВП СМЕТКОВОДСТВО ДОО Македонија (данок, сметководство, ревизија)",
+            whatWeOfferTitle: "Што Нудиме",
+
+            // What We Offer
+            accessFinanceTitle: "Пристап до Финансии:",
+            accessFinanceList: [
+                "Банкарски кредитни производи",
+                "Лизинг",
+                "Факторинг",
+                "Владини инструменти за поддршка",
+                "Небанкарска финансиска поддршка",
+                "Спојувања и превземања",
+                "Групово финансирање на капитал (Equity crowdfunding)",
+                "Бизнис ангели",
+                "Капитални инструменти",
+                "Грантови / кофинансирање"
+            ],
+            marketAccessTitle: "Пристап до Пазарот:",
+            marketAccessList: [
+                "Дигитализација на компанијата",
+                "Аудит за енергетска ефикасност (PiNE модел)",
+                "Развој на циркуларна економија",
+                "Матрица за заштита на вработените",
+                "Стратегија и планирање на извоз",
+                "Дизајн и развој на производи",
+                "Маркетинг стратегија и брендирање",
+                "Дијагностика на финансиски капацитет"
+            ],
+            specialReportsTitle: "Специјализирани Извештаи:",
+            specialReportsList: [
+                "Бизнис планови",
+                "Инвестициски програми",
+                "Длабинска анализа (Due diligence)",
+                "Анализа на трошоци и придобивки (Cost-benefit analysis)"
+            ],
+            missionStatement: "Нашата мисија е длабоко да ја разбереме секоја компанија, да ги идентификуваме нејзините финансиски и пазарни потреби и да ја поврземе со вистинските инструменти за постигнување реални, мерливи резултати. Со над 25 експерти, обезбедуваме врвен консалтинг и долгорочни партнерства.",
+
+            // Company Values
+            valuesTitle: "Нашите Вредности",
+            valuesSubtitle: "Принципите кои ја водат нашата работа и го обликуваат нашиот ангажман за извонредност.",
+
+            // Team Section
+            teamTitle: "Запознајте го Нашиот Тим",
+            teamSubtitle: "Искусни професионалци посветени на вашиот успех",
+
+            // CTA Section
+            ctaJoinTitle: "Придружете се на Нашиот Тим",
+            ctaJoinSubtitle: "Секогаш бараме талентирани професионалци да се приклучат на нашиот растечки тим",
+            viewPositions: "Погледнете Отворени Позиции",
+            contactUsCta: "Контактирајте нѐ",
+
+            values: {
+                "Results-Oriented": "Ориентираност кон Резултати",
+                "We focus on delivering measurable outcomes and tangible value to our clients": "Се фокусираме на испорака на мерливи резултати и опиплива вредност за нашите клиенти",
+                "Client-Centric": "Фокус на Клиентот",
+                "Your success is our priority. We build long-term partnerships based on trust": "Вашиот успех е наш приоритет. Градиме долгорочни партнерства засновани на доверба",
+                "Excellence": "Извонредност",
+                "We maintain the highest standards of professionalism and expertise": "Одржуваме највисоки стандарди на професионалност и експертиза",
+                "Innovation": "Иновација",
+                "We leverage the latest technologies and methodologies to drive success": "Користиме најнови технологии и методологии за да постигнеме успех"
+            },
+
+        },
+        team: {
+            title: "Нашиот тим",
+            subtitle: "Најголемиот тим на експерти",
+            description: "Нашиот разновиден тим обединува децении експертиза во финансиски консалтинг, пристап до пазари и земјоделско-прехранбена технологија. Ние сме посветени на поддршка на земјоделците и бизнисите за постигнување одржлив раст и отклучување нови можности на европските и глобалните пазари. Тука сме да бидеме ваши партнери на секој чекор од патот.",
+            cta: "Поврзете се со нашите експерти",
+        },
+        contactPage: {
+            heroTitle: "Контактирајте не",
+            heroSubtitle: "Подготвени да го подигнете вашиот бизнис на следното ниво? Контактирајте ги нашите стручни консултанти денес",
+            methodsTitle: "Како можеме да ви помогнеме?",
+            methodsSubtitle: "Изберете го најпогодниот начин за контакт со нашиот тим",
+            getDirections: "Насоки",
+            headquartersLabel: "Седиште",
+            officesTitle: "Нашите канцеларии",
+            businessHoursTitle: "Работно време",
+            dayMonFri: "Понеделник - Петок",
+            daySaturday: "Сабота",
+            daySunday: "Недела",
+            closed: "Затворено",
+            monFriHours: "08:00 - 17:00",
+            saturdayHours: "09:00 - 13:00",
+            mapIntro: "Интерактивна мапа со локациите на сите канцеларии",
+            mapClickHint: "Кликнете на било која канцеларија погоре за насоки",
+            emergencySupportTitle: "Итна поддршка:",
+            emergencySupportDesc: "За итни прашања надвор од работното време, ве молиме испратете ни е-пошта и ќе одговориме што е можно поскоро.",
+            faqsTitle: "Често поставувани прашања",
+            methods: {
+                phone: { title: "Телефонска поддршка", description: "Разговарајте директно со нашите консултанти", details: "+381 11 123 4567", availability: "Пон-Пет 8:00-17:00" },
+                email: { title: "Е-пошта поддршка", description: "Добијте детални одговори на вашите прашања", details: "info@wvpplus.rs", availability: "24/7 одговор во рок од 24 часа" },
+                inPerson: { title: "Консултации во живо", description: "Закажете состанок лице-в-лице", details: "Достапно во сите канцеларии", availability: "Само со закажување" },
+                online: { title: "Онлајн консултации", description: "Видео повици за клиенти од далечина", details: "Zoom, Teams или преферирана платформа", availability: "Флексибилно закажување" },
+            },
+            faqs: [
+                { question: "Колку трае процесот на аплицирање за IPARD?", answer: "Типичниот процес на аплицирање за IPARD трае 3-6 месеци од почетната консултација до одобрувањето на средствата, во зависност од сложеноста на вашиот проект и комплетноста на документацијата." },
+                { question: "Кои документи треба да ги подготвам за аплицирање?", answer: "Потребните документи обично вклучуваат регистрација на бизнисот, финансиски извештаи, проектна документација, еколошки дозволи и детален бизнис план. Обезбедуваме целосна листа за проверка за време на консултациите." },
+                { question: "Дали обезбедувате поддршка за бизниси надвор од Србија?", answer: "Иако нашиот примарен фокус се бизнисите во регионот, обезбедуваме консултантски услуги и за меѓународни компании кои сакаат да инвестираат или да пристапат до програмите за финансирање на ЕУ." },
+                { question: "Кои се цените за вашите консултации?", answer: "Нудиме бесплатни првични консултации за проценка на вашиот проект. Нашите такси за услуги се транспарентни и однапред договорени, обично структурирани како процент од успешно обезбедените средства." },
+            ],
+        },
+        programs: {
+            viewAllServices: "Сите услуги",
+            buttonText:"Закажете состанок",
+            services: {
+                financialConsulting: {
+                    title: "Финансиски Консалтинг",
+                    subtitle: "Кредитна дијагностика • Бизнис планирање • Структуирање на инвестиции",
+                    description:
+                        "Оптимизација на финансиското работење и креирање на робусни билансни структури. Испорачуваме целосни бизнис планови, длабинска анализа (due diligence), инвестициски програми и анализи на трошоци и придобивки прилагодени на очекувањата на инвеститорите и кредиторите.",
+                    items: [
+                        "Бизнис план",
+                        "Длабинска анализа (Due diligence)",
+                        "Инвестициска програма",
+                        "Анализа на трошоци и придобивки",
+                    ],
+                },
+                accessToFinance: {
+                    title: "Пристап до Финансии",
+                    subtitle: "Кредитни советници • Структурирано финансирање",
+                    description:
+                        "Испорачуваме кредитна дијагностика и препораки за структура за нови и постоечки инвестиции. Нашите кредитни советници ги истражуваат понудите на пазарот и препорачуваат оптимална рочност, валута, динамика и каматни аранжмани.",
+                    items: [
+                        "Банкарски кредитни производи",
+                        "Лизинг",
+                        "Факторинг",
+                        "Осигурување на побарувања",
+                        "Алтернативно финансирање",
+                    ],
+                },
+                grants: {
+                    title: "Грантови и Кофинансирање",
+                    subtitle: "Подготовка на проекти • Мониторинг на грантови",
+                    description:
+                        "Целосна подготовка и следење на апликации за грантови и кофинансирање за национални и меѓународни инструменти, вклучувајќи IPARD, IPA, GIZ, FITD и ЕУ фондови — максимизирајќи ги можностите за добивање грантови.",
+                    items: [
+                        "IPARD / IPA / GIZ",
+                        "FITD и национални програми",
+                        "ЕБРД комбинирано финансирање",
+                        "ЕУ структурни инструменти",
+                        "Потенцијал за поврат до 90%",
+                    ],
+                },
+                businessConsulting: {
+                    title: "Бизнис Консалтинг",
+                    subtitle: "Организациска дијагностика • QUINTAUM",
+                    description:
+                        "Користејќи ја методологијата QUINTAUM (210 индикатори) дијагностицираме организациска култура, благосостојба на вработените и ефективност на менаџментот, а потоа испорачуваме коучинг и програми за развој на вработените.",
+                    items: [
+                        "QUINTAUM дијагностика (210 KPI)",
+                        "Коучинг и лидерски програми",
+                        "Планови за развој на вработени",
+                        "Долгорочен организациски мониторинг",
+                    ],
+                },
+                marketing: {
+                    title: "Маркетинг и Бизнис Развој",
+                    subtitle: "Брендирање • Стратегија за раст • Дигитал",
+                    description:
+                        "Интегриран маркетинг и бизнис развој кој ја зголемува видливоста на брендот и носи мерлив раст — од истражување на пазарот и стратешко планирање до извршување на кампањи и оптимизација на ROI.",
+                    items: [
+                        "Стратешко планирање",
+                        "Истражување на пазарот",
+                        "Брендирање и идентитет",
+                        "Дигитални кампањи и аналитика",
+                    ],
+                },
+                marketAccess: {
+                    title: "Пристап до Пазари",
+                    subtitle: "Извозна стратегија • Идентификација на купувачи",
+                    description:
+                        "Поддршка за компании кои бараат нови меѓународни пазари: истражување, планирање на извозот, дигитална подготвеност, енергетски ревизии и пронаоѓање купувачи за влез на извозниот пазар со низок ризик.",
+                    items: [
+                        "Истражување на пазарот и анализа на потенцијал",
+                        "Подготвеност за дигитализација",
+                        "Ревизија на енергетска ефикасност (PiNE)",
+                        "Извозен план и наоѓање купувачи",
+                    ],
+                },
+                esg: {
+                    title: "ESG Стандардизација",
+                    subtitle: "Нефинансиско известување • Патоказ за усогласеност",
+                    description:
+                        "Дијагностика и софтверски овозможена имплементација на ESG стандарди: еколошки, социјални и управувачки метрики, мапирање на ризици и нефинансиско известување усогласено со законските барања.",
+                    items: [
+                        "ESG дијагностика и известување",
+                        "Еколошки и социјални индикатори",
+                        "Мапирање на управувањето",
+                        "Патоказ за усогласеност",
+                    ],
+                },
+            },
+        },
     },
-    hero: {
-      title: "Трансформирајте го вашиот земјоделски бизнис",
-      subtitle: "Пристап до €1.3М ИПАРД финансирање за модернизација на земјоделството и рурален развој",
-      learnMore: "Дознајте повеќе",
-      viewPrograms: "Погледнете програми",
-    },
-    achievements: {
-      title: "Наши достигнувања 2024",
-      subtitle: "Обезбедуваме исклучителни резултати за нашите клиенти во сите сектори",
-      loading: "Вчитување...",
-      error: "Не е можно да се вчитаат достигнувањата во овој момент.",
-    },
-    services: {
-      title: "Наши сеопфатни услуги",
-      subtitle: "Од ИПАРД финансирање до бизнис консалтинг, обезбедуваме целосна поддршка за вашиот раст",
-      ipardTitle: "ИПАРД програми",
-      ipardDesc: "Пристап до ЕУ финансирање до €1.3М за земјоделски инвестиции, преработувачки објекти и проекти за рурален развој.",
-      ipardFeature1: "ИПАРД I - Земјоделска инвестиција",
-      ipardFeature2: "ИПАРД II - Модернизација на преработка",
-      ipardFeature3: "ИПАРД III - Рурален туризам",
-      financialTitle: "Финансиска помош",
-      financialDesc: "Сеопфатна поддршка за производствени и туристички сектори со грантови, субвенции и поволни кредити.",
-      financialFeature1: "Програми за поддршка на производството",
-      financialFeature2: "Грантови за развој на туризмот",
-      financialFeature3: "Финансирање за промоција на извозот",
-      consultingTitle: "Бизнис консалтинг",
-      consultingDesc: "Експертско водење за микро бизниси и сеопфатни услуги за развој на бизнис планови.",
-      consultingFeature1: "Консалтинг за микро бизниси",
-      consultingFeature2: "Развој на бизнис планови",
-      consultingFeature3: "Стратешко планирање",
-      learnMore: "Дознајте повеќе",
-    },
-    clients: {
-      title: "Доверба од водечки бизниси",
-      subtitle: "Им помогнавме на стотици компании во секторите земјоделство, туризам и производство",
-    },
-    blog: {
-      title: "Најнови сознанија и приказни",
-      subtitle: "Останете информирани со нашата стручна анализа и приказни за успех на клиентите",
-      readMore: "Прочитајте повеќе",
-      viewAll: "Погледнете ги сите објави",
-      wantMore: "Сакате да прочитате повеќе?",
-      newsletterDesc: "Добивајте ги нашите најнови сознанија за ИПАРД финансирање, бизнис можности и приказни за успех директно во вашето сандаче.",
-      loading: "Вчитување...",
-      error: "Не е можно да се вчитаат објавите во овој момент.",
-    },
-    contact: {
-      title: "Подготвени сте да го развиете вашиот бизнис?",
-      subtitle: "Да разговараме за тоа како можеме да ви помогнеме да пристапите до финансирање и да ги постигнете вашите бизнис цели.",
-      phone: "Телефон",
-      email: "Е-пошта",
-      address: "Адреса",
-      formTitle: "Добијте бесплатна консултација",
-      firstName: "Име",
-      lastName: "Презиме",
-      emailLabel: "Е-пошта",
-      serviceInterest: "Интерес за услуга",
-      message: "Порака",
-      selectService: "Изберете услуга",
-      ipardPrograms: "ИПАРД програми",
-      financialAid: "Финансиска помош",
-      businessConsulting: "Бизнис консалтинг",
-      businessPlanDev: "Развој на бизнис план",
-      messagePlaceholder: "Кажете ни за вашиот проект...",
-      send: "Испрати порака",
-      sending: "Испраќање...",
-      successTitle: "Пораката е успешно испратена!",
-      successDesc: "Наскоро ќе ве контактираме.",
-      errorTitle: "Грешка при испраќање на пораката",
-      errorDesc: "Обидете се повторно подоцна.",
-    },
-    footer: {
-      tagline: "Експертско финансиско консалтинг и решенија за финансирање за секторите земјоделство, туризам и производство. Вашиот успех е наша мисија.",
-      servicesTitle: "Услуги",
-      ipard: "ИПАРД програми",
-      financialAid: "Финансиска помош",
-      consulting: "Бизнис консалтинг",
-      businessPlans: "Бизнис планови",
-      marketAccess:"",
-      GrantsAndFinancing:"",
-      companyTitle: "Компанија",
-      aboutUs: "За нас",
-      ourTeam: "Наш тим",
-      careers: "Кариери",
-      contactUs: "Контакт",
-      copyright: "© 2025 WVP Plus Consulting. Сите права се задржани.",
-      privacy: "Политика на приватност",
-      terms: "Услови на користење",
-    },
-    newsletter: {
-      title: "Останете ажурирани",
-      subtitle: "Добивајте ги најновите ИПАРД насоки и бизнис совети",
-      placeholder: "Внесете ја вашата е-пошта",
-      subscribe: "Претплатете се",
-      subscribing: "Претплаќање...",
-      successTitle: "Успешно претплатени!",
-      successDesc: "Ви благодариме што се претплативте на нашиот билтен.",
-      errorTitle: "Претплатата не успеа",
-      errorDesc: "Обидете се повторно подоцна.",
-    },
-    home: {
-      loadingContent: "Вчитување на содржина на страницата...",
-    },
-    about: {
-      heroTitle: "",
-      heroSubtitle: "",
-    },
-    team: {
-      title: "",
-      subtitle: "",
-      description: "",
-      cta: "",
-    },
-    contactPage: {
-      heroTitle: "",
-      heroSubtitle: "",
-      methodsTitle: "",
-      methodsSubtitle: "",
-      getDirections: "",
-      headquartersLabel: "",
-      officesTitle: "",
-      businessHoursTitle: "",
-      dayMonFri: "",
-      daySaturday: "",
-      daySunday: "",
-      closed: "",
-      monFriHours: "",
-      saturdayHours: "",
-      mapIntro: "",
-      mapClickHint: "",
-      emergencySupportTitle: "",
-      emergencySupportDesc: "",
-      faqsTitle: "",
-      methods: {
-        phone: { title: "", description: "", details: "", availability: "" },
-        email: { title: "", description: "", details: "", availability: "" },
-        inPerson: { title: "", description: "", details: "", availability: "" },
-        online: { title: "", description: "", details: "", availability: "" },
-      },
-      faqs: [
-        { question: "", answer: "" },
-        { question: "", answer: "" },
-        { question: "", answer: "" },
-        { question: "", answer: "" },
-      ],
-    },
-    programs: {
-      viewAllServices: "Погледнете ги сите услуги",
-      services: {
-        financialConsulting: { title: "", subtitle: "", description: "", items: ["", "", "", ""] },
-        accessToFinance: { title: "", subtitle: "", description: "", items: ["", "", "", "", ""] },
-        grants: { title: "", subtitle: "", description: "", items: ["", "", "", "", ""] },
-        businessConsulting: { title: "", subtitle: "", description: "", items: ["", "", "", ""] },
-        marketing: { title: "", subtitle: "", description: "", items: ["", "", "", ""] },
-        marketAccess: { title: "", subtitle: "", description: "", items: ["", "", "", ""] },
-        esg: { title: "", subtitle: "", description: "", items: ["", "", "", ""] },
-      },
-    },
-  },
   me: {
     nav: {
       home: "Početna",
@@ -966,11 +1319,87 @@ export const translations: Record<Language, {
     },
     home: {
       loadingContent: "Učitavanje sadržaja stranice...",
+        slide1Title: "For the clients we choose the best!",
+        slide1Subtitle: "3000 clients and counting",
+        slide2Title: "Our way of work",
+        slide2Subtitle: "Meet how we work, and learn why our aproach gives best results",
+        slide3Title: "Experts in the finance field",
+        slide3Subtitle: "Strategic business planning and financial advisory services to accelerate your growth",
     },
-    about: {
-      heroTitle: "",
-      heroSubtitle: "",
-    },
+      about: {
+          // Hero Section
+          heroTitle: "Our Company", // Placeholder for the actual content of t.about.heroTitle
+          heroSubtitle: "Dedicated to providing comprehensive financial and market access consulting.", // Placeholder for the actual content of t.about.heroSubtitle
+
+          // Company Overview
+          whoWeAreTitle: "Who We Are",
+          overviewP1: "WVP PLUS CONSULTING is part of the Austrian WVP GROUP, whose primary focus is financial consulting. Founded in 1985 in Graz, Austria, the group now operates in 10 Southeastern European countries and has been active in Macedonia since 2005.",
+          overviewP2: "Since its establishment in 2019, WVP PLUS CONSULTING has aimed to provide full financial access to Macedonian companies and citizens. Over five years, we have supported more than 3,000 clients, facilitated over €80M in loans, and secured more than €25M in grants.",
+          regionalDevTitle: "Regional Development",
+          serbiaOffice: "2022 — WVP PLUS CONSULTING LLC Serbia",
+          bosniaOffice: "2024 — WFP PLUS CONSULTING LLC Bosnia",
+          accountingOffice: "2024 — WVP ACCOUNTING LLC Macedonia (tax, accounting, auditing)",
+          whatWeOfferTitle: "What We Offer",
+
+          // What We Offer
+          accessFinanceTitle: "Access to Finance:",
+          accessFinanceList: [
+              "Banking credit products",
+              "Leasing",
+              "Factoring",
+              "Government support instruments",
+              "Non-banking financial support",
+              "Mergers & acquisitions",
+              "Equity crowdfunding",
+              "Business angels",
+              "Capital instruments",
+              "Grants / co-financing"
+          ],
+          marketAccessTitle: "Market Access:",
+          marketAccessList: [
+              "Company digitalization",
+              "Energy efficiency audit (PiNE model)",
+              "Circular economy development",
+              "Employee protection matrix",
+              "Export strategy & planning",
+              "Product design & development",
+              "Marketing strategy & branding",
+              "Financial capacity diagnostics"
+          ],
+          specialReportsTitle: "Specialized Reports:",
+          specialReportsList: [
+              "Business plans",
+              "Investment programs",
+              "Due diligence",
+              "Cost-benefit analysis"
+          ],
+          missionStatement: "Our mission is to deeply understand each company, identify its financial and market needs, and connect it with the right instruments to achieve real, measurable results. With over 25 experts, we ensure top-level consulting and long-term partnerships.",
+
+          // Company Values
+          valuesTitle: "Our Values",
+          valuesSubtitle: "The principles that drive our work and shape our commitment to excellence.",
+
+          // Team Section
+          teamTitle: "Meet Our Team",
+          teamSubtitle: "Experienced professionals dedicated to your success",
+
+          // CTA Section
+          ctaJoinTitle: "Join Our Team",
+          ctaJoinSubtitle: "We're always looking for talented professionals to join our growing team",
+          viewPositions: "View Open Positions",
+          contactUsCta: "Contact Us",
+
+          values: {
+              "Results-Oriented": "Ориентираност кон Резултати",
+              "We focus on delivering measurable outcomes and tangible value to our clients": "Се фокусираме на испорака на мерливи резултати и опиплива вредност за нашите клиенти",
+              "Client-Centric": "Фокус на Клиентот",
+              "Your success is our priority. We build long-term partnerships based on trust": "Вашиот успех е наш приоритет. Градиме долгорочни партнерства засновани на доверба",
+              "Excellence": "Извонредност",
+              "We maintain the highest standards of professionalism and expertise": "Одржуваме највисоки стандарди на професионалност и експертиза",
+              "Innovation": "Иновација",
+              "We leverage the latest technologies and methodologies to drive success": "Користиме најнови технологии и методологии за да постигнеме успех"
+          },
+      },
     team: {
       title: "",
       subtitle: "",
@@ -1012,6 +1441,7 @@ export const translations: Record<Language, {
     },
     programs: {
       viewAllServices: "Pogledaj sve usluge",
+        buttonText:"Zakazete konsultacii",
       services: {
         financialConsulting: { title: "", subtitle: "", description: "", items: ["", "", "", ""] },
         accessToFinance: { title: "", subtitle: "", description: "", items: ["", "", "", "", ""] },
@@ -1133,11 +1563,87 @@ export const translations: Record<Language, {
     },
     home: {
       loadingContent: "Učitavanje sadržaja stranice...",
+        slide1Title: "For the clients we choose the best!",
+        slide1Subtitle: "3000 clients and counting",
+        slide2Title: "Our way of work",
+        slide2Subtitle: "Meet how we work, and learn why our aproach gives best results",
+        slide3Title: "Experts in the finance field",
+        slide3Subtitle: "Strategic business planning and financial advisory services to accelerate your growth",
     },
-    about: {
-      heroTitle: "",
-      heroSubtitle: "",
-    },
+      about: {
+          // Hero Section
+          heroTitle: "Our Company", // Placeholder for the actual content of t.about.heroTitle
+          heroSubtitle: "Dedicated to providing comprehensive financial and market access consulting.", // Placeholder for the actual content of t.about.heroSubtitle
+
+          // Company Overview
+          whoWeAreTitle: "Who We Are",
+          overviewP1: "WVP PLUS CONSULTING is part of the Austrian WVP GROUP, whose primary focus is financial consulting. Founded in 1985 in Graz, Austria, the group now operates in 10 Southeastern European countries and has been active in Macedonia since 2005.",
+          overviewP2: "Since its establishment in 2019, WVP PLUS CONSULTING has aimed to provide full financial access to Macedonian companies and citizens. Over five years, we have supported more than 3,000 clients, facilitated over €80M in loans, and secured more than €25M in grants.",
+          regionalDevTitle: "Regional Development",
+          serbiaOffice: "2022 — WVP PLUS CONSULTING LLC Serbia",
+          bosniaOffice: "2024 — WFP PLUS CONSULTING LLC Bosnia",
+          accountingOffice: "2024 — WVP ACCOUNTING LLC Macedonia (tax, accounting, auditing)",
+          whatWeOfferTitle: "What We Offer",
+
+          // What We Offer
+          accessFinanceTitle: "Access to Finance:",
+          accessFinanceList: [
+              "Banking credit products",
+              "Leasing",
+              "Factoring",
+              "Government support instruments",
+              "Non-banking financial support",
+              "Mergers & acquisitions",
+              "Equity crowdfunding",
+              "Business angels",
+              "Capital instruments",
+              "Grants / co-financing"
+          ],
+          marketAccessTitle: "Market Access:",
+          marketAccessList: [
+              "Company digitalization",
+              "Energy efficiency audit (PiNE model)",
+              "Circular economy development",
+              "Employee protection matrix",
+              "Export strategy & planning",
+              "Product design & development",
+              "Marketing strategy & branding",
+              "Financial capacity diagnostics"
+          ],
+          specialReportsTitle: "Specialized Reports:",
+          specialReportsList: [
+              "Business plans",
+              "Investment programs",
+              "Due diligence",
+              "Cost-benefit analysis"
+          ],
+          missionStatement: "Our mission is to deeply understand each company, identify its financial and market needs, and connect it with the right instruments to achieve real, measurable results. With over 25 experts, we ensure top-level consulting and long-term partnerships.",
+
+          // Company Values
+          valuesTitle: "Our Values",
+          valuesSubtitle: "The principles that drive our work and shape our commitment to excellence.",
+
+          // Team Section
+          teamTitle: "Meet Our Team",
+          teamSubtitle: "Experienced professionals dedicated to your success",
+
+          // CTA Section
+          ctaJoinTitle: "Join Our Team",
+          ctaJoinSubtitle: "We're always looking for talented professionals to join our growing team",
+          viewPositions: "View Open Positions",
+          contactUsCta: "Contact Us",
+
+          values: {
+              "Results-Oriented": "Ориентираност кон Резултати",
+              "We focus on delivering measurable outcomes and tangible value to our clients": "Се фокусираме на испорака на мерливи резултати и опиплива вредност за нашите клиенти",
+              "Client-Centric": "Фокус на Клиентот",
+              "Your success is our priority. We build long-term partnerships based on trust": "Вашиот успех е наш приоритет. Градиме долгорочни партнерства засновани на доверба",
+              "Excellence": "Извонредност",
+              "We maintain the highest standards of professionalism and expertise": "Одржуваме највисоки стандарди на професионалност и експертиза",
+              "Innovation": "Иновација",
+              "We leverage the latest technologies and methodologies to drive success": "Користиме најнови технологии и методологии за да постигнеме успех"
+          },
+      },
     team: {
       title: "",
       subtitle: "",
@@ -1191,6 +1697,7 @@ export const translations: Record<Language, {
     },
     programs: {
       viewAllServices: "Pogledaj sve usluge",
+        buttonText:"",
       services: {
         financialConsulting: { title: "", subtitle: "", description: "", items: ["", "", "", ""] },
         accessToFinance: { title: "", subtitle: "", description: "", items: ["", "", "", "", ""] },
