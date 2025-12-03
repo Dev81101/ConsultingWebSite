@@ -29,7 +29,7 @@ function BlogCard({ post }: { post: BlogPost }) {
       <img 
         src={post.imageUrl} 
         alt={post.title}
-        className="w-full h-48 object-cover"
+        className="w-full h-52 object-cover"
         data-testid="blog-post-image"
       />
       <CardContent className="p-6">
@@ -37,19 +37,19 @@ function BlogCard({ post }: { post: BlogPost }) {
           <span className={`px-3 py-1 rounded-full text-sm font-medium ${categoryColorClass}`} data-testid="blog-post-category">
             {post.category}
           </span>
-          <span className="text-muted-foreground text-sm ml-3 flex items-center" data-testid="blog-post-date">
+            {/*<span className="text-muted-foreground text-sm ml-3 flex items-center" data-testid="blog-post-date">
             <Calendar className="h-4 w-4 mr-1" />
-            {new Date(post.createdAt || new Date()).toLocaleDateString('en-US', { 
-              year: 'numeric', 
-              month: 'long', 
-              day: 'numeric' 
+            {new Date(post.createdAt || new Date()).toLocaleDateString('en-US', {
+              year: 'numeric',
+              month: 'long',
+              day: 'numeric'
             })}
-          </span>
+          </span>*/}
         </div>
         <h3 className="text-xl font-semibold text-foreground mb-3 line-clamp-2" data-testid="blog-post-title">
           {post.title}
         </h3>
-        <p className="text-muted-foreground mb-4 line-clamp-3" data-testid="blog-post-excerpt">
+        <p className="text-sm text-muted-foreground mb-4 line-clamp-3" data-testid="blog-post-excerpt">
           {post.excerpt}
         </p>
         <Link href={`/${country}/blog/${post.slug}`}>
@@ -128,7 +128,7 @@ export default function BlogSection() {
           <p className="text-xl text-muted-foreground">{t.blog.subtitle}</p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-2">
           {posts?.map((post) => (
             <BlogCard key={post.id} post={post} />
           ))}
@@ -137,7 +137,7 @@ export default function BlogSection() {
         <div className="mt-16">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
             <div className="text-center lg:text-left">
-              <h3 className="text-2xl font-bold text-foreground mb-4">
+                <h3 className="text-2xl font-bold text-foreground mb-4">
                 {t.blog.wantMore}
               </h3>
               <p className="text-muted-foreground mb-6">

@@ -116,8 +116,8 @@ export default function NewsletterSubscription({
     }
 
     // Full variant
-    return (
-        <div className={`bg-muted/30 rounded-lg p-6 ${className}`}>
+    //return (
+        {/*<div className={`bg-muted/30 rounded-lg p-6 ${className}`}>
             <div className="text-center mb-4">
                 <Mail className="h-8 w-8 text-primary mx-auto mb-3" aria-hidden="true" />
                 <h3 className="text-lg font-semibold text-foreground mb-2">
@@ -157,8 +157,8 @@ export default function NewsletterSubscription({
 
             <p className="text-xs text-muted-foreground text-center mt-3">
                 We respect your privacy. Unsubscribe at any time.
-                {/* Optional: translate this later via t?.newsletter?.privacyNote */}
+                {/* Optional: translate this later via t?.newsletter?.privacyNote
             </p>
-        </div>
-    );
+        </div> */}
+    //);
 }

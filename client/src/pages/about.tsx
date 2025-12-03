@@ -5,16 +5,15 @@ import { Users, Target, Award, TrendingUp, CheckCircle, Star, Globe, Calendar } 
 import { motion } from "framer-motion";
 import { useLanguage } from "@/lib/language-context";
 import { useTranslations } from "@/lib/translations";
-// --- TYPE FIX START ---
-// Define a temporary type for the values object with an index signature
-// to suppress the TS7053 error when accessing properties via string variables.
+
 type TranslatableValues = {
     [key: string]: string;
 };
-// --- TYPE FIX END ---
 
+// ... (teamMembers and companyValues arrays remain unchanged) ...
 
 const teamMembers = [
+    // ... (content remains unchanged)
     {
         name: "Martin Dimitrievski",
         position: "CEO & Co-Founder",
@@ -39,6 +38,7 @@ const teamMembers = [
 ];
 
 const companyValues = [
+    // ... (content remains unchanged)
     {
         icon: Target,
         titleKey: "Results-Oriented", // Key for the title
@@ -65,36 +65,46 @@ export default function About() {
     const { language } = useLanguage();
     const t = useTranslations()[language];
 
-    // Assert the values object to the defined indexable type
-    // This resolves the TS7053 error without needing to modify external files.
     const translatedValues = t.about.values as TranslatableValues;
 
     return (
-        <div className="pt-16 min-h-screen bg-background" data-testid="about-page">
-            {/* Hero Section */}
-            <section className="py-20 bg-gradient-to-r from-primary/10 to-chart-2/10">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="text-center">
-                        <h1 className="text-4xl lg:text-5xl font-bold text-foreground mb-6">
-                            {t.about.heroTitle}
-                        </h1>
-                        <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-                            {t.about.heroSubtitle}
-                        </p>
-                    </div>
+        // 💡 FIX: Removed pt-16 from the parent div
+        <div className="min-h-screen bg-background" data-testid="about-page">
+
+            {/* MODIFIED HERO SECTION: Image Background with Text Overlay */}
+            {/* 💡 FIX: Added pt-16 to the section to push it below the fixed navigation bar */}
+            <section className="relative w-full h-[25rem] md:h-[35rem] overflow-hidden border-b **pt-16**">
+
+                {/* 1. Image (Background) */}
+                <img
+                    src="../images/AboutHeader.jpg"
+                    alt="WVP PLUS CONSULTING Team"
+                    className="absolute inset-0 w-full h-full object-cover"
+                />
+
+                {/* 2. Dark Overlay for Contrast */}
+                <div className="absolute inset-0 bg-black/50"></div>
+
+                {/* 3. Text Content (Overlay) - Centered */}
+                <div className="absolute inset-0 flex flex-col justify-center items-center max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                    <h1 className="text-4xl lg:text-6xl font-extrabold text-white mb-6 drop-shadow-lg">
+                        {t.about.heroTitle}
+                    </h1>
+                    <p className="text-xl text-gray-200 max-w-3xl mx-auto drop-shadow">
+                        {t.about.heroSubtitle}
+                    </p>
                 </div>
             </section>
+            {/* END MODIFIED HERO SECTION */}
 
-            {/* Company Overview */}
+            {/* Company Overview (rest of the content follows normally) */}
             <section className="py-20 bg-background">
                 {/* MAIN CENTERED WRAPPER */}
                 <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-
-                    {/* LEFT CONTENT ONLY */}
+                    {/* ... (content remains unchanged) ... */}
                     <div>
                         <h2 className="text-4xl font-bold text-foreground mb-6">{t.about.whoWeAreTitle}</h2>
 
-                        {/* Note: Embedding <strong> tags within the translation string is common practice for styling key terms */}
                         <p
                             className="text-lg text-muted-foreground leading-relaxed mb-6"
                             dangerouslySetInnerHTML={{
@@ -124,8 +134,9 @@ export default function About() {
                     </div>
                 </div>
 
-                {/* 🔴 FULL-WIDTH RED SECTION */}
+                {/* FULL-WIDTH RED SECTION */}
                 <div className="w-full bg-primary mt-12 py-12">
+                    {/* ... (content remains unchanged) ... */}
                     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
 
                         <h3 className="text-2xl font-bold text-white mb-6">{t.about.whatWeOfferTitle}</h3>
@@ -181,9 +192,9 @@ export default function About() {
 
             </section>
 
-            {/* Company Values */}
+            {/* Company Values (rest of the content remains unchanged) */}
             <section className="py-24 bg-card relative overflow-hidden">
-                {/* Subtle gradient glow */}
+                {/* ... (content remains unchanged) ... */}
                 <div className="absolute inset-0 -z-10 bg-gradient-to-br from-primary/5 via-transparent to-primary/10" />
 
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -230,13 +241,11 @@ export default function About() {
                                             className="text-2xl font-semibold text-foreground mb-4 group-hover:text-primary transition-colors"
                                             data-testid="value-title"
                                         >
-                                            {/* Access using the type-asserted variable */}
                                             {translatedValues[value.titleKey] || value.titleKey}
                                         </h3>
 
                                         {/* DESCRIPTION */}
                                         <p className="text-muted-foreground leading-relaxed" data-testid="value-description">
-                                            {/* Access using the type-asserted variable */}
                                             {translatedValues[value.descriptionKey] || value.descriptionKey}
                                         </p>
                                     </CardContent>
@@ -249,6 +258,7 @@ export default function About() {
 
             {/* Our Team */}
             <section className="py-20" id="team" data-testid="team-section">
+                {/* ... (content remains unchanged) ... */}
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="text-center mb-16">
                         <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">{t.about.teamTitle}</h2>
@@ -284,6 +294,7 @@ export default function About() {
 
             {/* CTA Section */}
             <section className="py-20 bg-primary text-primary-foreground" id="careers">
+                {/* ... (content remains unchanged) ... */}
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
                     <h2 className="text-3xl lg:text-4xl font-bold mb-6">{t.about.ctaJoinTitle}</h2>
                     <p className="text-xl mb-8 opacity-90">

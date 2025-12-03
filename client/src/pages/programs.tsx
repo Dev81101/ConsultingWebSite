@@ -9,18 +9,17 @@ import {
     ChartNetwork,
     ChartLine,
     Globe,
-    ReceiptEuroIcon,
-    Footprints, // New icon for steps
-    CheckCheck, // Another icon option for final step
-    Trophy, // Another icon option for final step
+    ReceiptEuroIcon, NetworkIcon,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/lib/language-context";
 import { useTranslations } from "@/lib/translations";
+import {Treemap} from "recharts";
 
-/* -------------------------
+/* ---------------------------------
     Data (compact & editable)
-    ------------------------- */
+---------------------------------- */
+
 type Service = {
     id: string;
     title: string;
@@ -36,7 +35,6 @@ function useServicesData(): Service[] {
     const t = useTranslations()[language];
     const p = t?.programs?.services || {};
 
-    // Fallback to English structure if needed
     const fallback = {
         title: "Service",
         subtitle: "",
@@ -44,6 +42,7 @@ function useServicesData(): Service[] {
         items: [],
     };
 
+    // Mock data structure (your provided data)
     return [
         {
             id: "financial-consulting",
@@ -106,14 +105,16 @@ function useServicesData(): Service[] {
             imageUrl: "../images/ESG.jpg",
             description: p.esg?.description || fallback.description,
             items: p.esg?.items || fallback.items,
-            icon: Target,
+            icon: NetworkIcon,
         },
     ];
 }
 
-/* -------------------------
-    Alternating Service Block
-    ------------------------- */
+
+/* ---------------------------------
+    Alternating Service Block (clean)
+---------------------------------- */
+
 function AlternatingServiceBlock({
                                      service,
                                      reversed,
@@ -127,34 +128,23 @@ function AlternatingServiceBlock({
         ? "lg:grid-cols-[1fr_400px] lg:flex-row-reverse"
         : "lg:grid-cols-[400px_1fr]";
 
-    const backgroundGradientStyle = {
-        background: `radial-gradient(at top ${reversed ? "right" : "left"}, rgba(255, 0, 0, 0.1) 20%, white 80%)`,
-        backgroundSize: "100% 100%",
-        backgroundRepeat: "no-repeat",
-    };
-
-    const { language } = useLanguage();
-    const t = useTranslations()[language];
-    const safeT = t || useTranslations().en;
-
     return (
         <motion.section
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.45 }}
-            className="py-16 overflow-hidden relative shadow-md bg-card mb-1"
-            style={{ ...backgroundGradientStyle, backgroundColor: "white" }}
+            className="py-16 overflow-hidden relative bg-white border-b"
         >
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className={`grid grid-cols-1 ${layoutClasses} gap-8 items-start`}>
+                <div className={`grid grid-cols-1 ${layoutClasses} gap-16 items-start`}>
                     <div
                         className={`relative hidden lg:flex ${
                             reversed ? "order-2 justify-end" : "order-1 justify-start"
                         }`}
                     >
                         <div
-                            className={`w-[50em] h-[25em] overflow-hidden rounded-3xl shadow-xl bg-white border border-border/30 transition-transform duration-500 ${
+                            className={`w-[50em] h-[25em] overflow-hidden rounded-2xl shadow-xl bg-white border transition-transform duration-500 ${
                                 reversed ? "lg:-translate-x-6" : "lg:translate-x-6"
                             } hover:scale-[1.02]`}
                         >
@@ -168,36 +158,30 @@ function AlternatingServiceBlock({
 
                     <div className={`pt-12 md:pt-0 ${reversed ? "lg:order-1" : "lg:order-2"}`}>
                         <h3 className="text-4xl font-bold text-foreground">{service.title}</h3>
+
                         <div className="flex items-center space-x-3 mt-2 mb-6">
                             <Icon className="w-6 h-6 text-primary" />
                             {service.subtitle && (
-                                <p className="text-md text-primary font-medium">{service.subtitle}</p>
+                                <p className="text-md text-primary font-medium">
+                                    {service.subtitle}
+                                </p>
                             )}
                         </div>
-                        <p className="text-base text-muted-foreground leading-relaxed max-w-3xl">
+
+                        <p className="text-base text-muted-foreground leading-relaxed max-w-3xl mb-6">
                             {service.description}
                         </p>
 
+                        {/* Bullet Items */}
                         {service.items && service.items.length > 0 && (
-                            <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-y-4 gap-x-8 text-base">
+                            <ul className="list-disc ml-6 space-y-2 text-muted-foreground">
                                 {service.items.map((it, i) => (
-                                    <div key={i} className="flex items-start gap-3 text-muted-foreground font-medium">
-                                        <div className="w-2 h-2 rounded-full mt-2 bg-primary/80 flex-shrink-0" />
-                                        <div>{it}</div>
-                                    </div>
+                                    <li key={i} className="font-medium">
+                                        {it}
+                                    </li>
                                 ))}
-                            </div>
+                            </ul>
                         )}
-
-                        <div className="mt-8">
-                            <Button
-                                size="lg"
-                                onClick={() => (window.location.href = "/mk/contact")}
-                                className="bg-primary hover:bg-primary/90 text-primary-foreground"
-                            >
-                                {t.programs?.buttonText || "Schedule Consultation"}
-                            </Button>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -205,88 +189,62 @@ function AlternatingServiceBlock({
     );
 }
 
+/* ---------------------------------
+    Floating CTA Button (right-center)
+---------------------------------- */
 
-/* -------------------------
-    Cooperation Steps Component
-    ------------------------- */
-function CooperationSteps() {
-    // Define steps data
-    const steps = [
-        {
-            stepNumber: "01",
-            title: "Creating a work and progress plan",
-            description: "Tailored to the individual, specific needs of the company on the market.",
-            icon: Footprints,
-        },
-        {
-            stepNumber: "02",
-            title: "Creating a development plan",
-            description: "Ensuring sustainable advantage and added value for your business model.",
-            icon: ChartLine,
-        },
-        {
-            stepNumber: "03",
-            title: "Achieving your business goals and expectations",
-            description: "By creating a successful and recognizable company, branding, and visibility.",
-            icon: Trophy,
-        },
+function FloatingCTA() {
+    const { language } = useLanguage();
+    const t = useTranslations()[language] || useTranslations().en;
+
+    // --- 1. Get Text & Number ---
+    const buttonTextSource = t.programs?.flaotingButton?.toUpperCase() || "Book Consultation";
+    const floatingNumber = t.programs?.floatingNumber || "+389 7X XXX XXX"; // Fallback for the number
+
+    // --- 2. Process Button Text for Line Breaks (\n) ---
+    // Split the text by the newline character (\n) and map to JSX fragments.
+    const buttonLines = buttonTextSource.split('\n').map((line, index, array) => (
+        <React.Fragment key={`text-${index}`}>
+            {line}
+            {/* Add <br /> only if it's not the last line of the button text */}
+            {index < array.length - 1 && <br />}
+        </React.Fragment>
+    ));
+
+    // --- 3. Construct the Full Button Content Array ---
+    const fullContent = [
+        ...buttonLines,
+
+        // 4. INSERT THE SMALL WHITE HORIZONTAL DIVIDER
+        <div
+            key="divider"
+            className="w-1/3 h-px my-1 bg-white mx-auto" // mx-auto centers the line
+        />,
+
+        // 5. Add the Floating Number
+        <span key="number" className="text-sm font-light tracking-wider">
+            {floatingNumber}
+        </span>
     ];
 
     return (
-        <section className="bg-primary text-primary-foreground py-20 relative overflow-hidden">
-            {/* Background elements for visual appeal */}
-            <div className="absolute top-0 left-0 w-full h-full opacity-10 bg-repeat-x" style={{
-                backgroundImage: 'url("data:image/svg+xml,%3Csvg width=\'100\' height=\'100\' viewBox=\'0 0 100 100\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cpath d=\'M25 50L50 75L75 50L50 25Z\' fill=\'%23ffffff\' opacity=\'0.1\'/%3E%3C/svg%3E")',
-                backgroundSize: '300px 300px',
-            }}></div>
-
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-                <h2 className="text-4xl font-extrabold text-center mb-16 uppercase tracking-wider">
-                    YOUR SUPPORT EVERY STEP OF THE WAY
-                </h2>
-
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-                    {steps.map((step, index) => (
-                        <motion.div
-                            key={index}
-                            initial={{ opacity: 0, y: 50 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true, amount: 0.5 }}
-                            transition={{ duration: 0.5, delay: index * 0.15 }}
-                            className="text-center p-6 bg-white/10 rounded-xl shadow-lg hover:bg-white/20 transition duration-300 backdrop-blur-sm border border-white/20"
-                        >
-                            <div className="flex items-center justify-center mb-4">
-                                <div className="text-5xl font-black text-white opacity-70 leading-none mr-3">
-                                    {step.stepNumber}
-                                </div>
-                                <div className="text-xl font-semibold text-white uppercase tracking-wider border-l-2 border-white/50 pl-3">
-                                    STEP
-                                </div>
-                            </div>
-
-                            <h3 className="text-2xl font-bold mb-3 text-white">
-                                {step.title}
-                            </h3>
-                            <p className="text-lg text-white/90">
-                                {step.description}
-                            </p>
-
-                            {/* Optional: Icon at the bottom */}
-                            <div className="mt-4">
-                                <step.icon className="w-8 h-8 mx-auto text-white/80" />
-                            </div>
-                        </motion.div>
-                    ))}
-                </div>
-            </div>
-        </section>
+        <Button
+            onClick={() => (window.location.href = "/mk/contact")}
+            // Ensure the button is tall (h-24), has centered content (flex-col items-center),
+            // and the text alignment is centered by default.
+            className="fixed right-6 top-1/2 -translate-y-1/2 bg-primary hover:bg-foreground h-[10rem] text-white shadow-xl px-6 py-4 rounded-2xl z-50 flex flex-col items-center justify-center text-left"
+        >
+            {/* Render the full content array */}
+            {fullContent}
+        </Button>
     );
 }
 
 
-/* -------------------------
-    Services Page
-    ------------------------- */
+/* ---------------------------------
+    Services Page - TEXT OVERLAY
+---------------------------------- */
+
 export default function ServicesPage() {
     const { language } = useLanguage();
     const translations = useTranslations();
@@ -295,63 +253,41 @@ export default function ServicesPage() {
     const SERVICES = useServicesData();
 
     return (
-        <main className="bg-background min-h-screen text-foreground">
-            {/* HERO */}
-            <section className="py-20 border-b">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                    <h1 className="text-4xl md:text-6xl font-extrabold mb-4">
+        <main className="bg-background min-h-screen text-foreground relative">
+            {/* 💡 HERO - Image with Text Overlay (Header) */}
+            <section className="relative w-full h-[25rem] md:h-[35rem] overflow-hidden border-b">
+
+                {/* 1. Image (Background) */}
+                <img
+                    src="../images/HeaderPrograms.png"
+                    className="absolute inset-0 w-full h-full object-cover"
+                    alt="Background header image for Services & Programs"
+                />
+
+                {/* Optional: Darken Overlay for better text contrast */}
+                <div className="absolute inset-0 bg-black/40"></div>
+
+                {/* 2. Text Content (Overlay) */}
+                <div className="absolute inset-0 flex flex-col justify-center items-center max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                    <h1 className="text-4xl md:text-6xl font-extrabold mb-4 text-white drop-shadow-lg">
                         {t.nav?.programs || "Services & Programs"}
                     </h1>
-                    <p className="text-xl text-muted-foreground max-w-4xl mx-auto">
+                    <p className="text-xl text-white drop-shadow max-w-4xl mx-auto">
                         {t.services?.subtitle ||
-                            "We offer custom-made solutions tailored to the specific needs of our clients. Our approach is based on a comprehensive understanding of your business model, development objectives and investment strategy — aligned to deliver measurable growth and long-term value."}
+                            "We offer custom-made solutions tailored to the specific needs of our clients."}
                     </p>
-
-                    <div className="mt-10 flex justify-center gap-6">
-                        <Button
-                            className="h-12 px-8 text-base bg-primary hover:bg-primary/90 text-primary-foreground"
-                            onClick={() => (window.location.href = "/mk/contact")}
-                        >
-                            {t.programs?.buttonText || "Schedule a Consultation"}
-                        </Button>
-                    </div>
                 </div>
             </section>
 
-            {/* New Cooperation Steps Section */}
-            {/*<CooperationSteps />*/}
-
-            {/* Services list */}
-            <section className="py-20">
-                <div className="px-0">
-                    {SERVICES.map((s, idx) => (
-                        <AlternatingServiceBlock key={s.id} service={s} reversed={idx % 2 === 1} />
-                    ))}
-                </div>
+            {/* Services List */}
+            <section className="py-0.5">
+                {SERVICES.map((s, idx) => (
+                    <AlternatingServiceBlock key={s.id} service={s} reversed={idx % 2 === 1} />
+                ))}
             </section>
 
-            {/* CTA */}
-            <section className="py-20 bg-muted/5 border-t">
-                <div className="max-w-4xl mx-auto px-4 text-center">
-                    <h2 className="text-3xl font-bold mb-4">
-                        {t.contact?.title || "Ready to take the next step?"}
-                    </h2>
-                    <p className="text-lg text-muted-foreground mb-8">
-                        {t.contact?.subtitle ||
-                            "Book a consultation and let our experts design a structured plan for your company."}
-                    </p>
-                    <div className="flex justify-center gap-6">
-                        <Button
-                            size="lg"
-                            className="h-12 px-8 text-base bg-primary hover:bg-primary/90 text-primary-foreground"
-                            onClick={() => (window.location.href = "/mk/contact")}
-                        >
-                            {t.programs?.buttonText || "Book Consultation"}
-                        </Button>
-
-                    </div>
-                </div>
-            </section>
+            {/* Floating CTA */}
+            <FloatingCTA />
         </main>
     );
 }

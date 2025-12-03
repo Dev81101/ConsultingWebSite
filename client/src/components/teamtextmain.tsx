@@ -13,7 +13,7 @@ export default function TeamTextMain() {
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
                     <div className="order-2 lg:order-1 space-y-8 flex flex-col justify-center">
                         {t.team.title && (
-                            <span className="text-sm font-semibold uppercase tracking-wider text-green-600 dark:text-green-400">
+                            <span className="text-sm font-semibold uppercase tracking-wider text-primary dark:text-priamry">
                                 {t.team.title.toUpperCase()}
                             </span>
                         )}
@@ -31,7 +31,7 @@ export default function TeamTextMain() {
                                 href="#contact"
                                 className="inline-flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-lg text-white bg-red-700 hover:bg-red-800 transition duration-150 ease-in-out shadow-lg transform hover:scale-[1.02]"
                             >
-                                {t.team.cta}
+                                {t.programs.buttonText}
                             </a>
                         </div>
                     </div>

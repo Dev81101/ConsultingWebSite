@@ -1,174 +1,137 @@
+// Premium Redesigned Services Section
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import {
-    CheckCircle,
-    Landmark,
-    DollarSign,
-    Briefcase,
-    Ruler,
-    Globe,
-    PiggyBank,
+    HandCoins,
+    EuroIcon,
     ChartLine,
-    HandshakeIcon, ChartNetwork, ReceiptEuroIcon, HandCoins, EuroIcon
+    ChartNetwork,
+    Globe,
+    ReceiptEuroIcon,
+    ArrowRight // Added for the button/link
 } from "lucide-react";
-// Assuming these imports are correctly set up for your project
-// import { useLanguage } from "@/lib/language-context";
-// import { useTranslations } from "@/lib/translations";
 import { BorderBeam } from "@/components/ui/border-beam";
 import { useLanguage } from "@/lib/language-context";
 import { useTranslations } from "@/lib/translations";
 
-// Use global translations instead of local hardcoded strings
-
-interface Service {
-    title: string;
-    description: string;
-    icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
-    features: string[];
-    color: string;
-    gradientFrom: string;
-    gradientTo: string;
-}
-
 export default function ServicesSection() {
     const { language } = useLanguage();
+    // Assuming t.programs.services, t.services.title, and t.services.learnMore are defined
     const t = useTranslations()[language];
     const p = t.programs.services;
 
-    // Main Services with Detailed Cards - using updated icons and translations
-    const mainServices: Service[] = [
+    const mainServices = [
         {
             title: p.financialConsulting.title,
             description: p.financialConsulting.description,
             icon: HandCoins,
-            features: p.financialConsulting.items,
             color: "text-red-700",
-            gradientFrom: "#000000",
-            gradientTo: "#000000"
+            gradientFrom: "#bf0d0d", // Used a more visible red for the beam on light background
+            gradientTo: "#bf0d0d",
         },
         {
             title: p.accessToFinance.title,
             description: p.accessToFinance.description,
             icon: EuroIcon,
-            features: p.accessToFinance.items,
             color: "text-red-700",
-            gradientFrom: "#bf0d0d",
-            gradientTo: "#bf0d0d"
+            gradientFrom: "#000000",
+            gradientTo: "#000000",
         },
         {
             title: p.businessConsulting.title,
             description: p.businessConsulting.description,
             icon: ChartLine,
-            features: p.businessConsulting.items,
             color: "text-red-700",
-            gradientFrom: "#000000",
-            gradientTo: "#000000"
+            gradientFrom: "#bf0d0d",
+            gradientTo: "#bf0d0d",
         },
         {
             title: p.marketing.title,
             description: p.marketing.description,
             icon: ChartNetwork,
-            features: p.marketing.items,
             color: "text-red-700",
-            gradientFrom: "#bf0d0d",
-            gradientTo: "#bf0d0d"
+            gradientFrom: "#000000",
+            gradientTo: "#000000",
         },
         {
             title: p.marketAccess.title,
             description: p.marketAccess.description,
             icon: Globe,
-            features: p.marketAccess.items,
             color: "text-red-700",
-            gradientFrom: "#000000",
-            gradientTo: "#000000"
+            gradientFrom: "#bf0d0d",
+            gradientTo: "#bf0d0d",
         },
         {
             title: p.grants.title,
             description: p.grants.description,
             icon: ReceiptEuroIcon,
-            features: p.grants.items,
             color: "text-red-700",
-            gradientFrom: "#bf0d0d",
-            gradientTo: "#bf0d0d"
-        }
+            gradientFrom: "#000000",
+            gradientTo: "#000000",
+        },
     ];
 
     return (
-        <section className="py-20 bg-gray-50" id="services" data-testid="services-section">
+        <section className="py-24 bg-neutral-100" id="services">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
                 <div className="text-center mb-16">
-                    <h2 className="text-4xl lg:text-5xl font-extrabold text-gray-900 mb-4 tracking-tight">
+                    <h2 className="text-4xl lg:text-5xl font-extrabold text-gray-900 tracking-tight">
                         {t.services.title}
                     </h2>
-                    <p className="text-xl text-gray-600">
-                        {t.services.subtitle}
-                    </p>
                 </div>
 
-                {/* Main Services Grid (Detailed Cards) */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+                {/* 6-column premium layout */}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-4">
                     {mainServices.map((service, index) => (
-                        <div
-                            key={`main-${index}`}
-                            data-testid={`service-card-${service.title.toUpperCase().replace(/\s+/g, '-')}`}
+                        <Card
+                            key={index}
+                            // Increased height and added min-height for robust layout
+                            className="relative overflow-hidden rounded-xl bg-white border border-gray-200 shadow-lg hover:shadow-red-200/50 transition-all duration-500 w-full h-full min-h-[300px] group"
                         >
-                            {/* Card as the positioning context for the animated border */}
-                            <Card className="relative overflow-hidden rounded-xl bg-white border border-gray-200 hover:shadow-lg transition-all duration-300 h-full group">
-                                {/* Border Beam placed inside the card so it renders over the card background but under content */}
-                                <BorderBeam
-                                    lightWidth={250}
-                                    duration={8}
-                                    lightColor={service.gradientFrom}
-                                    borderWidth={2}
-                                    className="pointer-events-none z-0"
-                                />
+                            {/* Border Beam: Light gradient effect on hover or subtle animation */}
+                            <BorderBeam
+                                lightWidth={280}
+                                duration={30}
+                                lightColor={service.gradientFrom}
+                                borderWidth={1}
+                                className="pointer-events-none z-0"
+                            />
 
-                                {/* Card Content (ensure content appears above BorderBeam) */}
-                                <CardContent className="relative z-10 p-8">
+                            <CardContent
+                                // Added flex structure to push the button to the bottom
+                                className="relative z-10 p-6 sm:p-8 flex flex-col h-full"
+                            >
+                                {/* Icon */}
+                                <div className="flex items-start mb-6">
+                                    <service.icon
+                                        className={`w-12 h-12 ${service.color} transition-transform duration-300 group-hover:scale-110`}
+                                        strokeWidth={1.2}
+                                    />
+                                </div>
 
-                                    {/* ICON CONTAINER: Large, absolute, and partially cut-off */}
-                                    <div
-                                        className={`absolute -top-14 -left-14 w-40 h-40 flex items-center justify-center`}
-                                    >
-                                        <service.icon
-                                            className={`h-full w-full ${service.color}`}
-                                            aria-hidden="true"
-                                            strokeWidth={1.0} // Thinner line weight
-                                        />
-                                    </div>
+                                {/* Title */}
+                                <h3 className="text-2xl font-bold mt-6 text-gray-900 tracking-wide leading-snug mb-2">
+                                    {service.title.toUpperCase()}
+                                </h3>
 
-                                    {/* Title and Content */}
-                                    <h3
-                                        className="text-2xl font-bold text-gray-900 mb-4 tracking-wide pt-24" // pt-24 ensures text is below the icon
-                                        data-testid="service-title"
-                                    >
-                                        {service.title.toUpperCase()}
-                                    </h3>
+                                {/* Description (New Addition to fill space)
+                                <p className="text-sm text-gray-600 mb-6 flex-grow">
+                                    {service.description}
+                                </p>*/}
 
-                                    {/* <p className="text-gray-600 mb-4">{service.description}</p> */}
-
-                                    {/* Features List
-                                    <ul className="space-y-2 mb-6 text-gray-600">
-                                        {service.features.map((feature, featIndex) => (
-                                            <li key={featIndex} className="flex items-start">
-                                                <CheckCircle className="h-5 w-5 text-green-500 mr-2 flex-shrink-0" />
-                                                <span>{feature}</span>
-                                            </li>
-                                        ))}
-                                    </ul> */}
-
-                                    {/*}
+                                {/* Learn More Link at the bottom */}
+                                <a href="/programs" className="mt-auto">
                                     <Button
                                         variant="link"
-                                        className="text-primary hover:text-primary/80 p-0 h-auto font-bold text-lg"
-                                        data-testid="service-learn-more"
+                                        className="text-red-700 hover:text-red-600 p-0 h-auto font-semibold text-sm justify-start"
                                     >
                                         {t.services.learnMore}
+                                        <ArrowRight className="ml-1 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
                                     </Button>
-                                    */}
-                                </CardContent>
-                            </Card>
-                        </div>
+                                </a>
+                            </CardContent>
+                        </Card>
                     ))}
                 </div>
             </div>

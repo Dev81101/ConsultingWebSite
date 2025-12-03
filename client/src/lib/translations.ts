@@ -191,6 +191,8 @@ export const translations: Record<Language, {
   };
   programs: {
     viewAllServices: string;
+    floatingNumber: string;
+        flaotingButton: string;
     buttonText:string;
     services: {
       financialConsulting: {
@@ -241,7 +243,7 @@ export const translations: Record<Language, {
   sr: {
     nav: {
       home: "Почетна",
-      programs: "Програми",
+      programs: "Услуги",
       blog: "Совети",
       about: "О нама",
       contact: "Контакт",
@@ -470,6 +472,8 @@ export const translations: Record<Language, {
     },
     programs: {
       viewAllServices: "Погледај све услуге",
+        floatingNumber:"+389 78 348 860",
+        flaotingButton:"Закажете \n  консултације",
         buttonText:"Закажете консултације",
       services: {
         financialConsulting: {
@@ -564,7 +568,7 @@ export const translations: Record<Language, {
   en: {
     nav: {
       home: "Home",
-      programs: "Programs",
+      programs: "Services",
       blog: "Financial Advices",
       about: "About Us",
       contact: "Contact",
@@ -584,7 +588,7 @@ export const translations: Record<Language, {
     services: {
 
       title: "Our Comprehensive Services",
-      subtitle: "From IPARD funding to business consulting, we provide end-to-end support for your growth journey",
+      subtitle: "From Access to Finance to Marketing & Business Development, we provide end-to-end support for your growth journey",
       ipardTitle: "Financial Consulting",
       ipardDesc: "Access EU funding up to €1.3M for agricultural investments, processing facilities, and rural development projects.",
       ipardFeature1: "IPARD I - Agricultural Investment",
@@ -794,6 +798,9 @@ export const translations: Record<Language, {
     },
     programs: {
       viewAllServices: "View All Services",
+        floatingNumber:"+389 78 348 860",
+        flaotingButton:"Scheldue \n  Consultation \n Now !",
+       
       buttonText:"Scheldue Consultation",
       services: {
         financialConsulting: {
@@ -888,7 +895,7 @@ export const translations: Record<Language, {
     mk: {
         nav: {
             home: "Почетна",
-            programs: "Програми",
+            programs: "Услуги",
             blog: "Финансиски Совети",
             about: "За нас",
             contact: "Контакт",
@@ -1104,7 +1111,7 @@ export const translations: Record<Language, {
             emergencySupportDesc: "За итни прашања надвор од работното време, ве молиме испратете ни е-пошта и ќе одговориме што е можно поскоро.",
             faqsTitle: "Често поставувани прашања",
             methods: {
-                phone: { title: "Телефонска поддршка", description: "Разговарајте директно со нашите консултанти", details: "+381 11 123 4567", availability: "Пон-Пет 8:00-17:00" },
+                phone: { title: "Телефонска поддршка", description: "Разговарајте директно со нашите консултанти", details: "+389 78 348 860", availability: "Пон-Пет 8:00-17:00" },
                 email: { title: "Е-пошта поддршка", description: "Добијте детални одговори на вашите прашања", details: "info@wvpplus.rs", availability: "24/7 одговор во рок од 24 часа" },
                 inPerson: { title: "Консултации во живо", description: "Закажете состанок лице-в-лице", details: "Достапно во сите канцеларии", availability: "Само со закажување" },
                 online: { title: "Онлајн консултации", description: "Видео повици за клиенти од далечина", details: "Zoom, Teams или преферирана платформа", availability: "Флексибилно закажување" },
@@ -1118,6 +1125,8 @@ export const translations: Record<Language, {
         },
         programs: {
             viewAllServices: "Сите услуги",
+            floatingNumber:"+389 78 348 860",
+        flaotingButton:"Закажете \n состанок \n сега",
             buttonText:"Закажете состанок",
             services: {
                 financialConsulting: {
@@ -1441,6 +1450,8 @@ export const translations: Record<Language, {
     },
     programs: {
       viewAllServices: "Pogledaj sve usluge",
+        floatingNumber:"+389 78 348 860",
+        flaotingButton:"Закажете \n  консултације",
         buttonText:"Zakazete konsultacii",
       services: {
         financialConsulting: { title: "", subtitle: "", description: "", items: ["", "", "", ""] },
@@ -1697,6 +1708,8 @@ export const translations: Record<Language, {
     },
     programs: {
       viewAllServices: "Pogledaj sve usluge",
+        floatingNumber:"+389 78 348 860",
+        flaotingButton:"Закажете \n  консултације",
         buttonText:"",
       services: {
         financialConsulting: { title: "", subtitle: "", description: "", items: ["", "", "", ""] },

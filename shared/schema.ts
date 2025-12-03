@@ -79,7 +79,7 @@ export const contactSubmissions = pgTable("contact_submissions", {
 export const achievements = pgTable("achievements", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
   label: text("label").notNull(),
-  value: integer("value").notNull(),
+  value: integer("value"),
   description: text("description").notNull(),
   icon: text("icon").notNull(),
   order: integer("order").notNull().default(0),

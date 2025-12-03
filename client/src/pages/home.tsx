@@ -36,7 +36,7 @@ export default function Home() {
         </div>
         <AchievementCounters />
         <BlogSection />
-        <ContactSection />
+          {/*<ContactSection />*/}
       </div>
     );
   }
@@ -59,7 +59,7 @@ export default function Home() {
       <TeamTextMain />
 
       <BlogSection />
-      <ContactSection />
+        {/*<ContactSection />*/}
     </div>
 
   );

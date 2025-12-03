@@ -20,7 +20,7 @@ export interface IStorage {
   createContactSubmission(submission: InsertContactSubmission): Promise<ContactSubmission>;
   
   getAchievements(): Promise<Achievement[]>;
-  createAchievement(achievement: InsertAchievement): Promise<Achievement>;
+ // createAchievement(achievement: InsertAchievement): Promise<Achievement>;
   
   createNewsletterSubscription(subscription: InsertNewsletterSubscription): Promise<NewsletterSubscription>;
   getNewsletterSubscription(email: string): Promise<NewsletterSubscription | undefined>;
@@ -71,13 +71,21 @@ export class HybridStorage implements IStorage {
 
     // Seed achievements
     const achievementsData = [
-      {
+        {
+            id: randomUUID(),
+            label: "",
+            value: null,
+            description: "",
+            icon: "",
+            order: 1,
+        },
+        {
         id: randomUUID(),
         label: "Successful Projects",
         value: 3000,
         description: "Projects completed",
         icon: "fas fa-project-diagram",
-        order: 1,
+        order: 2,
       },
       {
         id: randomUUID(),
@@ -85,7 +93,7 @@ export class HybridStorage implements IStorage {
         value: 25,
         description: "Secured in grants",
         icon: "fas fa-euro-sign",
-        order: 2,
+        order: 3,
       },
       {
           id: randomUUID(),
@@ -93,15 +101,7 @@ export class HybridStorage implements IStorage {
           value: 80,
           description: "Secured in credits",
           icon: "fas fa-euro-sign",
-          order: 3,
-      },
-      {
-        id: randomUUID(),
-        label: "Success Rate %",
-        value: 95,
-        description: "Project approval rate",
-        icon: "fas fa-chart-line",
-        order: 4,
+          order: 4,
       }
     ];
 
@@ -180,7 +180,7 @@ export class HybridStorage implements IStorage {
       .sort((a, b) => a.order - b.order);
   }
 
-  async createAchievement(insertAchievement: InsertAchievement): Promise<Achievement> {
+  /*async createAchievement(insertAchievement: InsertAchievement): Promise<Achievement> {
     const id = randomUUID();
     const achievement: Achievement = { 
       ...insertAchievement, 
@@ -189,7 +189,7 @@ export class HybridStorage implements IStorage {
     };
     this.achievements.set(id, achievement);
     return achievement;
-  }
+  }*/
 
   async createNewsletterSubscription(insertSubscription: InsertNewsletterSubscription): Promise<NewsletterSubscription> {
     // Check if email already exists
@@ -377,10 +377,10 @@ export const storage = {
     const store = await getStorage();
     return store.getAchievements();
   },
-  async createAchievement(achievement: InsertAchievement): Promise<Achievement> {
+  /*async createAchievement(achievement: InsertAchievement): Promise<Achievement> {
     const store = await getStorage();
     return store.createAchievement(achievement);
-  },
+  },*/
   async createNewsletterSubscription(subscription: InsertNewsletterSubscription): Promise<NewsletterSubscription> {
     const store = await getStorage();
     return store.createNewsletterSubscription(subscription);
