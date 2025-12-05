@@ -75,7 +75,7 @@ export default function Navigation() {
                     >
                         <div className="w-28 font-bold">
                             <img
-                                src="../images/LogoWhite.png"
+                                src="../images/logo.png"
                                 className="w-24"
                                 alt="Logo"
                             />
@@ -88,7 +88,7 @@ export default function Navigation() {
                             href={`/${country}`}
                             className={cn(
                                 scrolled ? "text-foreground" : "text-gray-400",
-                                "hover:text-white",
+                                "hover:text-primary",
                                 isActive("/") && "text-red-600 font-bold"
                             )}
                         >
@@ -101,6 +101,10 @@ export default function Navigation() {
                             onMouseEnter={() => setIsProgramsOpen(true)}
                             onMouseLeave={() => setIsProgramsOpen(false)}
                         >
+                            <Link
+                                href={`/${country}/programs`}
+                                className="block px-3 py-2 text-md font-semibold text-foreground hover:text-primary hover:bg-muted rounded-md"
+                            >
                             <button
                                 className={cn(
                                     scrolled ? "text-foreground" : "text-gray-400",
@@ -111,6 +115,7 @@ export default function Navigation() {
                                 {t.nav.programs.toUpperCase()}{" "}
                                 <ChevronDown className="ml-1 h-4 w-4" />
                             </button>
+                            </Link>
 
                             <div
                                 className={cn(
@@ -120,21 +125,21 @@ export default function Navigation() {
                                         : "opacity-0 invisible -translate-y-2"
                                 )}
                             >
-                                <div className="p-4 bg-foreground">
-                                    <Link
+                                <div className="p-4 bg-gray-100">
+                                    {/*<Link
                                         href={`/${country}/programs`}
-                                        className="block px-3 py-2 text-md font-semibold text-white hover:text-primary hover:bg-muted rounded-md"
+                                        className="block px-3 py-2 text-md font-semibold text-foreground hover:text-primary hover:bg-muted rounded-md"
                                     >
                                         {t.programs.viewAllServices.toUpperCase()}
-                                    </Link>
+                                    </Link>*/}
 
-                                    <div className="h-px bg-border my-2" />
+
 
                                     {getNavServices(t).map((service) => (
                                         <Link
                                             key={service.id}
                                             href={`/${country}/programs#${service.id}`}
-                                            className="block px-3 py-2 text-sm text-muted-white hover:text-foreground hover:bg-muted rounded-md"
+                                            className="block px-3 py-2 text-sm text-foreground hover:text-primary hover:bg-muted rounded-md"
                                         >
                                             {service.title}
                                         </Link>
