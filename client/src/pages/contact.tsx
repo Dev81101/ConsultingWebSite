@@ -1,7 +1,7 @@
 import ContactSection from "@/components/contact-section";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { MapPin, Phone, Mail, Clock, Globe, Users } from "lucide-react";
+import {MapPin, Phone, Mail, Clock, Globe, Users, CalendarDays} from "lucide-react";
 import { useLanguage } from "@/lib/language-context";
 import { useTranslations } from "@/lib/translations";
 
@@ -126,7 +126,7 @@ export default function Contact() {
         { icon: Phone, title: t.contactPage.methods.phone.title, description: t.contactPage.methods.phone.description, details: t.contactPage.methods.phone.details, availability: t.contactPage.methods.phone.availability },
         { icon: Mail, title: t.contactPage.methods.email.title, description: t.contactPage.methods.email.description, details: t.contactPage.methods.email.details, availability: t.contactPage.methods.email.availability },
         { icon: Users, title: t.contactPage.methods.inPerson.title, description: t.contactPage.methods.inPerson.description, details: t.contactPage.methods.inPerson.details, availability: t.contactPage.methods.inPerson.availability },
-        { icon: Globe, title: t.contactPage.methods.online.title, description: t.contactPage.methods.online.description, details: t.contactPage.methods.online.details, availability: t.contactPage.methods.online.availability },
+        { icon: CalendarDays, title: t.contactPage.methods.online.title, description: t.contactPage.methods.online.description, details: t.contactPage.methods.online.details, availability: t.contactPage.methods.online.availability },
     ];
 
     const businessHours = [

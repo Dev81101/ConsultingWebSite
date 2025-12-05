@@ -61,7 +61,7 @@ export default function Navigation() {
             className={cn(
                 "fixed w-full top-0 z-50 transition-all duration-300",
                 scrolled
-                    ? "bg-foreground shadow-md text-white"
+                    ? "bg-gray-50 shadow-md text-foreground "
                     : "bg-transparent backdrop-blur-sm text-white"
             )}
         >
@@ -87,12 +87,12 @@ export default function Navigation() {
                         <Link
                             href={`/${country}`}
                             className={cn(
-                                scrolled ? "text-white" : "text-gray-400",
+                                scrolled ? "text-foreground" : "text-gray-400",
                                 "hover:text-white",
                                 isActive("/") && "text-red-600 font-bold"
                             )}
                         >
-                            {t.nav.home}
+                            {t.nav.home.toUpperCase()}
                         </Link>
 
                         {/* PROGRAMS DROPDOWN */}
@@ -103,12 +103,12 @@ export default function Navigation() {
                         >
                             <button
                                 className={cn(
-                                    scrolled ? "text-white" : "text-gray-400",
+                                    scrolled ? "text-foreground" : "text-gray-400",
                                     "flex items-center hover:text-primary",
                                     isActive("/services") && "text-primary"
                                 )}
                             >
-                                {t.nav.programs}{" "}
+                                {t.nav.programs.toUpperCase()}{" "}
                                 <ChevronDown className="ml-1 h-4 w-4" />
                             </button>
 
@@ -125,7 +125,7 @@ export default function Navigation() {
                                         href={`/${country}/programs`}
                                         className="block px-3 py-2 text-md font-semibold text-white hover:text-primary hover:bg-muted rounded-md"
                                     >
-                                        {t.programs.viewAllServices}
+                                        {t.programs.viewAllServices.toUpperCase()}
                                     </Link>
 
                                     <div className="h-px bg-border my-2" />
@@ -147,37 +147,37 @@ export default function Navigation() {
                         <Link
                             href={`/${country}/about`}
                             className={cn(
-                                scrolled ? "text-white" : "text-gray-400",
+                                scrolled ? "text-foreground" : "text-gray-400",
                                 "hover:text-primary",
                                 isActive("/about") && "text-primary"
                             )}
                         >
-                            {t.nav.about}
+                            {t.nav.about.toUpperCase()}
                         </Link>
 
                         {/* CONTACT */}
                         <Link
                             href={`/${country}/contact`}
                             className={cn(
-                                scrolled ? "text-white" : "text-gray-400",
+                                scrolled ? "text-foreground" : "text-gray-400",
                                 "hover:text-primary",
                                 isActive("/contact") && "text-primary",
                                 "pr-8 border-r border-white"
                             )}
                         >
-                            {t.nav.contact}
+                            {t.nav.contact.toUpperCase()}
                         </Link>
 
                         {/* BLOG */}
                         <Link
                             href={`/${country}/blog`}
                             className={cn(
-                                scrolled ? "text-white" : "text-gray-400",
+                                scrolled ? "text-foreground" : "text-gray-400",
                                 "hover:text-primary",
                                 isActive("/blog") && "text-primary"
                             )}
                         >
-                            {t.nav.blog}
+                            {t.nav.blog.toUpperCase()}
                         </Link>
 
                         <LanguageSelector />

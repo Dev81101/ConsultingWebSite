@@ -1,7 +1,7 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Users, Target, Award, TrendingUp, CheckCircle, Star, Globe, Calendar } from "lucide-react";
+import { Users, Target, Award, TrendingUp, CheckCircle, Star, Globe, Calendar,Lightbulb } from "lucide-react";
 import { motion } from "framer-motion";
 import { useLanguage } from "@/lib/language-context";
 import { useTranslations } from "@/lib/translations";
@@ -55,7 +55,7 @@ const companyValues = [
         descriptionKey: "We maintain the highest standards of professionalism and expertise"
     },
     {
-        icon: Globe,
+        icon: Lightbulb,
         titleKey: "Innovation",
         descriptionKey: "We leverage the latest technologies and methodologies to drive success"
     }
@@ -301,18 +301,18 @@ export default function About() {
                         {t.about.ctaJoinSubtitle}
                     </p>
                     <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                        <Button
+                        {/*<Button
                             size="lg"
                             variant="secondary"
                             className="bg-white text-black hover:bg-gray-300 hover:text-primary"
                             data-testid="careers-button"
                         >
                             {t.about.viewPositions}
-                        </Button>
+                        </Button>*/}
                         <Button
                             size="lg"
                             variant="outline"
-                            className="border-white text-primary-foreground hover:bg-gray-300 hover:text-primary"
+                            className="border-white text-foreground hover:bg-gray-300 hover:text-primary"
                             data-testid="contact-us-button"
                         >
                             {t.about.contactUsCta}

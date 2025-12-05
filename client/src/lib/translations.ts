@@ -473,7 +473,7 @@ export const translations: Record<Language, {
     programs: {
       viewAllServices: "Погледај све услуге",
         floatingNumber:"+389 78 348 860",
-        flaotingButton:"Закажете \n  консултације",
+        flaotingButton:"Закажете  консултације",
         buttonText:"Закажете консултације",
       services: {
         financialConsulting: {
@@ -799,7 +799,7 @@ export const translations: Record<Language, {
     programs: {
       viewAllServices: "View All Services",
         floatingNumber:"+389 78 348 860",
-        flaotingButton:"Scheldue \n  Consultation \n Now !",
+        flaotingButton:"Scheldue Consultation",
        
       buttonText:"Scheldue Consultation",
       services: {

@@ -199,7 +199,7 @@ function FloatingCTA() {
 
     // --- 1. Get Text & Number ---
     const buttonTextSource = t.programs?.flaotingButton?.toUpperCase() || "Book Consultation";
-    const floatingNumber = t.programs?.floatingNumber || "+389 7X XXX XXX"; // Fallback for the number
+   // const floatingNumber = t.programs?.floatingNumber || "+389 7X XXX XXX"; // Fallback for the number
 
     // --- 2. Process Button Text for Line Breaks (\n) ---
     // Split the text by the newline character (\n) and map to JSX fragments.
@@ -222,9 +222,53 @@ function FloatingCTA() {
         />,
 
         // 5. Add the Floating Number
-        <span key="number" className="text-sm font-light tracking-wider">
-            {floatingNumber}
-        </span>
+
+    ];
+
+    return (
+
+        <Button
+            onClick={() => (window.location.href = "/mk/contact")}
+            // Ensure the button is tall (h-24), has centered content (flex-col items-center),
+            // and the text alignment is centered by default.
+            className="fixed right-6 top-1/2 -translate-y-1/2 bg-primary hover:bg-foreground h-[4rem] text-white shadow-xl px-6 py-4 rounded-2xl z-50 flex flex-col items-center justify-center text-center"
+        >
+            {/* Render the full content array */}
+            {fullContent}
+        </Button>
+    );
+}
+
+function FloatingCTAA() {
+    const { language } = useLanguage();
+    const t = useTranslations()[language] || useTranslations().en;
+
+    // --- 1. Get Text & Number ---
+    const buttonTextSource = t.programs?.flaotingButton?.toUpperCase() || "Book Consultation";
+    // const floatingNumber = t.programs?.floatingNumber || "+389 7X XXX XXX"; // Fallback for the number
+
+    // --- 2. Process Button Text for Line Breaks (\n) ---
+    // Split the text by the newline character (\n) and map to JSX fragments.
+    const buttonLines = buttonTextSource.split('\n').map((line, index, array) => (
+        <React.Fragment key={`text-${index}`}>
+            {line}
+            {/* Add <br /> only if it's not the last line of the button text */}
+            {index < array.length - 1 && <br />}
+        </React.Fragment>
+    ));
+
+    // --- 3. Construct the Full Button Content Array ---
+    const fullContent = [
+        ...buttonLines,
+
+        // 4. INSERT THE SMALL WHITE HORIZONTAL DIVIDER
+        <div
+            key="divider"
+            className="w-1/3 h-px my-1 bg-white mx-auto" // mx-auto centers the line
+        />,
+
+        // 5. Add the Floating Number
+
     ];
 
     return (
