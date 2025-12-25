@@ -80,29 +80,29 @@ export class HybridStorage implements IStorage {
             order: 1,
         },
         {
-        id: randomUUID(),
-        label: "Successful Projects",
-        value: 3000,
-        description: "Projects completed",
-        icon: "fas fa-project-diagram",
-        order: 2,
-      },
-      {
-        id: randomUUID(),
-        label: "Million EUR Secured",
-        value: 25,
-        description: "Secured in grants",
-        icon: "fas fa-euro-sign",
-        order: 3,
-      },
-      {
-          id: randomUUID(),
-          label: "Million EUR Secured",
-          value: 80,
-          description: "Secured in credits",
-          icon: "fas fa-euro-sign",
-          order: 4,
-      }
+            id: randomUUID(),
+            label: "Successfully completed projects",
+            value: 3000,
+            description: "over 3000 successfully completed projects",
+            icon: "fas fa-project-diagram",
+            order: 2,
+        },
+        {
+            id: randomUUID(),
+            label: "Approved grants (EUR)",
+            value: 25,
+            description: "over 25 million euros in approved grants",
+            icon: "fas fa-euro-sign",
+            order: 3,
+        },
+        {
+            id: randomUUID(),
+            label: "Approved credits (EUR)",
+            value: 80,
+            description: "over 80 million euros in approved financial credits",
+            icon: "fas fa-euro-sign",
+            order: 4,
+        }
     ];
 
     achievementsData.forEach(achievement => {

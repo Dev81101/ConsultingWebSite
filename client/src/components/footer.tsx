@@ -71,32 +71,32 @@ export default function Footer() {
                         {/* Changed text-foreground to text-gray-300 for the list items */}
                         <ul className="space-y-2 text-gray-300">
                             <li>
-                                <Link href={`/${country}/programs#ipard`} className="hover:text-white transition-colors" data-testid="footer-ipard">
+                                <Link href={`/${country}/programs#financial-consulting`} className="hover:text-white transition-colors" data-testid="footer-ipard">
                                     {t.footer.ipard}
                                 </Link>
                             </li>
                             <li>
-                                <Link href={`/${country}/programs#financial-aid`} className="hover:text-white transition-colors" data-testid="footer-financial-aid">
+                                <Link href={`/${country}/programs#access-to-finance`} className="hover:text-white transition-colors" data-testid="footer-financial-aid">
                                     {t.footer.financialAid}
                                 </Link>
                             </li>
                             <li>
-                                <Link href={`/${country}/programs#consulting`} className="hover:text-white transition-colors" data-testid="footer-consulting">
+                                <Link href={`/${country}/programs#business-consulting`} className="hover:text-white transition-colors" data-testid="footer-consulting">
                                     {t.footer.consulting}
                                 </Link>
                             </li>
                             <li>
-                                <Link href={`/${country}/programs#business-plans`} className="hover:text-white transition-colors" data-testid="footer-business-plans">
+                                <Link href={`/${country}/programs#marketing`} className="hover:text-white transition-colors" data-testid="footer-business-plans">
                                     {t.footer.businessPlans}
                                 </Link>
                             </li>
                             <li>
-                                <Link href={`/${country}/programs#business-plans`} className="hover:text-white transition-colors" data-testid="footer-business-plans">
+                                <Link href={`/${country}/programs#market-access`} className="hover:text-white transition-colors" data-testid="footer-market-access">
                                     {t.footer.marketAccess}
                                 </Link>
                             </li>
                             <li>
-                                <Link href={`/${country}/programs#business-plans`} className="hover:text-white transition-colors" data-testid="footer-business-plans">
+                                <Link href={`/${country}/programs#grants`} className="hover:text-white transition-colors" data-testid="footer-grants">
                                     {t.footer.GrantsAndFinancing}
                                 </Link>
                             </li>
@@ -139,13 +139,13 @@ export default function Footer() {
                     </p>
                     <div className="flex space-x-6 mt-4 md:mt-0">
                         {/* text-gray-300 is kept */}
-                        <a href="#" className="text-gray-300 hover:text-white transition-colors" data-testid="footer-privacy">
+                        <Link href={`/${country}/privacy`} className="text-gray-300 hover:text-white transition-colors" data-testid="footer-privacy">
                             {t.footer.privacy}
-                        </a>
+                        </Link>
                         {/* text-gray-300 is kept */}
-                        <a href="#" className="text-gray-300 hover:text-white transition-colors" data-testid="footer-terms">
+                        <Link href={`/${country}/terms`} className="text-gray-300 hover:text-white transition-colors" data-testid="footer-terms">
                             {t.footer.terms}
-                        </a>
+                        </Link>
                     </div>
                 </div>
             </div>

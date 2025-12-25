@@ -95,12 +95,15 @@ export default function AchievementCounters() {
     const t = translations[language];
     const safeT = t || translations.en;
 
+    const hasTranslatedItems = Array.isArray(safeT.achievements?.items) && (safeT.achievements!.items as unknown as string[]).length > 0;
+
     const { data: achievements, isLoading, error } = useQuery<Achievement[]>({
         queryKey: ["/api/achievements"],
+        enabled: !hasTranslatedItems, // Skip fetching if we have explicit translated items
     });
 
     // Loading
-    if (isLoading) {
+    if (!hasTranslatedItems && isLoading) {
         return (
             <section className="py-16 bg-red-700 min-h-[60vh]">
                 <div className="h-full max-w-7xl mx-auto px-4">
@@ -129,7 +132,7 @@ export default function AchievementCounters() {
     }
 
     // Error
-    if (error) {
+    if (!hasTranslatedItems && error) {
         return (
             <section className="py-16 bg-red-700 min-h-[60vh]">
                 <div className="max-w-7xl mx-auto px-4 text-center">
@@ -158,11 +161,23 @@ export default function AchievementCounters() {
                     </p>
                 </div>
 
-                <div className="grid grid-rows-1 grid-cols-5">
-                    {achievements?.map((achievement) => (
-                        <CounterItem key={achievement.id} achievement={achievement} />
-                    ))}
-                </div>
+                {hasTranslatedItems ? (
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8 px-4 md:px-8">
+                        {(safeT.achievements!.items as unknown as string[]).map((text, idx) => (
+                            <div key={idx} className="text-center w-full flex flex-col items-center mt-2">
+                                <h3 className="text-xl font-semibold text-white mb-2">
+                                    {text}
+                                </h3>
+                            </div>
+                        ))}
+                    </div>
+                ) : (
+                    <div className="grid grid-rows-1 grid-cols-5">
+                        {achievements?.map((achievement) => (
+                            <CounterItem key={achievement.id} achievement={achievement} />
+                        ))}
+                    </div>
+                )}
             </div>
         </section>
     );

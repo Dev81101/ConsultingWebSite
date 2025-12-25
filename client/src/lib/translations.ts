@@ -19,6 +19,7 @@ export const translations: Record<Language, {
     subtitle: string;
     loading: string;
     error: string;
+    items?: string[];
   };
   services: {
     title: string;
@@ -581,14 +582,21 @@ export const translations: Record<Language, {
     },
     achievements: {
       title: "Our  Achievements",
-      subtitle: "Delivering exceptional results for our clients across all sectors",
+      subtitle: "Together with our clients, we achieve exceptional results across all sectors!",
       loading: "Loading...",
       error: "Unable to load achievements at this time.",
+      // Added list rendering support
+      // Shown on Home results section instead of numeric counters when present
+      items: [
+        "over 3000 successfully completed projects",
+        "over 25 million euros in approved grants",
+        "over 80 million euros in approved financial credits",
+      ] as unknown as any,
     },
     services: {
 
-      title: "Our Comprehensive Services",
-      subtitle: "From Access to Finance to Marketing & Business Development, we provide end-to-end support for your growth journey",
+      title: "See how we can help you",
+      subtitle: "From access to finance to market and strategic business development, we offer complete support for your business growth and development",
       ipardTitle: "Financial Consulting",
       ipardDesc: "Access EU funding up to €1.3M for agricultural investments, processing facilities, and rural development projects.",
       ipardFeature1: "IPARD I - Agricultural Investment",
@@ -611,8 +619,8 @@ export const translations: Record<Language, {
       subtitle: "We've helped hundreds of companies across agriculture, tourism, and manufacturing sectors",
     },
     blog: {
-      title: "Insights & Financial Advices",
-      subtitle: "Stay informed with our expert analysis and client success stories",
+      title: "Finance in everyday practice",
+      subtitle: "Learn more about financial news, our experiences and success stories",
       readMore: "Read More",
       viewAll: "View All Posts",
       wantMore: "Want to Read More?",
@@ -807,19 +815,19 @@ export const translations: Record<Language, {
           title: "Financial Consulting",
           subtitle: "Credit diagnostics • Business planning • Investment structuring",
           description:
-            "Optimization of financial operations and creation of robust balance-sheet structures. We deliver full business plans, due diligence, investment programs and cost-benefit analyses tailored to investor and lender expectations.",
+            "Comprehensive analysis tailored to your business model to optimize the client's financial operations, preparation of credit business diagnostics and ensuring a quality structure of financial statements.",
           items: [
             "Business plan",
             "Due diligence",
             "Investment program",
-            "Cost-benefit analysis",
+            "Feasibility/Cost-Benefit report",
           ],
         },
         accessToFinance: {
           title: "Access to Finance",
           subtitle: "Credit advisors • Structured financing",
           description:
-            "We deliver credit diagnostics and structure recommendations for new and existing investments. Our credit advisors research market offers and recommend optimal maturity, currency, dynamics and interest arrangements.",
+            "Through the services of credit promoter and credit advisor, credit diagnostics and recommendations for a financial structure suitable for existing and future investments are provided. Our credit advisors research market offers and recommend optimal maturity, currency, dynamics and financial arrangements.",
           items: [
             "Banking credit products",
             "Leasing",
@@ -832,10 +840,10 @@ export const translations: Record<Language, {
           title: "Grants & Co-Financing",
           subtitle: "Project preparation • Grant monitoring",
           description:
-            "Full preparation and monitoring of grant and co-financing applications for national and international instruments, including IPARD, IPA, GIZ, FITD and EU funds — maximizing grant capture opportunities.",
+            "Monitoring calls and full preparation of grant and co-financing applications available through national and international instruments, including IPARD, IPA, GIZ, INOVA and EU funds - maximizing opportunities to obtain soft or fully non-refundable financial resources.",
           items: [
-            "IPARD / IPA / GIZ",
-            "FITD & national programs",
+            "IPARD, IPA, GIZ",
+            "INOVA & national programs",
             "EBRD blended finance",
             "EU structural instruments",
             "Up to 90% return potential",
@@ -845,7 +853,7 @@ export const translations: Record<Language, {
           title: "Business Consulting",
           subtitle: "Organizational diagnostics • QUINTAUM",
           description:
-            "Using the QUINTAUM methodology (210 indicators) we diagnose organizational culture, employee well-being and management effectiveness, then deliver coaching and employee development programs.",
+            "Using the QUINTAUM methodology (210 indicators) we diagnose organizational culture, employee well-being and management effectiveness, then propose and organize coaching and employee development programs.",
           items: [
             "QUINTAUM diagnostics (210 KPIs)",
             "Coaching & leadership programs",
@@ -855,9 +863,9 @@ export const translations: Record<Language, {
         },
         marketing: {
           title: "Marketing & Business Development",
-          subtitle: "Branding • Growth strategy • Digital",
+          subtitle: "Branding • Growth strategy • Digitalization",
           description:
-            "Integrated marketing and business development that increases brand visibility and drives measurable growth — from market research and strategic planning to campaign execution and ROI optimization.",
+            "Integrated marketing and business development that increases brand visibility and drives measurable growth - from market research and strategic planning to campaign implementation and optimization of investments (ROI).",
           items: [
             "Strategic planning",
             "Market research",
@@ -908,24 +916,29 @@ export const translations: Record<Language, {
         },
         achievements: {
             title: "Нашите достигнувања",
-            subtitle: "Испорачуваме исклучителни резултати за нашите клиенти во сите сектори",
+            subtitle: "Со нашите клиенти остваруваме исклучителни резултати во сите сектори!",
             loading: "Се вчитува...",
             error: "Не може да се вчитаат достигнувањата во моментов.",
+            items: [
+                "над 3000 успешно завршени проекти",
+                "над 25 милиони евра одобрени грантови",
+                "над 80 милиони евра одобрени финансиски кредити",
+            ] as unknown as any,
         },
-        services: {
-            title: "Нашите сеопфатни услуги",
-            subtitle: "Од IPARD финансирање до бизнис консалтинг, обезбедуваме целосна поддршка за вашиот раст",
-            ipardTitle: "Финансиски Консалтинг",
+    services: {
+            title: "Погледнете како можеме да ви помогнеме",
+            subtitle: "Од пристап до финансии до пазарен и стратешки развој на бизнисот, ние нудиме целосна поддршка за вашиот деловен раст и развој",
+            ipardTitle: "Финансиски консалтинг",
             ipardDesc: "Пристап до ЕУ фондови до 1.3 милиони евра за земјоделски инвестиции, преработувачки капацитети и проекти за рурален развој.",
             ipardFeature1: "IPARD I - Земјоделски инвестиции",
             ipardFeature2: "IPARD II - Модернизација на преработка",
             ipardFeature3: "IPARD III - Рурален туризам",
-            financialTitle: "Финансиска Помош",
+            financialTitle: "Финансиска помош",
             financialDesc: "Сеопфатна поддршка за производствениот и туристичкиот сектор со грантови, субвенции и поволни заеми.",
             financialFeature1: "Програми за поддршка на производството",
             financialFeature2: "Грантови за развој на туризмот",
             financialFeature3: "Финансирање за промоција на извозот",
-            consultingTitle: "Бизнис Консалтинг",
+            consultingTitle: "Бизнис консалтинг",
             consultingDesc: "Стручно водство за микро бизниси и услуги за развој на сеопфатни бизнис планови.",
             consultingFeature1: "Консалтинг за микро бизниси",
             consultingFeature2: "Изработка на бизнис планови",
@@ -937,8 +950,8 @@ export const translations: Record<Language, {
             subtitle: "Помогнавме на стотици компании во секторите земјоделство, туризам и производство",
         },
         blog: {
-            title: "Увиди и Финансиски Совети",
-            subtitle: "Бидете информирани со нашите стручни анализи и успешни приказни",
+            title: "Финансиите низ секојдневната пракса",
+            subtitle: "Дознајте повеќе за финансиските новости, нашите искуства и успешни приказни",
             readMore: "Прочитај повеќе",
             viewAll: "Сите објави",
             wantMore: "Сакате да прочитате повеќе?",
@@ -1003,7 +1016,7 @@ export const translations: Record<Language, {
         home: {
             loadingContent: "Вчитување на содржината...",
             slide1Title: "За клиентите го бираме најдоброто!",
-            slide1Subtitle: "3000 клиенти и повеќе",
+            slide1Subtitle: "преку 3000 клиенти",
             slide2Title: "Нашиот начин на работа",
             slide2Subtitle: "Запознајте се како работиме и зошто нашиот пристап дава најдобри резултати",
             slide3Title: "Експерти во областа на финансиите",
@@ -1087,7 +1100,7 @@ export const translations: Record<Language, {
         team: {
             title: "Нашиот тим",
             subtitle: "Најголемиот тим на експерти",
-            description: "Нашиот разновиден тим обединува децении експертиза во финансиски консалтинг, пристап до пазари и земјоделско-прехранбена технологија. Ние сме посветени на поддршка на земјоделците и бизнисите за постигнување одржлив раст и отклучување нови можности на европските и глобалните пазари. Тука сме да бидеме ваши партнери на секој чекор од патот.",
+            description: "Нашиот мултидисциплинарен тим носи богато искуство во финансиски консалтинг и развој на инвестиции во различни индустрии, со посебен фокус на земјоделство и рурален развој, туризам и „зелени инвестиции“. Им помагаме на клиентите да пристапат до државните програми за финансиска поддршка и фондовите на Европската Унија, и да ги претворат нивните идеи во одржливи и реализирани инвестиции. За нашите клиенти – ние сме партнери во процесот на раст.",
             cta: "Поврзете се со нашите експерти",
         },
         contactPage: {
@@ -1126,26 +1139,26 @@ export const translations: Record<Language, {
         programs: {
             viewAllServices: "Сите услуги",
             floatingNumber:"+389 78 348 860",
-        flaotingButton:"Закажете \n состанок \n сега",
+        flaotingButton:"Закажете \n состанок",
             buttonText:"Закажете состанок",
             services: {
                 financialConsulting: {
-                    title: "Финансиски Консалтинг",
+                    title: "Финансиски консалтинг",
                     subtitle: "Кредитна дијагностика • Бизнис планирање • Структуирање на инвестиции",
                     description:
-                        "Оптимизација на финансиското работење и креирање на робусни билансни структури. Испорачуваме целосни бизнис планови, длабинска анализа (due diligence), инвестициски програми и анализи на трошоци и придобивки прилагодени на очекувањата на инвеститорите и кредиторите.",
+                        "Сеопфатна анализа прилагодена кон Вашиот бизнис модел со цел оптимизација на финансиското работење на клиентот, изработка на кредитна бизнис дијагностика и обезбедување квалитетна структура на финансиските извештаи.",
                     items: [
                         "Бизнис план",
                         "Длабинска анализа (Due diligence)",
                         "Инвестициска програма",
-                        "Анализа на трошоци и придобивки",
+                        "Извештај за исплатливост/оправданост на инвестицијата (cost benefit analysis)",
                     ],
                 },
                 accessToFinance: {
-                    title: "Пристап до Финансии",
+                    title: "Пристап до финансии",
                     subtitle: "Кредитни советници • Структурирано финансирање",
                     description:
-                        "Испорачуваме кредитна дијагностика и препораки за структура за нови и постоечки инвестиции. Нашите кредитни советници ги истражуваат понудите на пазарот и препорачуваат оптимална рочност, валута, динамика и каматни аранжмани.",
+                        "Преку услугите кредитен промотор и кредитен советник се овозможува кредитна дијагностика и препораки за финансиска конструкција соодветна за постоечките и идните инвестиции. Нашите кредитни советници ги истражуваат понудите на пазарот и препорачуваат оптимална рочност, валута, динамика и финансиски аранжмани.",
                     items: [
                         "Банкарски кредитни производи",
                         "Лизинг",
@@ -1155,23 +1168,23 @@ export const translations: Record<Language, {
                     ],
                 },
                 grants: {
-                    title: "Грантови и Кофинансирање",
+                    title: "Грантови и кофинансирање",
                     subtitle: "Подготовка на проекти • Мониторинг на грантови",
                     description:
-                        "Целосна подготовка и следење на апликации за грантови и кофинансирање за национални и меѓународни инструменти, вклучувајќи IPARD, IPA, GIZ, FITD и ЕУ фондови — максимизирајќи ги можностите за добивање грантови.",
+                        "Следење на повици и целосна подготовка на апликации за грантови и кофинансирање достапни преку национални и меѓународни инструменти, вклучувајќи ИПАРД, ИПА, ГИЗ, ИНОВА и ЕУ фондови - максимизирајќи ги можностите за добивање „меки“ или целосно бесповратни финансиски средства.",
                     items: [
-                        "IPARD / IPA / GIZ",
-                        "FITD и национални програми",
+                        "ИПАРД, ИПА, ГИЗ",
+                        "ИНОВА и национални програми",
                         "ЕБРД комбинирано финансирање",
                         "ЕУ структурни инструменти",
                         "Потенцијал за поврат до 90%",
                     ],
                 },
                 businessConsulting: {
-                    title: "Бизнис Консалтинг",
+                    title: "Бизнис консалтинг",
                     subtitle: "Организациска дијагностика • QUINTAUM",
                     description:
-                        "Користејќи ја методологијата QUINTAUM (210 индикатори) дијагностицираме организациска култура, благосостојба на вработените и ефективност на менаџментот, а потоа испорачуваме коучинг и програми за развој на вработените.",
+                        "Користејќи ја методологијата QUINTAUM (210 индикатори) дијагностицираме организациска култура, благосостојба на вработените и ефективност на менаџментот, а потоа предложуваме и организираме коучинг и програми за развој на вработените.",
                     items: [
                         "QUINTAUM дијагностика (210 KPI)",
                         "Коучинг и лидерски програми",
@@ -1180,10 +1193,10 @@ export const translations: Record<Language, {
                     ],
                 },
                 marketing: {
-                    title: "Маркетинг и Бизнис Развој",
-                    subtitle: "Брендирање • Стратегија за раст • Дигитал",
+                    title: "Маркетинг и бизнис развој",
+                    subtitle: "Брендирање • Стратегија за раст • Дигитализација",
                     description:
-                        "Интегриран маркетинг и бизнис развој кој ја зголемува видливоста на брендот и носи мерлив раст — од истражување на пазарот и стратешко планирање до извршување на кампањи и оптимизација на ROI.",
+                        "Интегриран маркетинг и бизнис развој кој ја зголемува видливоста на брендот и носи мерлив раст - од истражување на пазарот и стратешко планирање до спроведување на кампањи и оптимизација на инвестициите (ROI).",
                     items: [
                         "Стратешко планирање",
                         "Истражување на пазарот",
@@ -1192,7 +1205,7 @@ export const translations: Record<Language, {
                     ],
                 },
                 marketAccess: {
-                    title: "Пристап до Пазари",
+                    title: "Пристап до пазари",
                     subtitle: "Извозна стратегија • Идентификација на купувачи",
                     description:
                         "Поддршка за компании кои бараат нови меѓународни пазари: истражување, планирање на извозот, дигитална подготвеност, енергетски ревизии и пронаоѓање купувачи за влез на извозниот пазар со низок ризик.",

@@ -134,25 +134,12 @@ export default function BlogSection() {
           ))}
         </div>
 
-        <div className="mt-16">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-            <div className="text-center lg:text-left">
-                <h3 className="text-2xl font-bold text-foreground mb-4">
-                {t.blog.wantMore}
-              </h3>
-              <p className="text-muted-foreground mb-6">
-                {t.blog.newsletterDesc}
-              </p>
-              <Link href={`/${country}/blog`}>
-                <Button className="bg-primary text-primary-foreground px-8 py-3 hover:bg-primary/90" data-testid="blog-view-all">
-                  {t.blog.viewAll}
-                </Button>
-              </Link>
-            </div>
-            <div>
-              <NewsletterSubscription variant="full" />
-            </div>
-          </div>
+        <div className="mt-16 text-center">
+          <Link href={`/${country}/blog`}>
+            <Button className="bg-primary text-primary-foreground px-8 py-3 hover:bg-primary/90" data-testid="blog-view-all">
+              {t.blog.viewAll}
+            </Button>
+          </Link>
         </div>
       </div>
     </section>

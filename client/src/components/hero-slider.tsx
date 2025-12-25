@@ -5,6 +5,8 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 // Assuming useLanguage and useTranslations are correctly implemented and provide the translation object 't'
 import { useLanguage } from "@/lib/language-context";
 import { useTranslations } from "@/lib/translations";
+import { Link } from "wouter";
+import { useCountry } from "@/lib/country-context";
 
 const containerVariants = {
     hidden: { opacity: 0 },
@@ -72,6 +74,7 @@ const buttonVariants = {
 export default function HeroSlider() {
     const { language } = useLanguage();
     const t = useTranslations()[language]; // Translation object (e.g., t['contact']['contactUs'])
+    const { country } = useCountry();
     const [currentSlide, setCurrentSlide] = useState(0);
 
     // Define slides using the translation object 't'
@@ -107,7 +110,7 @@ export default function HeroSlider() {
     useEffect(() => {
         const timer = setInterval(() => {
             setCurrentSlide((prev) => (prev + 1) % slides.length);
-        }, 5000);
+        }, 8000);
 
         return () => clearInterval(timer);
     }, [slides.length]); // Dependency added for robustness
@@ -197,12 +200,14 @@ export default function HeroSlider() {
                                             ease: "easeInOut"
                                         }}
                                     >
-                                        <Button
-                                            className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-3 font-semibold transition-all duration-300 hover:shadow-lg hover:shadow-primary/50"
-                                            data-testid={`cta-primary-${currentSlide}`}
-                                        >
-                                            {slides[currentSlide].cta1}
-                                        </Button>
+                                        <Link href={`/${country}/contact`}>
+                                            <Button
+                                                className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-3 font-semibold transition-all duration-300 hover:shadow-lg hover:shadow-primary/50"
+                                                data-testid={`cta-primary-${currentSlide}`}
+                                            >
+                                                {slides[currentSlide].cta1}
+                                            </Button>
+                                        </Link>
                                     </motion.div>
 
                                     <motion.div
@@ -217,13 +222,15 @@ export default function HeroSlider() {
                                             delay: 0.5
                                         }}
                                     >
-                                        <Button
-                                            variant="outline"
-                                            className="border-2 border-white text-primary hover:bg-white hover:text-black px-8 py-3 font-semibold transition-all duration-300 backdrop-blur-sm"
-                                            data-testid={`cta-secondary-${currentSlide}`}
-                                        >
-                                            {slides[currentSlide].cta2}
-                                        </Button>
+                                        <Link href={`/${country}/programs`}>
+                                            <Button
+                                                variant="outline"
+                                                className="border-2 border-white text-primary hover:bg-white hover:text-black px-8 py-3 font-semibold transition-all duration-300 backdrop-blur-sm"
+                                                data-testid={`cta-secondary-${currentSlide}`}
+                                            >
+                                                {slides[currentSlide].cta2}
+                                            </Button>
+                                        </Link>
                                     </motion.div>
                                 </motion.div>
                             </div>

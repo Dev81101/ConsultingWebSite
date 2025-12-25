@@ -13,12 +13,14 @@ import {
 import { BorderBeam } from "@/components/ui/border-beam";
 import { useLanguage } from "@/lib/language-context";
 import { useTranslations } from "@/lib/translations";
+import { useCountry } from "@/lib/country-context";
 
 export default function ServicesSection() {
     const { language } = useLanguage();
     // Assuming t.programs.services, t.services.title, and t.services.learnMore are defined
     const t = useTranslations()[language];
     const p = t.programs.services;
+    const { country } = useCountry();
 
     const mainServices = [
         {
@@ -121,7 +123,14 @@ export default function ServicesSection() {
                                 </p>*/}
 
                                 {/* Learn More Link at the bottom */}
-                                <a href="/programs" className="mt-auto">
+                                <a href={`/${country}/programs#${[
+                                    "financial-consulting",
+                                    "access-to-finance",
+                                    "business-consulting",
+                                    "marketing",
+                                    "market-access",
+                                    "grants",
+                                ][index]}`} className="mt-auto">
                                     <Button
                                         variant="link"
                                         className="text-red-700 hover:text-red-600 p-0 h-auto font-semibold text-sm justify-start"

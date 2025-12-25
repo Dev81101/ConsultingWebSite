@@ -168,7 +168,7 @@ function AlternatingServiceBlock({
                             )}
                         </div>
 
-                        <p className="text-base text-muted-foreground leading-relaxed max-w-3xl mb-6">
+                        <p className="text-lg text-muted-foreground leading-relaxed max-w-3xl mb-6">
                             {service.description}
                         </p>
 
@@ -326,7 +326,9 @@ export default function ServicesPage() {
             {/* Services List */}
             <section className="py-0.5">
                 {SERVICES.map((s, idx) => (
-                    <AlternatingServiceBlock key={s.id} service={s} reversed={idx % 2 === 1} />
+                    <div id={s.id} key={s.id}>
+                        <AlternatingServiceBlock service={s} reversed={idx % 2 === 1} />
+                    </div>
                 ))}
             </section>
 
