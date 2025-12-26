@@ -15,11 +15,16 @@ export const translations: Record<Language, {
     viewPrograms: string;
   };
   achievements: {
-    title: string;
-    subtitle: string;
+    supertitle:string;
+    supersubtitle:string;
+    title1: string;
+    subtitle1: string;
+      title2: string;
+      subtitle2: string;
+      title3: string;
+      subtitle3: string;
     loading: string;
     error: string;
-    items?: string[];
   };
   services: {
     title: string;
@@ -255,12 +260,18 @@ export const translations: Record<Language, {
       learnMore: "Сазнајте више",
       viewPrograms: "Погледајте програме",
     },
-    achievements: {
-      title: "Наша достигнућа 2024",
-      subtitle: "Пружамо изузетне резултате нашим клијентима у свим секторима",
-      loading: "Учитавање...",
-      error: "Није могуће учитати достигнућа у овом тренутку.",
-    },
+      achievements: {
+          supertitle: "Naša dostignuća",
+          supersubtitle: "Zajedno sa našim klijentima, ostvarujemo izuzetne rezultate u svim sektorima!",
+          title1: "Upešno završeni projekti",
+          subtitle1: "Preko 3.000 uspešno završenih projekata",
+          title2: "Odobreni grantovi",
+          subtitle2: "Preko 25 miliona evra u odobrenim grantovima",
+          title3: "Odobreni krediti",
+          subtitle3: "Preko 80 miliona evra u odobrenim finansijskim kreditima",
+          loading: "Učitavanje...",
+          error: "Trenutno nije moguće učitati dostignuća.",
+      },
     services: {
       title: "Наше свеобухватне услуге",
       subtitle: "Од ИПАРД финансирања до пословног консалтинга, пружамо комплетну подршку за ваш раст",
@@ -581,17 +592,17 @@ export const translations: Record<Language, {
       viewPrograms: "View Programs",
     },
     achievements: {
-      title: "Our  Achievements",
-      subtitle: "Together with our clients, we achieve exceptional results across all sectors!",
-      loading: "Loading...",
+      supertitle: "Our  Achievements",
+      supersubtitle: "Together with our clients, we achieve exceptional results across all sectors!",
+      title1:"Successfully completed projects",
+      subtitle1:"Over 3,000 successfully completed projects",
+        title2:"Approved grants",
+        subtitle2:"Over 25 million euros in approved grants",
+        title3:"Approved credits",
+        subtitle3:"Over 80 million euros in approved financial credits",
+        loading: "Loading...",
       error: "Unable to load achievements at this time.",
-      // Added list rendering support
-      // Shown on Home results section instead of numeric counters when present
-      items: [
-        "over 3000 successfully completed projects",
-        "over 25 million euros in approved grants",
-        "over 80 million euros in approved financial credits",
-      ] as unknown as any,
+
     },
     services: {
 
@@ -915,15 +926,16 @@ export const translations: Record<Language, {
             viewPrograms: "Видете ги програмите",
         },
         achievements: {
-            title: "Нашите достигнувања",
-            subtitle: "Со нашите клиенти остваруваме исклучителни резултати во сите сектори!",
-            loading: "Се вчитува...",
-            error: "Не може да се вчитаат достигнувањата во моментов.",
-            items: [
-                "над 3000 успешно завршени проекти",
-                "над 25 милиони евра одобрени грантови",
-                "над 80 милиони евра одобрени финансиски кредити",
-            ] as unknown as any,
+            supertitle: "Нашите достигнувања",
+            supersubtitle: "Заедно со нашите клиенти, постигнуваме исклучителни резултати во сите сектори!",
+            title1: "Успешно завршени проекти",
+            subtitle1: "Над 3.000 успешно завршени проекти",
+            title2: "Одобрени грантови",
+            subtitle2: "Над 25 милиони евра во одобрени грантови",
+            title3: "Одобрени кредити",
+            subtitle3: "Над 80 милиони евра во одобрени финансиски кредити",
+            loading: "Вчитување...",
+            error: "Во моментот не е можно да се вчитаат достигнувањата.",
         },
     services: {
             title: "Погледнете како можеме да ви помогнеме",
@@ -1245,12 +1257,18 @@ export const translations: Record<Language, {
       learnMore: "Saznajte više",
       viewPrograms: "Pogledajte programe",
     },
-    achievements: {
-      title: "Naša dostignuća 2024",
-      subtitle: "Pružamo izuzetne rezultate našim klijentima u svim sektorima",
-      loading: "Učitavanje...",
-      error: "Nije moguće učitati dostignuća u ovom trenutku.",
-    },
+      achievements: {
+          supertitle: "Naša dostignuća",
+          supersubtitle: "Zajedno sa našim klijentima, ostvarujemo izuzetne rezultate u svim sektorima!",
+          title1: "Upešno završeni projekti",
+          subtitle1: "Preko 3.000 uspešno završenih projekata",
+          title2: "Odobreni grantovi",
+          subtitle2: "Preko 25 miliona evra u odobrenim grantovima",
+          title3: "Odobreni krediti",
+          subtitle3: "Preko 80 miliona evra u odobrenim finansijskim kreditima",
+          loading: "Učitavanje...",
+          error: "Trenutno nije moguće učitati dostignuća.",
+      },
     services: {
       title: "Naše sveobuhvatne usluge",
       subtitle: "Od IPARD finansiranja do poslovnog konsaltinga, pružamo potpunu podršku za vaš rast",
@@ -1491,12 +1509,18 @@ export const translations: Record<Language, {
       learnMore: "Saznajte više",
       viewPrograms: "Pogledajte programe",
     },
-    achievements: {
-      title: "Naša dostignuća 2024",
-      subtitle: "Pružamo izuzetne rezultate našim klijentima u svim sektorima",
-      loading: "Učitavanje...",
-      error: "Nije moguće učitati dostignuća u ovom trenutku.",
-    },
+      achievements: {
+          supertitle: "Naša dostignuća",
+          supersubtitle: "Zajedno sa našim klijentima, ostvarujemo izuzetne rezultate u svim sektorima!",
+          title1: "Upešno završeni projekti",
+          subtitle1: "Preko 3.000 uspešno završenih projekata",
+          title2: "Odobreni grantovi",
+          subtitle2: "Preko 25 miliona evra u odobrenim grantovima",
+          title3: "Odobreni krediti",
+          subtitle3: "Preko 80 miliona evra u odobrenim finansijskim kreditima",
+          loading: "Učitavanje...",
+          error: "Trenutno nije moguće učitati dostignuća.",
+      },
     services: {
       title: "Naše sveobuhvatne usluge",
       subtitle: "Od IPARD finansiranja do poslovnog konsaltinga, pružamo potpunu podršku za vaš rast",
