@@ -1,5 +1,7 @@
 import { type User, type InsertUser, type BlogPost, type InsertBlogPost, type ContactSubmission, type InsertContactSubmission, type Achievement, type InsertAchievement, type NewsletterSubscription, type InsertNewsletterSubscription, type PageContent, type InsertPageContent, type Country, type PageType, type Language, type AdminUser, type AdminLog, type InsertAdminLog, type AdminAction } from "@shared/schema";
 import { randomUUID } from "crypto";
+import * as fs from "fs";
+import * as path from "path";
 import { MongoDBStorage, MongoDBAdminStorage } from "./mongodb";
 
 export interface IStorage {
@@ -46,8 +48,10 @@ export class HybridStorage implements IStorage {
   private achievements: Map<string, Achievement>;
   private newsletterSubscriptions: Map<string, NewsletterSubscription>;
   private pageContent: Map<string, PageContent>;
+  private blogPosts: Map<string, BlogPost>;
   private mongoStorage: MongoDBStorage;
   private adminStorage: MongoDBAdminStorage;
+  private useInMemoryBlogs: boolean;
 
   constructor() {
     this.users = new Map();
@@ -55,8 +59,10 @@ export class HybridStorage implements IStorage {
     this.achievements = new Map();
     this.newsletterSubscriptions = new Map();
     this.pageContent = new Map();
+    this.blogPosts = new Map();
     this.mongoStorage = new MongoDBStorage();
     this.adminStorage = new MongoDBAdminStorage();
+    this.useInMemoryBlogs = (process.env.USE_IN_MEMORY_BLOGS || "").toLowerCase() === "true";
     
     this.seedData();
   }
@@ -67,7 +73,156 @@ export class HybridStorage implements IStorage {
   }
 
   private seedData() {
-    // Blog posts are now seeded via MongoDB
+    // Blog posts are now seeded via MongoDB by default.
+    // If explicitly enabled, seed in-memory blog posts so the app works without DB.
+    if (this.useInMemoryBlogs) {
+      const allCountries: Country[] = ["rs", "mk", "me", "ba"];
+
+      const makePost = (opts: { title: string; slug: string; date: string; url: string; }): BlogPost => {
+        const created = new Date(opts.date);
+        return {
+          id: randomUUID(),
+          title: opts.title,
+          slug: opts.slug,
+          excerpt: `Read our LinkedIn update posted on ${created.toLocaleDateString("en-GB")} – click to open the original post.`,
+          // Keep basic HTML content with a link to the original LinkedIn activity
+          content: `<p>This article links to our original LinkedIn update.</p><p><a href="${opts.url}" target="_blank" rel="noopener">Open LinkedIn post</a></p>`,
+          imageUrl: "https://images.unsplash.com/photo-1557800636-894a64c1696f?w=1200&auto=format&fit=crop&q=60",
+          category: "LinkedIn",
+          tags: ["LinkedIn", "Update"],
+          countries: allCountries,
+          featured: true,
+          published: true,
+          createdAt: created,
+          updatedAt: created,
+        };
+      };
+
+      // 1) Try to load from JSON override if present
+      //    Default location: attached_assets/in-memory-blogs.json
+      //    Optional override via env IN_MEMORY_BLOG_FILE (absolute or relative to CWD)
+      const overridePath = process.env.IN_MEMORY_BLOG_FILE
+        ? path.isAbsolute(process.env.IN_MEMORY_BLOG_FILE)
+          ? process.env.IN_MEMORY_BLOG_FILE
+          : path.join(process.cwd(), process.env.IN_MEMORY_BLOG_FILE)
+        : path.join(process.cwd(), "attached_assets", "in-memory-blogs.json");
+
+      const trySeedFromJson = (): boolean => {
+        try {
+          if (!fs.existsSync(overridePath)) return false;
+          const raw = fs.readFileSync(overridePath, "utf-8");
+          const list = JSON.parse(raw);
+          if (!Array.isArray(list) || list.length === 0) return false;
+
+          const safe = (v: any, fallback: any) => (v === undefined || v === null ? fallback : v);
+
+          for (const item of list) {
+            // Minimal validation
+            if (!item || typeof item !== "object") continue;
+            const title = String(safe(item.title, "Untitled"));
+            // Build slug if missing
+            const slug = String(
+              safe(
+                item.slug,
+                title
+                  .toLowerCase()
+                  .replace(/[^a-z0-9]+/g, "-")
+                  .replace(/(^-|-$)/g, "") || `post-${randomUUID()}`
+              )
+            );
+            const dateStr = String(safe(item.date, new Date().toISOString().slice(0, 10)));
+            const created = new Date(dateStr);
+            const imageUrl = String(
+              safe(
+                item.imageUrl,
+                "https://images.unsplash.com/photo-1557800636-894a64c1696f?w=1200&auto=format&fit=crop&q=60"
+              )
+            );
+            const category = String(safe(item.category, "General"));
+            const excerpt = String(
+              safe(
+                item.excerpt,
+                `Published on ${created.toLocaleDateString("en-GB")}`
+              )
+            );
+            const content = String(
+              safe(
+                item.content,
+                item.url
+                  ? `<p><a href="${item.url}" target="_blank" rel="noopener">Open related link</a></p>`
+                  : `<p>${title}</p>`
+              )
+            );
+            const tags = Array.isArray(item.tags) ? item.tags.map((t: any) => String(t)) : [];
+            const countries = Array.isArray(item.countries) && item.countries.length
+              ? (item.countries as Country[])
+              : allCountries;
+            const featured = Boolean(safe(item.featured, true));
+            const published = Boolean(safe(item.published, true));
+
+            const post: BlogPost = {
+              id: randomUUID(),
+              title,
+              slug,
+              excerpt,
+              content,
+              imageUrl,
+              category,
+              tags,
+              countries,
+              featured,
+              published,
+              createdAt: created,
+              updatedAt: created,
+            };
+            this.blogPosts.set(post.slug, post);
+          }
+
+          return this.blogPosts.size > 0;
+        } catch (err) {
+          // If parsing fails, fall back to defaults
+          return false;
+        }
+      };
+
+      // If override did not seed anything, fall back to defaults
+      if (!trySeedFromJson()) {
+        const posts: BlogPost[] = [
+        makePost({
+          title: "LinkedIn Update – 23.02.2025",
+          slug: "linkedin-update-2025-02-23",
+          date: "2025-02-23",
+          url: "https://www.linkedin.com/feed/update/urn:li:activity:7299552897610969088",
+        }),
+        makePost({
+          title: "LinkedIn Update – 09.08.2025",
+          slug: "linkedin-update-2025-08-09",
+          date: "2025-08-09",
+          url: "https://www.linkedin.com/feed/update/urn:li:activity:7359973189008973824",
+        }),
+        makePost({
+          title: "LinkedIn Update – 19.10.2025",
+          slug: "linkedin-update-2025-10-19",
+          date: "2025-10-19",
+          url: "https://www.linkedin.com/feed/update/urn:li:activity:7385670472077660160",
+        }),
+        makePost({
+          title: "LinkedIn Update – 21.12.2025",
+          slug: "linkedin-update-2025-12-21",
+          date: "2025-12-21",
+          url: "https://www.linkedin.com/feed/update/urn:li:activity:7408447616797040640",
+        }),
+        makePost({
+          title: "LinkedIn Update – 04.01.2026",
+          slug: "linkedin-update-2026-01-04",
+          date: "2026-01-04",
+          url: "https://www.linkedin.com/feed/update/urn:li:activity:7413489318570315776",
+        }),
+        ];
+
+        posts.forEach((p) => this.blogPosts.set(p.slug, p));
+      }
+    }
 
     // Seed achievements
     const achievementsData = [
@@ -127,40 +282,104 @@ export class HybridStorage implements IStorage {
     return user;
   }
 
-  // Blog post methods delegated to MongoDB
+  // Blog post methods - use in-memory dataset if enabled; otherwise delegate to MongoDB
   async getBlogPosts(): Promise<BlogPost[]> {
+    if (this.useInMemoryBlogs) {
+      return Array.from(this.blogPosts.values()).sort((a, b) => (b.createdAt?.getTime() || 0) - (a.createdAt?.getTime() || 0));
+    }
     return this.mongoStorage.getBlogPosts();
   }
 
   async getFeaturedBlogPosts(): Promise<BlogPost[]> {
+    if (this.useInMemoryBlogs) {
+      return (await this.getBlogPosts()).filter(p => p.featured);
+    }
     return this.mongoStorage.getFeaturedBlogPosts();
   }
 
   async getBlogPost(slug: string): Promise<BlogPost | undefined> {
+    if (this.useInMemoryBlogs) {
+      return this.blogPosts.get(slug);
+    }
     return this.mongoStorage.getBlogPost(slug);
   }
 
   async getBlogPostsByCountry(country: Country): Promise<BlogPost[]> {
+    if (this.useInMemoryBlogs) {
+      return (await this.getBlogPosts()).filter(p => p.countries.includes(country));
+    }
     return this.mongoStorage.getBlogPostsByCountry(country);
   }
 
   async getFeaturedBlogPostsByCountry(country: Country): Promise<BlogPost[]> {
+    if (this.useInMemoryBlogs) {
+      return (await this.getBlogPostsByCountry(country)).filter(p => p.featured);
+    }
     return this.mongoStorage.getFeaturedBlogPostsByCountry(country);
   }
 
   async getBlogPostBySlugAndCountry(slug: string, country: Country): Promise<BlogPost | undefined> {
+    if (this.useInMemoryBlogs) {
+      const post = await this.getBlogPost(slug);
+      return post && post.countries.includes(country) ? post : undefined;
+    }
     return this.mongoStorage.getBlogPostBySlugAndCountry(slug, country);
   }
 
   async createBlogPost(insertPost: InsertBlogPost): Promise<BlogPost> {
+    if (this.useInMemoryBlogs) {
+      const id = randomUUID();
+      const now = new Date();
+      const post: BlogPost = {
+        id,
+        title: insertPost.title,
+        slug: insertPost.slug,
+        excerpt: insertPost.excerpt,
+        content: insertPost.content,
+        imageUrl: insertPost.imageUrl,
+        category: insertPost.category,
+        tags: insertPost.tags || [],
+        countries: insertPost.countries || ["rs"],
+        featured: insertPost.featured ?? false,
+        published: insertPost.published ?? true,
+        createdAt: now,
+        updatedAt: now,
+      };
+      this.blogPosts.set(post.slug, post);
+      return post;
+    }
     return this.mongoStorage.createBlogPost(insertPost);
   }
 
   async updateBlogPost(slug: string, insertPost: InsertBlogPost): Promise<BlogPost | undefined> {
+    if (this.useInMemoryBlogs) {
+      const existing = this.blogPosts.get(slug);
+      if (!existing) return undefined;
+      const updated: BlogPost = {
+        ...existing,
+        ...insertPost as any,
+        tags: insertPost.tags ?? existing.tags,
+        countries: insertPost.countries ?? existing.countries,
+        featured: insertPost.featured ?? existing.featured,
+        published: insertPost.published ?? existing.published,
+        updatedAt: new Date(),
+      };
+      // If slug changed, move the entry
+      if (insertPost.slug && insertPost.slug !== slug) {
+        this.blogPosts.delete(slug);
+        this.blogPosts.set(insertPost.slug, updated);
+      } else {
+        this.blogPosts.set(slug, updated);
+      }
+      return updated;
+    }
     return this.mongoStorage.updateBlogPost(slug, insertPost);
   }
 
   async deleteBlogPost(slug: string): Promise<boolean> {
+    if (this.useInMemoryBlogs) {
+      return this.blogPosts.delete(slug);
+    }
     return this.mongoStorage.deleteBlogPost(slug);
   }
 

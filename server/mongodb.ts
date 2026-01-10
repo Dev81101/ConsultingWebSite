@@ -4,6 +4,8 @@ import { MongoClient, Db, Collection, ObjectId } from 'mongodb';
 import { randomUUID } from 'crypto';
 import bcrypt from 'bcryptjs';
 import { type BlogPost, type InsertBlogPost, type Country, type AdminUser, type InsertAdminUser, type AdminLog, type InsertAdminLog, type AdminAction } from '@shared/schema';
+import * as fs from 'fs';
+import * as path from 'path';
 
 // MongoDB Connection
 let client: MongoClient;
@@ -324,6 +326,88 @@ export class MongoDBStorage {
   }
 
   private getSeedData() {
+    // Try to load from JSON override to keep fallback consistent with in-memory mode
+    try {
+      const overridePath = process.env.IN_MEMORY_BLOG_FILE
+        ? (path.isAbsolute(process.env.IN_MEMORY_BLOG_FILE)
+            ? process.env.IN_MEMORY_BLOG_FILE
+            : path.join(process.cwd(), process.env.IN_MEMORY_BLOG_FILE))
+        : path.join(process.cwd(), 'attached_assets', 'in-memory-blogs.json');
+
+      if (fs.existsSync(overridePath)) {
+        const raw = fs.readFileSync(overridePath, 'utf-8');
+        const list = JSON.parse(raw);
+        if (Array.isArray(list) && list.length > 0) {
+          const allCountries: Country[] = ['rs', 'mk', 'me', 'ba'];
+          const safe = (v: any, fallback: any) => (v === undefined || v === null ? fallback : v);
+          const posts: BlogPost[] = [];
+          for (const item of list) {
+            if (!item || typeof item !== 'object') continue;
+            const title = String(safe(item.title, 'Untitled'));
+            const slug = String(
+              safe(
+                item.slug,
+                title
+                  .toLowerCase()
+                  .replace(/[^a-z0-9]+/g, '-')
+                  .replace(/(^-|-$)/g, '') || `post-${randomUUID()}`
+              )
+            );
+            const dateStr = String(safe(item.date, new Date().toISOString().slice(0, 10)));
+            const created = new Date(dateStr);
+            const imageUrl = String(
+              safe(
+                item.imageUrl,
+                'https://images.unsplash.com/photo-1557800636-894a64c1696f?w=1200&auto=format&fit=crop&q=60'
+              )
+            );
+            const category = String(safe(item.category, 'General'));
+            const excerpt = String(
+              safe(
+                item.excerpt,
+                `Published on ${created.toLocaleDateString('en-GB')}`
+              )
+            );
+            const content = String(
+              safe(
+                item.content,
+                item.url
+                  ? `<p><a href="${item.url}" target="_blank" rel="noopener">Open related link</a></p>`
+                  : `<p>${title}</p>`
+              )
+            );
+            const tags = Array.isArray(item.tags) ? item.tags.map((t: any) => String(t)) : [];
+            const countries = Array.isArray(item.countries) && item.countries.length
+              ? (item.countries as Country[])
+              : allCountries;
+            const featured = Boolean(safe(item.featured, true));
+            const published = Boolean(safe(item.published, true));
+
+            posts.push({
+              id: randomUUID(),
+              title,
+              slug,
+              excerpt,
+              content,
+              imageUrl,
+              category,
+              tags,
+              countries,
+              featured,
+              published,
+              createdAt: created,
+              updatedAt: created,
+            });
+          }
+          if (posts.length > 0) {
+            return posts;
+          }
+        }
+      }
+    } catch (e) {
+      // Ignore and fall back to built-in defaults
+    }
+
     return [
       {
         id: randomUUID(),
