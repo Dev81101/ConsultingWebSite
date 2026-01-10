@@ -91,19 +91,19 @@ export default function AchievementCounters() {
         {
             id: "projects",
             label: t.achievements?.title1 || "Successfully completed projects",
-            value: 3000,
+            value: 4300,
             description:
                 t.achievements?.subtitle1 ||
-                "Over 3,000 successfully completed projects",
+                "Over 4.000 successfully completed projects",
             order: 1,
         },
         {
             id: "grants",
             label: t.achievements?.title2 || "Approved grants",
-            value: 25,
+            value: 35,
             description:
                 t.achievements?.subtitle2 ||
-                "Over 25 million euros in approved grants",
+                "Over 35 million euros in approved grants",
             showEuro: true,
             suffix: "M",
             order: 2,

@@ -595,11 +595,11 @@ export const translations: Record<Language, {
       supertitle: "Our  Achievements",
       supersubtitle: "Together with our clients, we achieve exceptional results across all sectors!",
       title1:"Successfully completed projects",
-      subtitle1:"Over 3,000 successfully completed projects",
+      subtitle1:"Over 4,300 successfully completed projects",
         title2:"Approved grants",
-        subtitle2:"Over 25 million euros in approved grants",
+        subtitle2:"Over 35 million euros in paid grants",
         title3:"Approved credits",
-        subtitle3:"Over 80 million euros in approved financial credits",
+        subtitle3:"Over 80 million euros in paid financial credits",
         loading: "Loading...",
       error: "Unable to load achievements at this time.",
 
@@ -650,7 +650,7 @@ export const translations: Record<Language, {
       lastName: "Last Name",
       emailLabel: "Email",
       serviceInterest: "Service Interest",
-      message: "Message",
+      message: "Message/Question",
       selectService: "Select a service",
       ipardPrograms: "IPARD Programs",
       financialAid: "Financial Aid",
@@ -779,13 +779,13 @@ export const translations: Record<Language, {
     team: {
       title: "Our Team",
       subtitle: "Largest team of Experts",
-      description: "Our diverse team brings together decades of expertise in financial consulting, market access, and agri-food technology. We are passionate about supporting farmers and businesses to achieve sustainable growth and unlock new opportunities in the European and global markets. We are here to partner with you every step of the way.",
+      description: "We are a multidisciplinary team with extensive experience in financial consulting and investment development. While we work across many industries, we specialize in manufacturing, agribusiness, rural development, tourism, and green energy projects. By helping clients navigate government support and EU funding, we transform concepts into profitable realities. We are dedicated to building sustainable, export-ready businesses.",
       cta: "Connect With Our Experts",
     },
     contactPage: {
-      heroTitle: "Contact Us",
-      heroSubtitle: "Ready to take your business to the next level? Get in touch with our expert consultants today",
-      methodsTitle: "How Can We Help You?",
+        heroTitle: "Ready to take your business to the next level?",
+       heroSubtitle: "Get in touch with our team of experts today.",
+        methodsTitle: "How Can We Help You?",
       methodsSubtitle: "Choose the most convenient way to reach our team",
       getDirections: "Get Directions",
       headquartersLabel: "Headquarters",
@@ -929,11 +929,11 @@ export const translations: Record<Language, {
             supertitle: "Нашите достигнувања",
             supersubtitle: "Заедно со нашите клиенти, постигнуваме исклучителни резултати во сите сектори!",
             title1: "Успешно завршени проекти",
-            subtitle1: "Над 3.000 успешно завршени проекти",
-            title2: "Одобрени грантови",
-            subtitle2: "Над 25 милиони евра во одобрени грантови",
-            title3: "Одобрени кредити",
-            subtitle3: "Над 80 милиони евра во одобрени финансиски кредити",
+            subtitle1: "Над 4.300 успешно завршени проекти",
+            title2: "Исплатени грантови",
+            subtitle2: "Над 35 милиони евра во исплатени грантови",
+            title3: "Исплатени кредити",
+            subtitle3: "Над 80 милиони евра во исплатени финансиски кредити",
             loading: "Вчитување...",
             error: "Во моментот не е можно да се вчитаат достигнувањата.",
         },
@@ -982,7 +982,7 @@ export const translations: Record<Language, {
             lastName: "Презиме",
             emailLabel: "Е-пошта",
             serviceInterest: "Услуга од интерес",
-            message: "Порака",
+            message: "Порака/Прашање",
             selectService: "Изберете услуга",
             ipardPrograms: "IPARD Програми",
             financialAid: "Финансиска помош",
@@ -1041,8 +1041,8 @@ export const translations: Record<Language, {
 
             // Company Overview
             whoWeAreTitle: "Кои Сме Ние",
-            overviewP1: "ВВП ПЛУС КОНСАЛТИНГ е дел од австриската ВВП ГРУПА, чиј примарен фокус е финансиски консалтинг. Основана во 1985 година во Грац, Австрија, групата сега работи во 10 земји од Југоисточна Европа и е активна во Македонија од 2005 година.",
-            overviewP2: "Од своето основање во 2019 година, ВВП ПЛУС КОНСАЛТИНГ има за цел да обезбеди целосен финансиски пристап до македонските компании и граѓани. За пет години, поддржавме повеќе од 3.000 клиенти, овозможивме преку 80 милиони евра заеми и обезбедивме повеќе од 25 милиони евра грантови.",
+            overviewP1: "ВФП Плус Консалтинг е дел од реномираната австриска групација WVP GROUP, со традиција што датира од 1985 година. Со седиште во Грац, Австрија, групацијата денес е присутна во 10 земји низ Југоисточна Европа, носејќи експертиза, доверба и иновативни решенија во делот на финансиското советување.\n" ,
+            overviewP2: "Во Македонија, групацијата е активна од 2005 година, додека ВФП Плус Консалтинг започнува со работа во 2019 година како трета компанија од групацијата (од вкупно 6-те) присутна на македонскиот пазар.",
             regionalDevTitle: "Регионален Развој",
             serbiaOffice: "2022 — ВВП ПЛУС КОНСАЛТИНГ ДОО Србија",
             bosniaOffice: "2024 — ВФП ПЛУС КОНСАЛТИНГ ДОО Босна",
@@ -1052,6 +1052,7 @@ export const translations: Record<Language, {
             // What We Offer
             accessFinanceTitle: "Пристап до Финансии:",
             accessFinanceList: [
+                "Грантови / кофинансирање",
                 "Банкарски кредитни производи",
                 "Лизинг",
                 "Факторинг",
@@ -1060,8 +1061,8 @@ export const translations: Record<Language, {
                 "Спојувања и превземања",
                 "Групово финансирање на капитал (Equity crowdfunding)",
                 "Бизнис ангели",
-                "Капитални инструменти",
-                "Грантови / кофинансирање"
+                "Капитални инструменти"
+
             ],
             marketAccessTitle: "Пристап до Пазарот:",
             marketAccessList: [
@@ -1081,7 +1082,7 @@ export const translations: Record<Language, {
                 "Длабинска анализа (Due diligence)",
                 "Анализа на трошоци и придобивки (Cost-benefit analysis)"
             ],
-            missionStatement: "Нашата мисија е длабоко да ја разбереме секоја компанија, да ги идентификуваме нејзините финансиски и пазарни потреби и да ја поврземе со вистинските инструменти за постигнување реални, мерливи резултати. Со над 25 експерти, обезбедуваме врвен консалтинг и долгорочни партнерства.",
+            missionStatement: "Нашата мисија е да овозможиме целосен пристап до финансии за компании и граѓани, зголемувајќи ја нивната конкурентност и одржливост.",
 
             // Company Values
             valuesTitle: "Нашите Вредности",
@@ -1112,12 +1113,14 @@ export const translations: Record<Language, {
         team: {
             title: "Нашиот тим",
             subtitle: "Најголемиот тим на експерти",
-            description: "Нашиот мултидисциплинарен тим носи богато искуство во финансиски консалтинг и развој на инвестиции во различни индустрии, со посебен фокус на земјоделство и рурален развој, туризам и „зелени инвестиции“. Им помагаме на клиентите да пристапат до државните програми за финансиска поддршка и фондовите на Европската Унија, и да ги претворат нивните идеи во одржливи и реализирани инвестиции. За нашите клиенти – ние сме партнери во процесот на раст.",
+            description: "Нашиот мултидисциплинарен тим носи богато искуство во финансиски консалтинг и развој на инвестиции во различни индустрии, со посебен фокус на производствените компании, агро секторот, рурален развој, туризам и „зелени инвестиции“. Им помагаме на клиентите да пристапат до државните програми за финансиска поддршка и фондовите на Европската Унија, и да ги претворат нивните идеи во одржливи и реализирани инвестиции. Наша задача е заеднички да создаваме одржлив раст и извозно ориентирани компании.\n" +
+                "\n" +
+                "За нашите клиенти – ние сме партнери во процесот на раст.",
             cta: "Поврзете се со нашите експерти",
         },
         contactPage: {
-            heroTitle: "Контактирајте не",
-            heroSubtitle: "Подготвени да го подигнете вашиот бизнис на следното ниво? Контактирајте ги нашите стручни консултанти денес",
+            heroTitle: "Дали сте подготвени да го подигнете вашиот бизнис на следното ниво?",
+            heroSubtitle: "Стапете во контакт со нашиот тим од професионалци уште денес",
             methodsTitle: "Како можеме да ви помогнеме?",
             methodsSubtitle: "Изберете го најпогодниот начин за контакт со нашиот тим",
             getDirections: "Насоки",
