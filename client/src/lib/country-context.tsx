@@ -47,46 +47,17 @@ export function CountryProvider({ children }: { children: React.ReactNode }) {
     if (currentCountryFromPath && countries.includes(currentCountryFromPath as Country)) {
       return currentCountryFromPath as Country;
     }
-    return getStoredCountry() || 'rs';
+    // Default to Macedonian version
+    return 'mk';
   });
   
-  // Auto-detect country if we're on root path
+  // On root path, always redirect to MK version
   useEffect(() => {
     if (location === '/') {
       setIsLoading(true);
-      
-      // Check stored preference first
-      const storedCountry = getStoredCountry();
-      
-      // If we have a stored preference, use it
-      if (storedCountry) {
-        setLocation(`/${storedCountry}`);
-        setCountryState(storedCountry);
-        setIsLoading(false);
-        return;
-      }
-      
-      // Otherwise, detect from server
-      fetch('/api/geo')
-        .then(res => res.json())
-        .then(data => {
-          const detectedCountry = data.country as Country;
-          if (countries.includes(detectedCountry)) {
-            setCountryState(detectedCountry);
-            setLocation(`/${detectedCountry}`);
-          } else {
-            setCountryState('rs');
-            setLocation('/rs');
-          }
-        })
-        .catch(() => {
-          // Fallback to default
-          setCountryState('rs');
-          setLocation('/rs');
-        })
-        .finally(() => {
-          setIsLoading(false);
-        });
+      setCountryState('mk');
+      setLocation('/mk');
+      setIsLoading(false);
     } else {
       setIsLoading(false);
     }
