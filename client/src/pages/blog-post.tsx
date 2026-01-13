@@ -7,6 +7,26 @@ import { Link } from "wouter";
 import { ArrowLeft, Calendar, Tag } from "lucide-react";
 import { useCountry } from "@/lib/country-context";
 
+function stripHtmlTags(html: string): string {
+  if (!html) return '';
+  return html
+    .replace(/<\/p>\s*<p>/gi, '\n\n')
+    .replace(/<br\s*\/?>/gi, '\n')
+    .replace(/<\/?(h[1-6]|div|section|article)[^>]*>/gi, '\n\n')
+    .replace(/<\/?(ul|ol)[^>]*>/gi, '\n')
+    .replace(/<li[^>]*>/gi, '• ')
+    .replace(/<\/li>/gi, '\n')
+    .replace(/<[^>]+>/g, '')
+    .replace(/&nbsp;/g, ' ')
+    .replace(/&amp;/g, '&')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+    .replace(/\n{3,}/g, '\n\n')
+    .trim();
+}
+
 const categoryColors: Record<string, string> = {
   "IPARD": "bg-primary/10 text-primary",
   "Tourism": "bg-chart-2/10 text-chart-2",
@@ -125,11 +145,11 @@ export default function BlogPost() {
           {/* Content */}
           <div className="prose prose-lg max-w-none text-foreground" data-testid="post-content">
             <p className="text-xl text-muted-foreground mb-8 leading-relaxed">
-              {post.excerpt}
+              {stripHtmlTags(post.excerpt)}
             </p>
             <div className="space-y-6 leading-relaxed">
-              {post.content.split('\n\n').map((paragraph, index) => (
-                <p key={index} className="text-foreground">
+              {stripHtmlTags(post.content).split('\n\n').filter(p => p.trim()).map((paragraph, index) => (
+                <p key={index} className="text-foreground whitespace-pre-line">
                   {paragraph}
                 </p>
               ))}

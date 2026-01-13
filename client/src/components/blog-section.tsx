@@ -9,6 +9,19 @@ import { useLanguage } from "@/lib/language-context";
 import { useTranslations } from "@/lib/translations";
 import NewsletterSubscription from "./newsletter-subscription";
 
+function stripHtmlTags(html: string): string {
+  if (!html) return '';
+  return html
+    .replace(/<[^>]+>/g, '')
+    .replace(/&nbsp;/g, ' ')
+    .replace(/&amp;/g, '&')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+    .trim();
+}
+
 const categoryColors: Record<string, string> = {
   "IPARD": "bg-primary/10 text-primary",
   "Tourism": "bg-chart-2/10 text-chart-2",
@@ -50,7 +63,7 @@ function BlogCard({ post }: { post: BlogPost }) {
           {post.title}
         </h3>
         <p className="text-sm text-muted-foreground mb-4 line-clamp-3" data-testid="blog-post-excerpt">
-          {post.excerpt}
+          {stripHtmlTags(post.excerpt)}
         </p>
         <Link href={`/${country}/blog/${post.slug}`}>
           <Button 

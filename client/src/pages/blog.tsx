@@ -8,6 +8,19 @@ import { ArrowRight, Calendar, Search } from "lucide-react";
 import { useState } from "react";
 import { useCountry } from "@/lib/country-context";
 
+function stripHtmlTags(html: string): string {
+  if (!html) return '';
+  return html
+    .replace(/<[^>]+>/g, '')
+    .replace(/&nbsp;/g, ' ')
+    .replace(/&amp;/g, '&')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+    .trim();
+}
+
 const categoryColors: Record<string, string> = {
     "IPARD": "bg-primary/10 text-primary",
     "Tourism": "bg-chart-2/10 text-chart-2",
@@ -47,7 +60,7 @@ function BlogCard({ post }: { post: BlogPost }) {
                     {post.title}
                 </h3>
                 <p className="text-muted-foreground mb-4 line-clamp-3" data-testid="blog-card-excerpt">
-                    {post.excerpt}
+                    {stripHtmlTags(post.excerpt)}
                 </p>
                 <Link href={`/${country}/blog/${post.slug}`}>
                     <Button
