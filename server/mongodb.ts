@@ -372,8 +372,8 @@ export class MongoDBStorage {
               safe(
                 item.content,
                 item.url
-                  ? `<p><a href="${item.url}" target="_blank" rel="noopener">Open related link</a></p>`
-                  : `<p>${title}</p>`
+                  ? `Open related link: ${item.url}`
+                  : title
               )
             );
             const tags = Array.isArray(item.tags) ? item.tags.map((t: any) => String(t)) : [];

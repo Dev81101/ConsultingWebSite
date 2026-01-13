@@ -85,8 +85,8 @@ export class HybridStorage implements IStorage {
           title: opts.title,
           slug: opts.slug,
           excerpt: `Read our LinkedIn update posted on ${created.toLocaleDateString("en-GB")} – click to open the original post.`,
-          // Keep basic HTML content with a link to the original LinkedIn activity
-          content: `<p>This article links to our original LinkedIn update.</p><p><a href="${opts.url}" target="_blank" rel="noopener">Open LinkedIn post</a></p>`,
+          // Plain text content with a link to the original LinkedIn activity
+          content: `This article links to our original LinkedIn update. Visit: ${opts.url}`,
           imageUrl: "https://images.unsplash.com/photo-1557800636-894a64c1696f?w=1200&auto=format&fit=crop&q=60",
           category: "LinkedIn",
           tags: ["LinkedIn", "Update"],
@@ -149,8 +149,8 @@ export class HybridStorage implements IStorage {
               safe(
                 item.content,
                 item.url
-                  ? `<p><a href="${item.url}" target="_blank" rel="noopener">Open related link</a></p>`
-                  : `<p>${title}</p>`
+                  ? `Open related link: ${item.url}`
+                  : title
               )
             );
             const tags = Array.isArray(item.tags) ? item.tags.map((t: any) => String(t)) : [];
