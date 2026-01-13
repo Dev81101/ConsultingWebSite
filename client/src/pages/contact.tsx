@@ -148,7 +148,7 @@ export default function Contact() {
 
                 {/* 1. Image (Background) - Using a placeholder image source */}
                 <img
-                    src="../images/Contact.jpg" // Assume you use a unique image for the Contact page
+                    src="/images/Contact.jpg"
                     alt="Contact us background image"
                     className="absolute inset-0 w-full h-full object-cover"
                 />

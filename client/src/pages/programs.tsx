@@ -48,7 +48,7 @@ function useServicesData(): Service[] {
             id: "financial-consulting",
             title: p.financialConsulting?.title || fallback.title,
             subtitle: p.financialConsulting?.subtitle || fallback.subtitle,
-            imageUrl: "../images/financial.jpg",
+            imageUrl: "/images/financial.jpg",
             description: p.financialConsulting?.description || fallback.description,
             items: p.financialConsulting?.items || fallback.items,
             icon: HandCoins,
@@ -57,7 +57,7 @@ function useServicesData(): Service[] {
             id: "access-to-finance",
             title: p.accessToFinance?.title || fallback.title,
             subtitle: p.accessToFinance?.subtitle || fallback.subtitle,
-            imageUrl: "../images/Accesstofinance.jpg",
+            imageUrl: "/images/Accesstofinance.jpg",
             description: p.accessToFinance?.description || fallback.description,
             items: p.accessToFinance?.items || fallback.items,
             icon: Euro,
@@ -66,7 +66,7 @@ function useServicesData(): Service[] {
             id: "grants",
             title: p.grants?.title || fallback.title,
             subtitle: p.grants?.subtitle || fallback.subtitle,
-            imageUrl: "../images/Grants.jpg",
+            imageUrl: "/images/Grants.jpg",
             description: p.grants?.description || fallback.description,
             items: p.grants?.items || fallback.items,
             icon: ReceiptEuroIcon,
@@ -75,7 +75,7 @@ function useServicesData(): Service[] {
             id: "business-consulting",
             title: p.businessConsulting?.title || fallback.title,
             subtitle: p.businessConsulting?.subtitle || fallback.subtitle,
-            imageUrl: "../images/BusinessConsulting.jpg",
+            imageUrl: "/images/BusinessConsulting.jpg",
             description: p.businessConsulting?.description || fallback.description,
             items: p.businessConsulting?.items || fallback.items,
             icon: ChartLine,
@@ -84,7 +84,7 @@ function useServicesData(): Service[] {
             id: "marketing",
             title: p.marketing?.title || fallback.title,
             subtitle: p.marketing?.subtitle || fallback.subtitle,
-            imageUrl: "../images/Marketing.jpg",
+            imageUrl: "/images/Marketing.jpg",
             description: p.marketing?.description || fallback.description,
             items: p.marketing?.items || fallback.items,
             icon: ChartNetwork,
@@ -93,7 +93,7 @@ function useServicesData(): Service[] {
             id: "market-access",
             title: p.marketAccess?.title || fallback.title,
             subtitle: p.marketAccess?.subtitle || fallback.subtitle,
-            imageUrl: "../images/acess.jpg",
+            imageUrl: "/images/acess.jpg",
             description: p.marketAccess?.description || fallback.description,
             items: p.marketAccess?.items || fallback.items,
             icon: Globe,
@@ -102,7 +102,7 @@ function useServicesData(): Service[] {
             id: "esg",
             title: p.esg?.title || fallback.title,
             subtitle: p.esg?.subtitle || fallback.subtitle,
-            imageUrl: "../images/ESG.jpg",
+            imageUrl: "/images/ESG.jpg",
             description: p.esg?.description || fallback.description,
             items: p.esg?.items || fallback.items,
             icon: NetworkIcon,
@@ -303,7 +303,7 @@ export default function ServicesPage() {
 
                 {/* 1. Image (Background) */}
                 <img
-                    src="../images/HeaderPrograms.png"
+                    src="/images/HeaderPrograms.png"
                     className="absolute inset-0 w-full h-full object-cover"
                     alt="Background header image for Services & Programs"
                 />

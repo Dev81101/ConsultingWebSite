@@ -85,7 +85,7 @@ export default function HeroSlider() {
             // NOTE: You need to add keys like 'home.slide1Title' to your translation JSON
             title: t?.home?.slide1Title || "For the clients we choose the best!",
             subtitle: t?.home?.slide1Subtitle || "3000 clients and counting",
-            image: "../images/zgrada.png",
+            image: "/images/zgrada.png",
             cta1: t?.nav?.contact || "Contact", // Using 'Contact' from nav
             cta2: t?.nav?.programs || "Services" // Using 'Programs' from nav
         },
@@ -93,7 +93,7 @@ export default function HeroSlider() {
             id: 2,
             title: t?.home?.slide2Title || "Our way of work",
             subtitle: t?.home?.slide2Subtitle || "Meet how we work, and learn why our aproach gives best results",
-            image: "../images/Recepcija1.jpg",
+            image: "/images/Recepcija1.jpg",
             cta1: t?.nav?.contact || "Contact",
             cta2: t?.nav?.programs || "Services"
         },
@@ -101,7 +101,7 @@ export default function HeroSlider() {
             id: 3,
             title: t?.home?.slide3Title || "Experts in the finance field",
             subtitle: t?.home?.slide3Subtitle || "Strategic business planning and financial advisory services to accelerate your growth",
-            image: "../images/TimPic1.jpg",
+            image: "/images/TimPic1.jpg",
             cta1: t?.nav?.contact || "Contact",
             cta2: t?.nav?.programs || "Services"
         }

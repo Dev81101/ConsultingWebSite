@@ -10,7 +10,7 @@ export default function Footer() {
     const t = useTranslations()[language];
 
     // Path to the background image
-    const backgroundImage = "../images/Zgrada.png";
+    const backgroundImage = "/images/Zgrada.png";
 
     return (
         <footer
@@ -27,7 +27,7 @@ export default function Footer() {
                     <div className="lg:col-span-2">
                         <div className="flex items-center mb-4">
                             {/* Assuming LogoWhite.png is a white/light version for the dark background */}
-                            <img src="../images/LogoWhite.png" className="h-28" alt="Logo" />
+                            <img src="/images/LogoWhite.png" className="h-28" alt="Logo" />
                         </div>
                         {/* Changed text-foreground to text-gray-300 for better contrast against the dark overlay */}
                         <p className="text-gray-300 mb-6 max-w-md">

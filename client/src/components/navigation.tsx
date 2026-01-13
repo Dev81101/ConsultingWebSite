@@ -75,7 +75,7 @@ export default function Navigation() {
                     >
                         <div className="w-28 font-bold">
                             <img
-                                src="../images/logo.png"
+                                src="/images/logo.png"
                                 className="w-24"
                                 alt="Logo"
                             />

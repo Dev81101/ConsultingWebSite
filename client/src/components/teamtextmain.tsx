@@ -5,7 +5,7 @@ import { useTranslations } from "@/lib/translations";
 export default function TeamTextMain() {
     const { language } = useLanguage();
     const t = useTranslations()[language];
-    const imageUrl = "../images/StrucenTim.png";
+    const imageUrl = "/images/StrucenTim.png";
 
     return (
         <section className="py-20 bg-transparent overflow-hidden" data-testid="team-text-main">

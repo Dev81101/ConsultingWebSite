@@ -145,7 +145,7 @@ export default function Blog() {
 
                 {/* 1. Image (Background) - Using a placeholder image source */}
                 <img
-                    src="../images/HeaderBlog.jpg" // Assume you use a unique image for the Blog page
+                    src="/images/HeaderBlog.jpg"
                     alt="Blog background image"
                     className="absolute inset-0 w-full h-full object-cover"
                 />

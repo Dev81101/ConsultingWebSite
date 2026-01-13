@@ -7,9 +7,10 @@ import { Users, Target, Award, Lightbulb, MapPin, Loader2 } from "lucide-react";
 import { motion } from "framer-motion";
 import { useLanguage } from "@/lib/language-context";
 import { useTranslations } from "@/lib/translations";
-import direktorImage from "../../images/direktor.png";
-import aboutHeaderImage from "../../images/AboutHeader.jpg";
-import mapSvgUrl from "../../images/MapCustom.svg"; // <-- your SVG (client/images/MapCustom.svg)
+// Image paths from public folder
+const direktorImage = "/images/direktor.png";
+const aboutHeaderImage = "/images/AboutHeader.jpg";
+const mapSvgUrl = "/images/MapCustom.svg";
 
 type TranslatableValues = {
     [key: string]: string;
