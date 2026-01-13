@@ -10,7 +10,7 @@ export default function Footer() {
     const t = useTranslations()[language];
 
     // Path to the background image
-    const backgroundImage = "/images/Zgrada.png";
+    const backgroundImage = "/images/zgrada.png";
 
     return (
         <footer
