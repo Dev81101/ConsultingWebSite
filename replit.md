@@ -62,6 +62,36 @@ Preferred communication style: Simple, everyday language.
 - **Drizzle ORM**: Type-safe database operations with PostgreSQL dialect
 - **Connection Management**: Environment-based database URL configuration
 
+### Replit Publish: Neon/Drizzle Troubleshooting (January 2026)
+
+If you see this error while publishing on Replit:
+
+"Failed to check for database diff: The endpoint has been disabled. Enable it using Neon API and retry."
+
+Background: Drizzle Kit may try to contact Neon’s migrations/diff endpoint during automated checks. On some Neon plans, that endpoint is disabled by default.
+
+What we changed (safe default):
+- Drizzle config now only sends database credentials to Drizzle Kit when you explicitly opt in using an env var. This prevents accidental Neon API calls during Replit Publish.
+
+How to proceed:
+1) If you just want to publish without database migrations
+   - Do nothing. The default behavior skips database connectivity during publish.
+   - Ensure no CI step runs `drizzle-kit push` automatically.
+
+2) If you want to run Drizzle migrations against Neon
+   - Enable Neon Migrations/HTTP endpoint for your project in Neon (via Neon dashboard or API).
+   - Set these environment variables in Replit (or locally):
+     - DRIZZLE_ENABLE_DB=1
+     - DATABASE_URL=postgres://... (your Neon connection string)
+   - Then run: `npm run db:push` (or the Drizzle command you need).
+
+3) Alternative: Run migrations locally
+   - Run `DRIZZLE_ENABLE_DB=1 DATABASE_URL=... npm run db:push` from your local machine where the endpoint is enabled.
+
+Notes:
+- The application also includes in-memory and MongoDB storage options for development; DB connectivity is not required for a basic publish.
+- The Drizzle configuration file is `drizzle.config.ts`. See comments at the top for details.
+
 ### Frontend Libraries
 - **Radix UI**: Headless UI components for accessibility and customization
 - **TanStack Query**: Server state management, caching, and synchronization
