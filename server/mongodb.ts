@@ -405,7 +405,7 @@ export class MongoDBStorage {
         }
       }
     } catch (e) {
-      // Ignore and fall back to built-in defaults
+      // Fall back to built-in defaults if JSON loading fails
     }
 
     return [
