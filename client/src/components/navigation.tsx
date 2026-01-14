@@ -35,6 +35,7 @@ export default function Navigation() {
     const t = useTranslations()[language];
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [isProgramsOpen, setIsProgramsOpen] = useState(false);
+    const [isMobileProgramsOpen, setIsMobileProgramsOpen] = useState(false);
     const [isBlogOpen, setIsBlogOpen] = useState(false);
     const [location] = useLocation();
 
@@ -193,9 +194,12 @@ export default function Navigation() {
                         <Button
                             variant="ghost"
                             size="icon"
-                            onClick={() =>
-                                setIsMobileMenuOpen(!isMobileMenuOpen)
-                            }
+                            onClick={() => {
+                                setIsMobileMenuOpen(!isMobileMenuOpen);
+                                if (isMobileMenuOpen) {
+                                    setIsMobileProgramsOpen(false);
+                                }
+                            }}
                         >
                             {isMobileMenuOpen ? <X /> : <Menu />}
                         </Button>
@@ -224,19 +228,19 @@ export default function Navigation() {
                             {/* PROGRAMS DROPDOWN */}
                             <button
                                 onClick={() =>
-                                    setIsProgramsOpen(!isProgramsOpen)
+                                    setIsMobileProgramsOpen(!isMobileProgramsOpen)
                                 }
                                 className="w-full px-3 py-2 flex justify-between items-center text-white hover:text-primary hover:bg-muted rounded-md"
                             >
                                 {t.nav.programs}
                                 <ChevronDown
                                     className={`h-4 w-4 transition-transform ${
-                                        isProgramsOpen ? "rotate-180" : ""
+                                        isMobileProgramsOpen ? "rotate-180" : ""
                                     }`}
                                 />
                             </button>
 
-                            {isProgramsOpen && (
+                            {isMobileProgramsOpen && (
                                 <div className="ml-4 mt-1 space-y-1 border-l border-muted pl-3">
                                     {/* VIEW ALL */}
                                     <Link
@@ -247,11 +251,11 @@ export default function Navigation() {
                                         }}
                                         className="block px-3 py-2 text-white/80 hover:text-primary hover:bg-muted rounded-md"
                                     >
-                                        View All Services
+                                        {t.programs.viewAllServices}
                                     </Link>
 
                                     {/* SERVICES LIST */}
-                                    {NAV_SERVICES.map((service) => (
+                                    {getNavServices(t).map((service) => (
                                         <Link
                                             key={service.id}
                                             href={`/${country}/programs#${service.id}`}
