@@ -14,13 +14,13 @@ const containerVariants = {
         opacity: 1,
         transition: {
             staggerChildren: 0.2,
-            delayChildren: 0.3
-        }
+            delayChildren: 0.3,
+        },
     },
     exit: {
         opacity: 0,
-        transition: { duration: 0.5 }
-    }
+        transition: { duration: 0.5 },
+    },
 };
 
 const titleVariants = {
@@ -30,9 +30,9 @@ const titleVariants = {
         y: 0,
         transition: {
             duration: 0.8,
-            ease: "easeOut"
-        }
-    }
+            ease: "easeOut",
+        },
+    },
 };
 
 const subtitleVariants = {
@@ -42,9 +42,9 @@ const subtitleVariants = {
         y: 0,
         transition: {
             duration: 0.8,
-            ease: "easeOut"
-        }
-    }
+            ease: "easeOut",
+        },
+    },
 };
 
 const buttonVariants = {
@@ -54,13 +54,13 @@ const buttonVariants = {
         y: 0,
         transition: {
             duration: 0.6,
-            ease: "easeOut"
-        }
+            ease: "easeOut",
+        },
     },
     hover: {
         scale: 1.05,
-        transition: { duration: 0.2 }
-    }
+        transition: { duration: 0.2 },
+    },
 };
 
 // New translation keys needed for the slider content:
@@ -78,34 +78,44 @@ export default function HeroSlider() {
     const [currentSlide, setCurrentSlide] = useState(0);
 
     // Define slides using the translation object 't'
-    const slides = useMemo(() => [
-        {
-            id: 1,
-            // Using existing translations for CTA buttons (nav.contact & nav.programs)
-            // NOTE: You need to add keys like 'home.slide1Title' to your translation JSON
-            title: t?.home?.slide1Title || "For the clients we choose the best!",
-            subtitle: t?.home?.slide1Subtitle || "3000 clients and counting",
-            image: "/images/zgrada.png",
-            cta1: t?.nav?.contact || "Contact", // Using 'Contact' from nav
-            cta2: t?.nav?.programs || "Services" // Using 'Programs' from nav
-        },
-        {
-            id: 2,
-            title: t?.home?.slide2Title || "Our way of work",
-            subtitle: t?.home?.slide2Subtitle || "Meet how we work, and learn why our aproach gives best results",
-            image: "/images/Recepcija1.jpg",
-            cta1: t?.nav?.contact || "Contact",
-            cta2: t?.nav?.programs || "Services"
-        },
-        {
-            id: 3,
-            title: t?.home?.slide3Title || "Experts in the finance field",
-            subtitle: t?.home?.slide3Subtitle || "Strategic business planning and financial advisory services to accelerate your growth",
-            image: "/images/TimPic1.jpg",
-            cta1: t?.nav?.contact || "Contact",
-            cta2: t?.nav?.programs || "Services"
-        }
-    ], [t]); // Re-run useMemo when 't' changes (language switch)
+    const slides = useMemo(
+        () => [
+            {
+                id: 1,
+                // Using existing translations for CTA buttons (nav.contact & nav.programs)
+                // NOTE: You need to add keys like 'home.slide1Title' to your translation JSON
+                title:
+                    t?.home?.slide1Title ||
+                    "For the clients we choose the best!",
+                subtitle:
+                    t?.home?.slide1Subtitle || "4300 clients and counting",
+                image: "/images/zgrada.png",
+                cta1: t?.nav?.contact || "Contact", // Using 'Contact' from nav
+                cta2: t?.nav?.programs || "Services", // Using 'Programs' from nav
+            },
+            {
+                id: 2,
+                title: t?.home?.slide2Title || "Our way of work",
+                subtitle:
+                    t?.home?.slide2Subtitle ||
+                    "Meet how we work, and learn why our aproach gives best results",
+                image: "/images/Recepcija1.jpg",
+                cta1: t?.nav?.contact || "Contact",
+                cta2: t?.nav?.programs || "Services",
+            },
+            {
+                id: 3,
+                title: t?.home?.slide3Title || "Experts in the finance field",
+                subtitle:
+                    t?.home?.slide3Subtitle ||
+                    "Strategic business planning and financial advisory services to accelerate your growth",
+                image: "/images/TimPic1.jpg",
+                cta1: t?.nav?.contact || "Contact",
+                cta2: t?.nav?.programs || "Services",
+            },
+        ],
+        [t],
+    ); // Re-run useMemo when 't' changes (language switch)
 
     useEffect(() => {
         const timer = setInterval(() => {
@@ -137,7 +147,10 @@ export default function HeroSlider() {
     }
 
     return (
-        <section className="relative h-screen overflow-hidden" data-testid="hero-slider">
+        <section
+            className="relative h-screen overflow-hidden"
+            data-testid="hero-slider"
+        >
             <AnimatePresence mode="wait">
                 <motion.div
                     key={currentSlide}
@@ -151,7 +164,9 @@ export default function HeroSlider() {
                     {/* Animated Background with Parallax Effect */}
                     <motion.div
                         className="absolute inset-0 bg-cover bg-center will-change-transform"
-                        style={{ backgroundImage: `url('${slides[currentSlide].image}')` }}
+                        style={{
+                            backgroundImage: `url('${slides[currentSlide].image}')`,
+                        }}
                         animate={{
                             scale: [1, 1.05, 1],
                             x: [0, 10, 0],
@@ -159,7 +174,7 @@ export default function HeroSlider() {
                         transition={{
                             duration: 20,
                             repeat: Infinity,
-                            ease: "easeInOut"
+                            ease: "easeInOut",
                         }}
                     />
                     <div className="absolute inset-0 bg-black/50" />
@@ -197,7 +212,7 @@ export default function HeroSlider() {
                                             duration: 3,
                                             repeat: Infinity,
                                             repeatType: "mirror",
-                                            ease: "easeInOut"
+                                            ease: "easeInOut",
                                         }}
                                     >
                                         <Link href={`/${country}/contact`}>
@@ -219,7 +234,7 @@ export default function HeroSlider() {
                                             repeat: Infinity,
                                             repeatType: "mirror",
                                             ease: "easeInOut",
-                                            delay: 0.5
+                                            delay: 0.5,
                                         }}
                                     >
                                         <Link href={`/${country}/programs`}>
@@ -272,7 +287,9 @@ export default function HeroSlider() {
                         whileHover={{ scale: 1.3 }}
                         whileTap={{ scale: 0.9 }}
                         className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                            index === currentSlide ? 'bg-white w-8' : 'bg-white/50'
+                            index === currentSlide
+                                ? "bg-white w-8"
+                                : "bg-white/50"
                         }`}
                         onClick={() => goToSlide(index)}
                         data-testid={`slider-dot-${index}`}

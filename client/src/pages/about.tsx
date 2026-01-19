@@ -3,7 +3,7 @@
 import { useState, useCallback, memo, useEffect, useRef } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Users, Target, Award, Lightbulb, MapPin, Loader2 } from "lucide-react";
+import { Users, Target, Award, Lightbulb, MapPin, Loader2, Wallet, Globe, FileText, CheckCircle2 } from "lucide-react";
 import { motion } from "framer-motion";
 import { useLanguage } from "@/lib/language-context";
 import { useTranslations } from "@/lib/translations";
@@ -250,28 +250,115 @@ export default function About() {
                 </div>
 
                 {/* WHAT WE OFFER */}
-                <section className="py-20">
-                    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-                        <h3 className="text-2xl font-bold text-foreground mb-6">{t.about.whatWeOfferTitle}</h3>
-                        <div className="grid gap-10 sm:grid-cols-2">
-                            <div>
-                                <h4 className="font-semibold text-lg text-foreground mb-2">{t.about.accessFinanceTitle}</h4>
-                                <ul className="list-disc list-inside text-muted-foreground">
-                                    {t.about.accessFinanceList.map((item: string, index: number) => <li key={index}>{item}</li>)}
-                                </ul>
-                            </div>
-                            <div>
-                                <h4 className="font-semibold text-lg text-foreground mb-2">{t.about.marketAccessTitle}</h4>
-                                <ul className="list-disc list-inside text-muted-foreground">
-                                    {t.about.marketAccessList.map((item: string, index: number) => <li key={index}>{item}</li>)}
-                                </ul>
-                            </div>
-                            <div>
-                                <h4 className="font-semibold text-lg text-foreground mb-2">{t.about.specialReportsTitle}</h4>
-                                <ul className="list-disc list-inside text-muted-foreground">
-                                    {t.about.specialReportsList.map((item: string, index: number) => <li key={index}>{item}</li>)}
-                                </ul>
-                            </div>
+                <section className="py-20 bg-gradient-to-b from-background to-muted/30">
+                    <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.5 }}
+                            className="text-center mb-16"
+                        >
+                            <h3 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">{t.about.whatWeOfferTitle}</h3>
+                            <div className="w-24 h-1 bg-primary mx-auto rounded-full"></div>
+                        </motion.div>
+                        
+                        <div className="grid gap-8 md:grid-cols-3">
+                            {/* Access to Finance Card */}
+                            <motion.div
+                                initial={{ opacity: 0, y: 30 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.5, delay: 0.1 }}
+                            >
+                                <Card className="group h-full bg-background border-2 border-transparent hover:border-primary/30 hover:shadow-2xl transition-all duration-500 rounded-2xl overflow-hidden">
+                                    <CardContent className="p-8">
+                                        <div className="w-16 h-16 rounded-2xl mb-6 flex items-center justify-center bg-gradient-to-br from-primary/10 to-primary/20 group-hover:from-primary group-hover:to-primary/80 transition-all duration-500">
+                                            <Wallet className="h-8 w-8 text-primary group-hover:text-white transition-colors duration-500" />
+                                        </div>
+                                        <h4 className="font-bold text-xl text-foreground mb-4 group-hover:text-primary transition-colors">{t.about.accessFinanceTitle}</h4>
+                                        <ul className="space-y-3">
+                                            {t.about.accessFinanceList.map((item: string, index: number) => (
+                                                <motion.li 
+                                                    key={index}
+                                                    initial={{ opacity: 0, x: -10 }}
+                                                    whileInView={{ opacity: 1, x: 0 }}
+                                                    viewport={{ once: true }}
+                                                    transition={{ duration: 0.3, delay: 0.2 + index * 0.1 }}
+                                                    className="flex items-start gap-3 text-muted-foreground"
+                                                >
+                                                    <CheckCircle2 className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
+                                                    <span>{item}</span>
+                                                </motion.li>
+                                            ))}
+                                        </ul>
+                                    </CardContent>
+                                </Card>
+                            </motion.div>
+
+                            {/* Market Access Card */}
+                            <motion.div
+                                initial={{ opacity: 0, y: 30 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.5, delay: 0.2 }}
+                            >
+                                <Card className="group h-full bg-background border-2 border-transparent hover:border-primary/30 hover:shadow-2xl transition-all duration-500 rounded-2xl overflow-hidden">
+                                    <CardContent className="p-8">
+                                        <div className="w-16 h-16 rounded-2xl mb-6 flex items-center justify-center bg-gradient-to-br from-primary/10 to-primary/20 group-hover:from-primary group-hover:to-primary/80 transition-all duration-500">
+                                            <Globe className="h-8 w-8 text-primary group-hover:text-white transition-colors duration-500" />
+                                        </div>
+                                        <h4 className="font-bold text-xl text-foreground mb-4 group-hover:text-primary transition-colors">{t.about.marketAccessTitle}</h4>
+                                        <ul className="space-y-3">
+                                            {t.about.marketAccessList.map((item: string, index: number) => (
+                                                <motion.li 
+                                                    key={index}
+                                                    initial={{ opacity: 0, x: -10 }}
+                                                    whileInView={{ opacity: 1, x: 0 }}
+                                                    viewport={{ once: true }}
+                                                    transition={{ duration: 0.3, delay: 0.3 + index * 0.1 }}
+                                                    className="flex items-start gap-3 text-muted-foreground"
+                                                >
+                                                    <CheckCircle2 className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
+                                                    <span>{item}</span>
+                                                </motion.li>
+                                            ))}
+                                        </ul>
+                                    </CardContent>
+                                </Card>
+                            </motion.div>
+
+                            {/* Special Reports Card */}
+                            <motion.div
+                                initial={{ opacity: 0, y: 30 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.5, delay: 0.3 }}
+                            >
+                                <Card className="group h-full bg-background border-2 border-transparent hover:border-primary/30 hover:shadow-2xl transition-all duration-500 rounded-2xl overflow-hidden">
+                                    <CardContent className="p-8">
+                                        <div className="w-16 h-16 rounded-2xl mb-6 flex items-center justify-center bg-gradient-to-br from-primary/10 to-primary/20 group-hover:from-primary group-hover:to-primary/80 transition-all duration-500">
+                                            <FileText className="h-8 w-8 text-primary group-hover:text-white transition-colors duration-500" />
+                                        </div>
+                                        <h4 className="font-bold text-xl text-foreground mb-4 group-hover:text-primary transition-colors">{t.about.specialReportsTitle}</h4>
+                                        <ul className="space-y-3">
+                                            {t.about.specialReportsList.map((item: string, index: number) => (
+                                                <motion.li 
+                                                    key={index}
+                                                    initial={{ opacity: 0, x: -10 }}
+                                                    whileInView={{ opacity: 1, x: 0 }}
+                                                    viewport={{ once: true }}
+                                                    transition={{ duration: 0.3, delay: 0.4 + index * 0.1 }}
+                                                    className="flex items-start gap-3 text-muted-foreground"
+                                                >
+                                                    <CheckCircle2 className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
+                                                    <span>{item}</span>
+                                                </motion.li>
+                                            ))}
+                                        </ul>
+                                    </CardContent>
+                                </Card>
+                            </motion.div>
                         </div>
                     </div>
                 </section>
