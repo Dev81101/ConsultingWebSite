@@ -8,23 +8,15 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useLanguage } from "@/lib/language-context";
 import { useCountry } from "@/lib/country-context";
-import { COUNTRY_LANGUAGES, LANGUAGE_NAMES, type Language } from "@shared/schema";
+import { COUNTRY_LANGUAGES, LANGUAGE_NAMES } from "@shared/schema";
 
 export default function LanguageSelector() {
     const { language, setLanguage } = useLanguage();
     const { country } = useCountry();
 
-    // Original available languages based on country
-    const allAvailableLanguages = COUNTRY_LANGUAGES[country];
+    const availableLanguages = COUNTRY_LANGUAGES[country];
 
-    // 1. Filter the available languages to only include 'en' and 'mk'
-    const allowedLanguages: Language[] = ['en', 'mk'];
-    const filteredLanguages = allAvailableLanguages.filter((lang) =>
-        allowedLanguages.includes(lang as Language)
-    );
-
-    // Don't show selector if 0 or 1 allowed language is available
-    if (filteredLanguages.length <= 1) {
+    if (availableLanguages.length <= 1) {
         return null;
     }
 
@@ -48,7 +40,7 @@ export default function LanguageSelector() {
                 align="end"
                 className="bg-foreground text-white border-gray-700"
             >
-                {filteredLanguages.map((lang) => (
+                {availableLanguages.map((lang) => (
                     <DropdownMenuItem
                         key={lang}
                         onClick={() => setLanguage(lang)}
