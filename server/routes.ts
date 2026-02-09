@@ -399,6 +399,43 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const validatedData = insertContactSubmissionSchema.parse(req.body);
       const submission = await storage.createContactSubmission(validatedData);
+
+      const smtpHost = process.env.SMTP_HOST;
+      const smtpPort = process.env.SMTP_PORT;
+      const smtpUser = process.env.SMTP_USER;
+      const smtpPass = process.env.SMTP_PASS;
+
+      if (smtpHost && smtpPort && smtpUser && smtpPass) {
+        try {
+          const nodemailer = await import("nodemailer");
+          const transporter = nodemailer.createTransport({
+            host: smtpHost,
+            port: parseInt(smtpPort, 10),
+            secure: parseInt(smtpPort, 10) === 465,
+            auth: { user: smtpUser, pass: smtpPass },
+          });
+
+          await transporter.sendMail({
+            from: `"WVP Plus Contact Form" <${smtpUser}>`,
+            to: "info@wvpconsulting.com",
+            replyTo: validatedData.email,
+            subject: `New Contact Form Submission - ${validatedData.serviceInterest || "General Inquiry"}`,
+            html: `
+              <h2>New Contact Form Submission</h2>
+              <p><strong>Name:</strong> ${validatedData.firstName} ${validatedData.lastName}</p>
+              <p><strong>Email:</strong> ${validatedData.email}</p>
+              <p><strong>Service Interest:</strong> ${validatedData.serviceInterest || "Not specified"}</p>
+              <p><strong>Message:</strong></p>
+              <p>${(validatedData.message || "").replace(/\n/g, "<br>")}</p>
+              <hr>
+              <p><small>Sent from WVP Plus Consulting website contact form</small></p>
+            `,
+          });
+        } catch (emailError) {
+          console.error("Failed to send contact email:", emailError);
+        }
+      }
+
       res.status(201).json({ message: "Contact form submitted successfully", id: submission.id });
     } catch (error) {
       if (error instanceof z.ZodError) {
