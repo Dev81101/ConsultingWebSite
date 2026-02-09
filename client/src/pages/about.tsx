@@ -3,10 +3,13 @@
 import { useState, useCallback, memo, useEffect, useRef } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Users, Target, Award, Lightbulb, MapPin, Loader2, Wallet, Globe, FileText, CheckCircle2 } from "lucide-react";
+import { Users, Target, Award, Lightbulb, MapPin, Loader2, Wallet, Globe, FileText, CheckCircle2, Building2, Calendar, ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 import { useLanguage } from "@/lib/language-context";
 import { useTranslations } from "@/lib/translations";
+import { useCountry } from "@/lib/country-context";
+import { Link } from "wouter";
+
 // Image paths from public folder
 const direktorImage = "/images/direktor.png";
 const aboutHeaderImage = "/images/AboutHeader.jpg";
@@ -46,19 +49,67 @@ const countryIdToOfficeShort = {
     Kosovo: "Kosovo"
 };
 
+// Development timeline data
+const developmentTimeline = [
+    {
+        year: "2019",
+        entity: "ВФП ПЛУС КОНСАЛТИНГ ДОО",
+        location: "Скопје",
+        country: "Република Северна Македонија",
+        type: "parent"
+    },
+    {
+        year: "2022",
+        entity: "ВФП ПЛУС КОНСАЛТИН ДОО",
+        location: "Белград",
+        country: "Република Србија",
+        type: "subsidiary"
+    },
+    {
+        year: "2023",
+        entity: "ВФП АКАУНТИНГ ДОО",
+        location: "Скопје",
+        country: "Република Северна Македонија",
+        type: "subsidiary"
+    },
+    {
+        year: "2024",
+        entity: "ВФП ПЛУС КОНСАЛТИН ДОО",
+        location: "Брчко",
+        country: "Босна и Херцеговина",
+        type: "subsidiary"
+    },
+    {
+        year: "2025",
+        entity: "ВФП ПЛУС КОНСАЛТИН ДОО",
+        location: "Подгорица",
+        country: "Република Црна Гора",
+        type: "subsidiary"
+    },
+    {
+        year: "2025",
+        entity: "ВФП ПЛУС КОНСАЛТИН ДОО",
+        location: "Риека",
+        country: "Република Хрватска",
+        type: "subsidiary"
+    }
+];
+
 const RegionalDevelopmentMap = memo(function RegionalDevelopmentMap() {
     const containerRef = useRef<HTMLDivElement | null>(null);
     const [svgLoaded, setSvgLoaded] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
     const [hasError, setHasError] = useState(false);
-    const [hoveredCountry, setHoveredCountry] = useState<string | null>(null);
-    const [selectedCountry, setSelectedCountry] = useState<string | null>(null);
 
-    // Colors
-    const baseFill = "#e0e1e2"; // default from your svg classes (but we'll respect inline fill if present)
-    const highlightFill = "#dc2626";
-    const hoverFill = "#b91c1c";
-    const inactiveFill = "#f3f4f6";
+    // Colors for non-interactive display
+    const countryColors: Record<string, string> = {
+        "North_Macedonia": "#dc2626", // Red - headquarters
+        "Serbia": "#dc2626",          // Orange
+        "Bosnia_and_Herzegovina": "#dc2626", // Yellow
+        "Montenegro": "#dc2626",      // Green
+        "Croatia": "#dc2626",         // Blue
+        "Kosovo": "#e5e7eb"           // Gray
+    };
 
     useEffect(() => {
         let mounted = true;
@@ -76,67 +127,31 @@ const RegionalDevelopmentMap = memo(function RegionalDevelopmentMap() {
                     containerRef.current.innerHTML = text;
                 }
 
-                // attach interactions
+                // Apply static colors and disable interactions
                 const ids = ["Serbia", "Croatia", "Bosnia_and_Herzegovina", "Montenegro", "North_Macedonia", "Kosovo"];
-                const listeners: { el: Element; handlers: { enter: EventListener; leave: EventListener; click: EventListener } }[] = [];
-
+                
                 ids.forEach((id) => {
                     const el = containerRef.current?.querySelector(`#${id}`);
                     if (!el) return;
 
-                    // ensure clickable cursor
-                    (el as HTMLElement).style.cursor = "pointer";
-                    // preserve original fill
-                    const origFill = (el as SVGPathElement).getAttribute("fill") || "";
-
-                    const onEnter = () => {
-                        setHoveredCountry(id);
-                        try {
-                            // highlight visually
-                            (el as SVGPathElement).style.transition = "fill 0.12s ease";
-                            (el as SVGPathElement).style.fill = hoverFill;
-                        } catch {}
-                    };
-                    const onLeave = () => {
-                        setHoveredCountry((prev) => (prev === id ? null : prev));
-                        try {
-                            // restore original fill or default
-                            (el as SVGPathElement).style.fill = origFill || baseFill;
-                        } catch {}
-                    };
-                    const onClick = () => {
-                        setSelectedCountry((prev) => (prev === id ? null : id));
-                        // small pulse animation
-                        try {
-                            (el as SVGPathElement).style.transition = "transform 0.15s ease";
-                            (el as SVGPathElement).style.transformOrigin = "center";
-                            (el as SVGPathElement).style.transform = "scale(1.02)";
-                            setTimeout(() => {
-                                if (el) (el as SVGPathElement).style.transform = "";
-                            }, 150);
-                        } catch {}
-                    };
-
-                    el.addEventListener("mouseenter", onEnter);
-                    el.addEventListener("mouseleave", onLeave);
-                    el.addEventListener("click", onClick);
-
-                    listeners.push({ el, handlers: { enter: onEnter, leave: onLeave, click: onClick } });
+                    // Remove pointer cursor
+                    (el as HTMLElement).style.cursor = "default";
+                    
+                    // Apply static color
+                    const color = countryColors[id] || "#e5e7eb";
+                    (el as SVGPathElement).style.fill = color;
+                    (el as SVGPathElement).style.transition = "none";
+                    
+                    // Remove any existing event listeners by cloning
+                    const newEl = el.cloneNode(true) as SVGPathElement;
+                    newEl.style.fill = color;
+                    newEl.style.cursor = "default";
+                    el.parentNode?.replaceChild(newEl, el);
                 });
 
-                // mark loaded
                 setSvgLoaded(true);
                 setHasError(false);
                 setIsLoading(false);
-
-                // cleanup on unmount
-                return () => {
-                    listeners.forEach(({ el, handlers }) => {
-                        el.removeEventListener("mouseenter", handlers.enter);
-                        el.removeEventListener("mouseleave", handlers.leave);
-                        el.removeEventListener("click", handlers.click);
-                    });
-                };
             } catch (err) {
                 if ((err as any).name !== "AbortError") {
                     console.error("SVG load error:", err);
@@ -146,20 +161,12 @@ const RegionalDevelopmentMap = memo(function RegionalDevelopmentMap() {
             }
         }
 
-        const cleanupPromise = loadSvg();
+        loadSvg();
 
         return () => {
             mounted = false;
             abortController.abort();
-            // if loadSvg returned cleanup function (it does), try to call it
-            if (typeof cleanupPromise === "function") (cleanupPromise as any)();
         };
-    }, []);
-
-    // simple loading fallback overlay
-    useEffect(() => {
-        const timer = setTimeout(() => setIsLoading(false), 3000);
-        return () => clearTimeout(timer);
     }, []);
 
     if (hasError) {
@@ -181,29 +188,119 @@ const RegionalDevelopmentMap = memo(function RegionalDevelopmentMap() {
                     <Loader2 className="h-8 w-8 animate-spin text-primary" />
                 </div>
             )}
+            <div
+                ref={containerRef}
+                aria-hidden={!svgLoaded}
+                className="w-full h-full overflow-auto pointer-events-none"
+            />
+        </div>
+    );
+});
 
-
-
-                    <div
-                        ref={containerRef}
-                        aria-hidden={!svgLoaded}
-                        className="w-full h-full overflow-auto"
-                        // svg will be injected here
-                    />
-
-
-                {/* Info panel */}
-
-
-
-            {/* legend / quick offices */}
-
+// Development Timeline Component
+const DevelopmentTimeline = memo(function DevelopmentTimeline() {
+    return (
+        <div className="mt-12">
+            <h4 className="text-xl font-semibold text-foreground mb-8 flex items-center gap-2">
+                <Building2 className="h-5 w-5 text-primary" />
+                Историјат на развој
+            </h4>
+            
+            <div className="relative">
+                {/* Vertical line */}
+                <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-gradient-to-b from-primary/20 via-primary to-primary/20 md:left-1/2 md:-ml-0.5" />
+                
+                <div className="space-y-8">
+                    {developmentTimeline.map((item, index) => {
+                        const isLeft = index % 2 === 0;
+                        
+                        return (
+                            <motion.div
+                                key={`${item.year}-${item.location}`}
+                                initial={{ opacity: 0, y: 20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.5, delay: index * 0.1 }}
+                                className={`relative flex items-center gap-4 md:gap-0 ${
+                                    isLeft ? 'md:flex-row' : 'md:flex-row-reverse'
+                                }`}
+                            >
+                                {/* Timeline dot */}
+                                <div className="absolute left-8 w-4 h-4 rounded-full bg-primary border-4 border-background shadow-lg z-10 md:left-1/2 md:-ml-2" />
+                                
+                                {/* Content card */}
+                                <div className={`ml-16 w-full md:ml-0 md:w-[calc(50%-2rem)] ${
+                                    isLeft ? 'md:pr-8 md:text-right' : 'md:pl-8 md:text-left'
+                                }`}>
+                                    <Card className={`group hover:shadow-lg transition-all duration-300 border-l-4 ${
+                                        item.type === 'parent' ? 'border-l-red-600' :
+                                        item.type === 'service' ? 'border-l-purple-600' :
+                                        'border-l-primary'
+                                    }`}>
+                                        <CardContent className="p-5">
+                                            <div className={`flex items-center gap-3 mb-2 ${
+                                                isLeft ? 'md:justify-end' : 'md:justify-start'
+                                            }`}>
+                                                <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-bold">
+                                                    <Calendar className="h-3 w-3" />
+                                                    {item.year}
+                                                </span>
+                                                {item.type === 'parent' && (
+                                                    <span className="px-2 py-0.5 rounded text-xs bg-red-100 text-red-700 font-medium">
+                                                        Матична
+                                                    </span>
+                                                )}
+                                                {item.type === 'service' && (
+                                                    <span className="px-2 py-0.5 rounded text-xs bg-purple-100 text-purple-700 font-medium">
+                                                        Услуги
+                                                    </span>
+                                                )}
+                                            </div>
+                                            
+                                            <h5 className="font-bold text-foreground text-lg mb-1 group-hover:text-primary transition-colors">
+                                                {item.entity}
+                                            </h5>
+                                            
+                                            <div className={`flex items-center gap-2 text-muted-foreground ${
+                                                isLeft ? 'md:justify-end' : 'md:justify-start'
+                                            }`}>
+                                                <MapPin className="h-4 w-4" />
+                                                <span>{item.location}, {item.country}</span>
+                                            </div>
+                                        </CardContent>
+                                    </Card>
+                                </div>
+                                
+                                {/* Spacer for opposite side */}
+                                <div className="hidden md:block md:w-[calc(50%-2rem)]" />
+                            </motion.div>
+                        );
+                    })}
+                </div>
+            </div>
+            
+            {/* Legend 
+            <div className="mt-8 flex flex-wrap gap-4 justify-center text-sm text-muted-foreground">
+                <div className="flex items-center gap-2">
+                    <div className="w-3 h-3 rounded-full bg-red-600" />
+                    <span>Матична компанија</span>
+                </div>
+                <div className="flex items-center gap-2">
+                    <div className="w-3 h-3 rounded-full bg-primary" />
+                    <span>Подружница</span>
+                </div>
+                <div className="flex items-center gap-2">
+                    <div className="w-3 h-3 rounded-full bg-purple-600" />
+                    <span>Сервисна компанија</span>
+                </div>
+            </div>*/}
         </div>
     );
 });
 
 export default function About() {
     const { language } = useLanguage();
+    const { country } = useCountry();
     const t = useTranslations()[language];
     const translatedValues = t.about.values as TranslatableValues;
 
@@ -219,7 +316,7 @@ export default function About() {
                 />
                 <div className="absolute inset-0 bg-black/50"></div>
                 <div className="absolute inset-0 flex flex-col justify-center items-center max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                    <h1 className="text-4xl lg:text-6xl font-extrabold text-white mb-6 drop-shadow-lg">{t.about.heroTitle}</h1>
+                    <h1 className="text-4xl lg:text-6xl font-bold text-white mb-6 drop-shadow-lg">{t.about.heroTitle}</h1>
                     <p className="text-xl text-gray-200 max-w-3xl mx-auto drop-shadow">{t.about.heroSubtitle}</p>
                 </div>
             </section>
@@ -247,10 +344,13 @@ export default function About() {
                     {/* REGIONAL DEVELOPMENT MAP */}
                     <h3 className="text-2xl font-semibold text-foreground mt-10 mb-6">{t.about.regionalDevTitle}</h3>
                     <RegionalDevelopmentMap />
+                    
+                    {/* DEVELOPMENT TIMELINE */}
+                    <DevelopmentTimeline />
                 </div>
 
                 {/* WHAT WE OFFER */}
-                <section className="py-20 bg-gradient-to-b from-background to-muted/30">
+                <section className="mt-20 py-20 bg-gradient-to-b from-background to-muted/30">
                     <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
                         <motion.div
                             initial={{ opacity: 0, y: 20 }}
@@ -398,35 +498,15 @@ export default function About() {
                 </div>
             </section>
 
-            {/* TEAM
-            <section className="py-20" id="team" data-testid="team-section">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="text-center mb-16">
-                        <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">{t.about.teamTitle}</h2>
-                        <p className="text-xl text-muted-foreground">{t.about.teamSubtitle}</p>
-                    </div>
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                        {teamMembers.map((member, index) => (
-                            <Card key={index} className="hover:shadow-lg transition-shadow duration-300" data-testid={`team-member-${index}`}>
-                                <CardContent className="p-6 text-center">
-                                    <img src={member.image} alt={member.name} className="w-28 h-28 rounded-full mx-auto mb-4 object-cover" />
-                                    <h3 className="text-xl font-semibold text-foreground mb-2">{member.name}</h3>
-                                    <p className="text-primary font-medium mb-3">{member.position}</p>
-                                    <p className="text-sm text-muted-foreground mb-4">{member.description}</p>
-                                </CardContent>
-                            </Card>
-                        ))}
-                    </div>
-                </div>
-            </section>*/}
-
             {/* CTA */}
             <section className="py-20 bg-primary text-primary-foreground" id="careers">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
                     <h2 className="text-3xl lg:text-4xl font-bold mb-6">{t.about.ctaJoinTitle}</h2>
                     <p className="text-xl mb-8 opacity-90">{t.about.ctaJoinSubtitle}</p>
                     <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                         <Link href={`/${country}/contact`}>
                         <Button size="lg" variant="outline" className="border-white text-foreground hover:bg-gray-300 hover:text-primary" data-testid="contact-us-button">{t.about.contactUsCta}</Button>
+                        </Link>
                     </div>
                 </div>
             </section>

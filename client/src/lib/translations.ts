@@ -19,6 +19,7 @@ export const translations: Record<
     achievements: {
       supertitle: string;
       supersubtitle: string;
+      titleDetails:string;
       title1: string;
       subtitle1: string;
       title2: string;
@@ -288,6 +289,7 @@ export const translations: Record<
       supertitle: "Naša dostignuća",
       supersubtitle:
         "Zajedno sa našim klijentima, ostvarujemo izuzetne rezultate u svim sektorima!",
+      titleDetails:"Do 31.12.2025",
       title1: "Upešno završeni projekti",
       subtitle1: "Preko 3.000 uspešno završenih projekata",
       title2: "Odobreni grantovi",
@@ -645,6 +647,7 @@ export const translations: Record<
       supertitle: "Our  Achievements",
       supersubtitle:
         "Together with our clients, we achieve exceptional results across all sectors!",
+      titleDetails:"Until 31.12.2025",
       title1: "Successfully completed projects",
       subtitle1: "Over 4,300 successfully completed projects",
       title2: "Approved grants",
@@ -753,7 +756,7 @@ export const translations: Record<
     home: {
       loadingContent: "Loading page content...",
       slide1Title: "For the clients we choose the best!",
-      slide1Subtitle: "3000 clients and counting",
+      slide1Subtitle: "4300 clients and counting",
       slide2Title: "Our way of work",
       slide2Subtitle:
         "Meet how we work, and learn why our aproach gives best results",
@@ -878,13 +881,13 @@ export const translations: Record<
         phone: {
           title: "Phone Support",
           description: "Speak directly with our consultants",
-          details: "+381 11 123 4567",
+          details: "+389 76 337 800 \n +389 76 337 801",
           availability: "Mon-Fri 8:00-17:00",
         },
         email: {
           title: "Email Support",
           description: "Get detailed responses to your questions",
-          details: "info@wvpplus.rs",
+          details: "info@wvpconsulting.com",
           availability: "24/7 response within 24 hours",
         },
         inPerson: {
@@ -1040,6 +1043,7 @@ export const translations: Record<
       supertitle: "Нашите достигнувања",
       supersubtitle:
         "Заедно со нашите клиенти, постигнуваме исклучителни резултати во сите сектори!",
+      titleDetails:"До 31.12.2025",
       title1: "Успешно завршени проекти",
       subtitle1: "Над 4.300 успешно завршени проекти",
       title2: "Исплатени грантови",
@@ -1278,19 +1282,19 @@ export const translations: Record<
         phone: {
           title: "Телефонска поддршка",
           description: "Разговарајте директно со нашите консултанти",
-          details: "+389 78 348 860",
+          details: "+389 76 337 800 \n +389 76 337 801",
           availability: "Пон-Пет 8:00-17:00",
         },
         email: {
           title: "Е-пошта поддршка",
           description: "Добијте детални одговори на вашите прашања",
-          details: "info@wvpplus.rs",
+          details: "info@wvpconsulting.com",
           availability: "24/7 одговор во рок од 24 часа",
         },
         inPerson: {
           title: "Консултации во живо",
           description: "Закажете состанок лице-в-лице",
-          details: "Достапно во сите канцеларии",
+          details: "Достапно во нашите канцеларии",
           availability: "Само со закажување",
         },
         online: {
@@ -1419,6 +1423,9 @@ export const translations: Record<
       },
     },
   },
+  
+
+  
   me: {
     nav: {
       home: "Početna",
@@ -1438,6 +1445,7 @@ export const translations: Record<
       supertitle: "Naša dostignuća",
       supersubtitle:
         "Zajedno sa našim klijentima, ostvarujemo izuzetne rezultate u svim sektorima!",
+      titleDetails:"Zakl;jucno sa 31.12.2025",
       title1: "Upešno završeni projekti",
       subtitle1: "Preko 3.000 uspešno završenih projekata",
       title2: "Odobreni grantovi",
@@ -1548,7 +1556,7 @@ export const translations: Record<
     home: {
       loadingContent: "Učitavanje sadržaja stranice...",
       slide1Title: "For the clients we choose the best!",
-      slide1Subtitle: "3000 clients and counting",
+      slide1Subtitle: "4300 clients and counting",
       slide2Title: "Our way of work",
       slide2Subtitle:
         "Meet how we work, and learn why our aproach gives best results",
@@ -1750,6 +1758,7 @@ export const translations: Record<
       supertitle: "Naša dostignuća",
       supersubtitle:
         "Zajedno sa našim klijentima, ostvarujemo izuzetne rezultate u svim sektorima!",
+      titleDetails:"Sa 31.12.2025",
       title1: "Upešno završeni projekti",
       subtitle1: "Preko 3.000 uspešno završenih projekata",
       title2: "Odobreni grantovi",
@@ -1860,7 +1869,7 @@ export const translations: Record<
     home: {
       loadingContent: "Učitavanje sadržaja stranice...",
       slide1Title: "For the clients we choose the best!",
-      slide1Subtitle: "3000 clients and counting",
+      slide1Subtitle: "4300 clients and counting",
       slide2Title: "Our way of work",
       slide2Subtitle:
         "Meet how we work, and learn why our aproach gives best results",

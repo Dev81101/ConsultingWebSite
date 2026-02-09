@@ -106,7 +106,8 @@ function ContactMethodCard({ method }: { method: ContactMethod }) {
                     {method.description}
                 </p>
                 <div className="space-y-2">
-                    <div className="text-foreground font-medium" data-testid="contact-method-details">
+                    {/* 💡 ADDED 'whitespace-pre-line' BELOW */}
+                    <div className="text-foreground font-medium whitespace-pre-line" data-testid="contact-method-details">
                         {method.details}
                     </div>
                     <div className="text-sm text-muted-foreground" data-testid="contact-method-availability">

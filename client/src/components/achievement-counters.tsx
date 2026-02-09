@@ -143,6 +143,12 @@ export default function AchievementCounters() {
                             <CounterItem key={item.id} item={item} />
                         ))}
                 </div>
+
+                <div className="mt-16 text-center">
+                <p className="text-xl  text-gray-300"><i>
+                    {"*"+ (t.achievements?.titleDetails).toLowerCase() || "Results based on internal data and client reports"}
+                </i></p>
+                </div>
             </div>
         </section>
     );

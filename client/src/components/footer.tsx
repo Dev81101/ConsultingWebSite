@@ -34,7 +34,7 @@ export default function Footer() {
                             {t.footer.tagline}
                         </p>
                         <div className="flex space-x-4">
-                            <a
+                            {/*<a
                                 href="https://www.facebook.com"
                                 target="_blank"
                                 rel="noopener noreferrer"
@@ -48,21 +48,21 @@ export default function Footer() {
                                 className="text-white hover:text-red-600 transition-colors" // Changed text-foreground to text-white
                             >
                                 <Twitter className="w-6 h-6" />
-                            </a>
+                            </a>*/}
 
                             <a
-                                href="www.LinkedIn.com"
+                                href="https://www.linkedin.com/company/wvp-plus-konsalting/?originalSubdomain=mk"
                                 className="text-white hover:text-red-600 transition-colors" // Changed text-foreground to text-white
                             >
                                 <Linkedin className="w-6 h-6" />
                             </a>
 
-                            <a
+                            {/*<a
                                 href="www.instagram.com"
                                 className="text-white hover:text-red-600 transition-colors" // Changed text-foreground to text-white
                             >
                                 <Instagram className="w-6 h-6" />
-                            </a>
+                            </a>*/}
                         </div>
                     </div>
 
