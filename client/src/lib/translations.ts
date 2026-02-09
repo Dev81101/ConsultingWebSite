@@ -2072,6 +2072,393 @@ export const translations: Record<
       },
     },
   },
+  sq: {
+    nav: {
+      home: "Ballina",
+      programs: "Shërbimet",
+      blog: "Këshilla Financiare",
+      about: "Rreth nesh",
+      contact: "Kontakti",
+    },
+    hero: {
+      title: "Transformoni biznesin tuaj bujqësor",
+      subtitle:
+        "Qasuni deri në 1.3 milionë euro përmes fondeve IPARD për modernizimin e bujqësisë dhe zhvillimin rural",
+      learnMore: "Mësoni më shumë",
+      viewPrograms: "Shikoni programet",
+    },
+    achievements: {
+      supertitle: "Arritjet tona",
+      supersubtitle:
+        "Së bashku me klientët tanë, arrijmë rezultate të jashtëzakonshme në të gjitha sektorët!",
+      titleDetails: "Deri më 31.12.2025",
+      title1: "Projekte të përfunduara me sukses",
+      subtitle1: "Mbi 4.300 projekte të përfunduara me sukses",
+      title2: "Grante të paguara",
+      subtitle2: "Mbi 35 milionë euro në grante të paguara",
+      title3: "Kredi të paguara",
+      subtitle3: "Mbi 80 milionë euro në kredi financiare të paguara",
+      loading: "Duke u ngarkuar...",
+      error: "Për momentin nuk mund të ngarkohen arritjet.",
+    },
+    services: {
+      title: "Shikoni si mund t'ju ndihmojmë",
+      subtitle:
+        "Nga qasja në financa deri te zhvillimi i tregut dhe strategjik i biznesit, ne ofrojmë mbështetje të plotë për rritjen dhe zhvillimin e biznesit tuaj",
+      ipardTitle: "Konsulencë financiare",
+      ipardDesc:
+        "Qasje në fondet e BE-së deri në 1.3 milionë euro për investime bujqësore, kapacitete përpunuese dhe projekte të zhvillimit rural.",
+      ipardFeature1: "IPARD I - Investime bujqësore",
+      ipardFeature2: "IPARD II - Modernizimi i përpunimit",
+      ipardFeature3: "IPARD III - Turizmi rural",
+      financialTitle: "Ndihma financiare",
+      financialDesc:
+        "Mbështetje gjithëpërfshirëse për sektorin e prodhimit dhe turizmit me grante, subvencione dhe kredi të favorshme.",
+      financialFeature1: "Programe për mbështetje të prodhimit",
+      financialFeature2: "Grante për zhvillimin e turizmit",
+      financialFeature3: "Financim për promovimin e eksportit",
+      consultingTitle: "Konsulencë biznesi",
+      consultingDesc:
+        "Udhëzim profesional për mikro bizneset dhe shërbime për zhvillimin e planeve gjithëpërfshirëse të biznesit.",
+      consultingFeature1: "Konsulencë për mikro bizneset",
+      consultingFeature2: "Hartimi i planeve të biznesit",
+      consultingFeature3: "Planifikim strategjik",
+      learnMore: "Mësoni më shumë",
+    },
+    clients: {
+      title: "Besimi nga kompanitë udhëheqëse",
+      subtitle:
+        "Kemi ndihmuar qindra kompani në sektorët e bujqësisë, turizmit dhe prodhimit",
+    },
+    blog: {
+      title: "Financat në praktikën e përditshme",
+      subtitle:
+        "Mësoni më shumë për lajmet financiare, përvojat tona dhe historitë e suksesit",
+      readMore: "Lexoni më shumë",
+      viewAll: "Të gjitha postimet",
+      wantMore: "Dëshironi të lexoni më shumë?",
+      newsletterDesc:
+        "Merrni njohuritë më të fundit për financimin, mundësitë e biznesit dhe historitë e suksesit direkt në kutinë tuaj postare.",
+      loading: "Duke u ngarkuar...",
+      error: "Nuk mund të ngarkohen postimet për momentin.",
+    },
+    contact: {
+      title: "Jeni gati për rritjen e biznesit tuaj?",
+      subtitle:
+        "Le të bisedojmë se si mund t'ju ndihmojmë të qaseni në fonde dhe të arrini qëllimet tuaja të biznesit.",
+      phone: "Telefoni",
+      email: "E-posta",
+      address: "Adresa",
+      formTitle: "Bëni një pyetje - Zgjidhni dilemën",
+      firstName: "Emri",
+      lastName: "Mbiemri",
+      emailLabel: "E-posta",
+      serviceInterest: "Shërbimi që ju intereson",
+      message: "Mesazhi/Pyetja",
+      selectService: "Zgjidhni shërbimin",
+      ipardPrograms: "Programet IPARD",
+      financialAid: "Ndihma financiare",
+      businessConsulting: "Konsulencë biznesi",
+      businessPlanDev: "Hartimi i planit të biznesit",
+      messagePlaceholder: "Na tregoni diçka më shumë për projektin tuaj...",
+      send: "Dërgo mesazhin",
+      sending: "Duke u dërguar...",
+      successTitle: "Mesazhi u dërgua me sukses!",
+      successDesc: "Do t'ju kontaktojmë së shpejti.",
+      errorTitle: "Gabim gjatë dërgimit",
+      errorDesc: "Ju lutem provoni përsëri më vonë.",
+    },
+    footer: {
+      tagline: "Për klientët tanë gjithmonë zgjedhim më të mirën!",
+      servicesTitle: "Shërbimet",
+      ipard: "Konsulencë financiare",
+      financialAid: "Qasje në financa përmes produkteve kreditore",
+      consulting: "Konsulencë biznesi",
+      businessPlans: "Marketing dhe zhvillim biznesi",
+      marketAccess: "Qasje në tregje",
+      GrantsAndFinancing: "Grante dhe bashkëfinancim",
+      companyTitle: "Kompania",
+      aboutUs: "Rreth nesh",
+      ourTeam: "Ekipi ynë",
+      careers: "Karriera",
+      contactUs: "Kontakti",
+      copyright: "© 2025 WVP Plus Consulting. Të gjitha të drejtat e rezervuara.",
+      privacy: "Politika e privatësisë",
+      terms: "Kushtet e përdorimit",
+    },
+    newsletter: {
+      title: "Qëndroni të informuar",
+      subtitle: "Merrni udhëzimet më të fundit të IPARD dhe këshillat e biznesit",
+      placeholder: "Shkruani e-postën tuaj",
+      subscribe: "Abonohuni",
+      subscribing: "Duke u abonuar...",
+      successTitle: "Abonimi i suksesshëm!",
+      successDesc: "Ju faleminderit që u abonuat në buletinin tonë.",
+      errorTitle: "Abonimi i pasuksesshëm",
+      errorDesc: "Ju lutem provoni përsëri më vonë.",
+    },
+    home: {
+      loadingContent: "Duke u ngarkuar përmbajtja...",
+      slide1Title: "Për klientët zgjedhim më të mirën!",
+      slide1Subtitle: "mbi 4300 klientë",
+      slide2Title: "Mënyra jonë e punës",
+      slide2Subtitle:
+        "Njihuni me mënyrën tonë të punës dhe pse qasja jonë jep rezultatet më të mira",
+      slide3Title: "Ekspertë në fushën e financave",
+      slide3Subtitle:
+        "Planifikim strategjik i biznesit dhe shërbime këshilluese financiare për përshpejtimin e rritjes suaj",
+    },
+    about: {
+      heroTitle: "Kompania Jonë",
+      heroSubtitle:
+        "Të përkushtuar në ofrimin e konsulencës gjithëpërfshirëse financiare dhe të qasjes në treg.",
+      whoWeAreTitle: "Kush Jemi Ne",
+      overviewP1:
+        "WVP Plus Consulting është pjesë e grupit të njohur austriak WVP GROUP, me traditë që daton nga viti 1985. Me seli në Grac, Austri, grupi sot është i pranishëm në 10 vende në Evropën Juglindore, duke sjellë ekspertizë, besim dhe zgjidhje inovative në fushën e këshillimit financiar.\n",
+      overviewP2:
+        "Në Maqedoni, grupi është aktiv nga viti 2005, ndërsa WVP Plus Consulting fillon punën në vitin 2019 si kompania e tretë e grupit (nga gjithsej 6) e pranishme në tregun maqedonas.",
+      regionalDevTitle: "Zhvillimi Rajonal",
+      serbiaOffice: "2022 — WVP PLUS CONSULTING DOO Serbi",
+      bosniaOffice: "2024 — WVP PLUS CONSULTING DOO Bosnjë",
+      accountingOffice:
+        "2024 — WVP KONTABILITET DOO Maqedoni (tatim, kontabilitet, auditim)",
+      whatWeOfferTitle: "Çfarë Ofrojmë",
+      accessFinanceTitle: "Qasja në Financa:",
+      accessFinanceList: [
+        "Grante / bashkëfinancim",
+        "Produkte kreditore bankare",
+        "Lizing",
+        "Faktoring",
+        "Instrumente qeveritare për mbështetje",
+        "Mbështetje financiare jobankare",
+        "Bashkime dhe blerje",
+        "Financim grupor i kapitalit (Equity crowdfunding)",
+        "Engjëj biznesi",
+        "Instrumente kapitale",
+      ],
+      marketAccessTitle: "Qasja në Treg:",
+      marketAccessList: [
+        "Digjitalizimi i kompanisë",
+        "Auditim i efiçencës energjetike (modeli PiNE)",
+        "Zhvillimi i ekonomisë qarkore",
+        "Matrica e mbrojtjes së punëtorëve",
+        "Strategji dhe planifikim i eksportit",
+        "Dizajn dhe zhvillim i produkteve",
+        "Strategji marketingu dhe brendim",
+        "Diagnostikim i kapacitetit financiar",
+      ],
+      specialReportsTitle: "Raporte të Specializuara:",
+      specialReportsList: [
+        "Plane biznesi",
+        "Programe investimi",
+        "Analizë e thellë (Due diligence)",
+        "Analizë e shpenzimeve dhe përfitimeve (Cost-benefit analysis)",
+      ],
+      missionStatement:
+        "Misioni ynë është të mundësojmë qasje të plotë në financa për kompanitë dhe qytetarët, duke rritur konkurrencën dhe qëndrueshmërinë e tyre.",
+      valuesTitle: "Vlerat Tona",
+      valuesSubtitle:
+        "Parimet që udhëheqin punën tonë dhe formësojnë angazhimin tonë për përsosmëri.",
+      teamTitle: "Njihni Ekipin Tonë",
+      teamSubtitle: "Profesionistë me përvojë të përkushtuar ndaj suksesit tuaj",
+      ctaJoinTitle: "Bashkohuni me Ekipin Tonë",
+      ctaJoinSubtitle:
+        "Gjithmonë kërkojmë profesionistë të talentuar për t'u bashkuar me ekipin tonë në rritje",
+      viewPositions: "Shikoni Pozitat e Hapura",
+      contactUsCta: "Na kontaktoni",
+      values: {
+        "Results-Oriented": "Orientim drejt Rezultateve",
+        "We focus on delivering measurable outcomes and tangible value to our clients":
+          "Fokusohemi në ofrimin e rezultateve të matshme dhe vlerës konkrete për klientët tanë",
+        "Client-Centric": "Fokus te Klienti",
+        "Your success is our priority. We build long-term partnerships based on trust":
+          "Suksesi juaj është prioriteti ynë. Ndërtojmë partneritete afatgjata të bazuara në besim",
+        Excellence: "Përsosmëri",
+        "We maintain the highest standards of professionalism and expertise":
+          "Mbajmë standardet më të larta të profesionalizmit dhe ekspertizës",
+        Innovation: "Inovacion",
+        "We leverage the latest technologies and methodologies to drive success":
+          "Përdorim teknologjitë dhe metodologjitë më të fundit për të arritur suksesin",
+      },
+    },
+    team: {
+      title: "Ekipi ynë",
+      subtitle: "Ekipi më i madh i ekspertëve",
+      description:
+        "Ekipi ynë multidisiplinar sjell përvojë të pasur në konsulencë financiare dhe zhvillim të investimeve në industri të ndryshme, me fokus të veçantë në kompanitë prodhuese, sektorin bujqësor, zhvillimin rural, turizmin dhe 'investimet e gjelbra'. U ndihmojmë klientëve të qasen në programet shtetërore për mbështetje financiare dhe fondet e Bashkimit Evropian, dhe t'i kthejnë idetë e tyre në investime të qëndrueshme dhe të realizuara. Detyra jonë është të krijojmë së bashku rritje të qëndrueshme dhe kompani të orientuara drejt eksportit.\n" +
+        "\n" +
+        "Për klientët tanë – ne jemi partnerë në procesin e rritjes.",
+      cta: "Lidhuni me ekspertët tanë",
+    },
+    contactPage: {
+      heroTitle:
+        "A jeni gati ta çoni biznesin tuaj në nivelin e ardhshëm?",
+      heroSubtitle:
+        "Kontaktoni ekipin tonë të profesionistëve që sot",
+      methodsTitle: "Si mund t'ju ndihmojmë?",
+      methodsSubtitle:
+        "Zgjidhni mënyrën më të përshtatshme për kontakt me ekipin tonë",
+      getDirections: "Udhëzime",
+      headquartersLabel: "Selia",
+      officesTitle: "Zyrat tona",
+      businessHoursTitle: "Orari i punës",
+      dayMonFri: "E hënë - E premte",
+      daySaturday: "E shtunë",
+      daySunday: "E diel",
+      closed: "Mbyllur",
+      monFriHours: "08:00 - 17:00",
+      saturdayHours: "09:00 - 13:00",
+      mapIntro: "Hartë interaktive me vendndodhjet e të gjitha zyrave",
+      mapClickHint: "Klikoni mbi çdo zyrë më lart për udhëzime",
+      emergencySupportTitle: "Mbështetje urgjente:",
+      emergencySupportDesc:
+        "Për pyetje urgjente jashtë orarit të punës, ju lutem na dërgoni e-postë dhe do të përgjigjemi sa më shpejt të jetë e mundur.",
+      faqsTitle: "Pyetjet e bëra shpesh",
+      methods: {
+        phone: {
+          title: "Mbështetje telefonike",
+          description: "Bisedoni drejtpërdrejt me konsulentët tanë",
+          details: "+389 76 337 800 \n +389 76 337 801",
+          availability: "Hën-Pre 8:00-17:00",
+        },
+        email: {
+          title: "Mbështetje me e-postë",
+          description: "Merrni përgjigje të detajuara për pyetjet tuaja",
+          details: "info@wvpconsulting.com",
+          availability: "24/7 përgjigje brenda 24 orëve",
+        },
+        inPerson: {
+          title: "Konsultime në person",
+          description: "Caktoni një takim ballë për ballë",
+          details: "E disponueshme në zyrat tona",
+          availability: "Vetëm me caktim",
+        },
+        online: {
+          title: "Konsultime online",
+          description: "Video thirrje për klientë në distancë",
+          details: "Zoom, Teams ose platforma e preferuar",
+          availability: "Caktim fleksibël",
+        },
+      },
+      faqs: [
+        {
+          question: "Sa kohë zgjat procesi i aplikimit për IPARD?",
+          answer:
+            "Procesi tipik i aplikimit për IPARD zgjat 3-6 muaj nga konsultimi fillestar deri te miratimi i fondeve, në varësi të kompleksitetit të projektit tuaj dhe plotësisë së dokumentacionit.",
+        },
+        {
+          question: "Cilat dokumente duhet të përgatit për aplikim?",
+          answer:
+            "Dokumentet e nevojshme zakonisht përfshijnë regjistrimin e biznesit, raportet financiare, dokumentacionin e projektit, lejet mjedisore dhe planin e detajuar të biznesit. Ofrojmë listë të plotë kontrolli gjatë konsultimeve.",
+        },
+        {
+          question: "A ofroni mbështetje për biznese jashtë Serbisë?",
+          answer:
+            "Edhe pse fokusi ynë kryesor janë bizneset në rajon, ofrojmë shërbime konsulence edhe për kompani ndërkombëtare që dëshirojnë të investojnë ose të qasen në programet e financimit të BE-së.",
+        },
+        {
+          question: "Cilat janë çmimet për konsultimet tuaja?",
+          answer:
+            "Ofrojmë konsultime fillestare falas për vlerësimin e projektit tuaj. Tarifat tona janë transparente dhe të dakordësuara paraprakisht, zakonisht të strukturuara si përqindje e fondeve të siguruara me sukses.",
+        },
+      ],
+    },
+    programs: {
+      viewAllServices: "Të gjitha shërbimet",
+      floatingNumber: "+389 78 348 860",
+      flaotingButton: "Caktoni \n takim",
+      buttonText: "Caktoni takim",
+      services: {
+        financialConsulting: {
+          title: "Konsulencë financiare",
+          subtitle:
+            "Diagnostikim kreditor • Planifikim biznesi • Strukturim investimesh",
+          description:
+            "Analizë gjithëpërfshirëse e përshtatur ndaj modelit tuaj të biznesit me qëllim optimizimin e funksionimit financiar të klientit, hartimin e diagnostikimit kreditor të biznesit dhe sigurimin e strukturës cilësore të raporteve financiare.",
+          items: [
+            "Plan biznesi",
+            "Analizë e thellë (Due diligence)",
+            "Program investimi",
+            "Raport i fizibilitetit/arsyeshmërisë së investimit (cost benefit analysis)",
+          ],
+        },
+        accessToFinance: {
+          title: "Qasja në financa",
+          subtitle: "Këshilltarë kreditore • Financim i strukturuar",
+          description:
+            "Përmes shërbimeve promovues kreditor dhe këshilltar kreditor mundësohet diagnostikim kreditor dhe rekomandime për konstruksion financiar të përshtatshëm për investimet ekzistuese dhe të ardhshme. Këshilltarët tanë kreditore hulumtojnë ofertat e tregut dhe rekomandojnë afat optimal, valutë, dinamikë dhe aranzhime financiare.",
+          items: [
+            "Produkte kreditore bankare",
+            "Lizing",
+            "Faktoring",
+            "Sigurim i kërkesave",
+            "Financim alternativ",
+          ],
+        },
+        grants: {
+          title: "Grante dhe bashkëfinancim",
+          subtitle: "Përgatitja e projekteve • Monitorim i granteve",
+          description:
+            "Ndjekja e thirrjeve dhe përgatitja e plotë e aplikacioneve për grante dhe bashkëfinancim të disponueshme përmes instrumenteve kombëtare dhe ndërkombëtare, duke përfshirë IPARD, IPA, GIZ, INOVA dhe fondet e BE-së - duke maksimizuar mundësitë për marrjen e fondeve 'të buta' ose plotësisht të pakthyeshme financiare.",
+          items: [
+            "IPARD, IPA, GIZ",
+            "INOVA dhe programe kombëtare",
+            "EBRD financim i kombinuar",
+            "Instrumente strukturore të BE-së",
+            "Potencial për kthim deri në 90%",
+          ],
+        },
+        businessConsulting: {
+          title: "Konsulencë biznesi",
+          subtitle: "Diagnostikim organizativ • QUINTAUM",
+          description:
+            "Duke përdorur metodologjinë QUINTAUM (210 tregues) diagnostikojmë kulturën organizative, mirëqenien e punëtorëve dhe efektivitetin e menaxhimit, e pastaj propozojmë dhe organizojmë coaching dhe programe për zhvillimin e punëtorëve.",
+          items: [
+            "Diagnostikim QUINTAUM (210 KPI)",
+            "Coaching dhe programe udhëheqjeje",
+            "Plane për zhvillimin e punëtorëve",
+            "Monitorim afatgjatë organizativ",
+          ],
+        },
+        marketing: {
+          title: "Marketing dhe zhvillim biznesi",
+          subtitle: "Brendim • Strategji për rritje • Digjitalizim",
+          description:
+            "Marketing i integruar dhe zhvillim biznesi që rrit dukshmërinë e brendit dhe sjell rritje të matshme - nga hulumtimi i tregut dhe planifikimi strategjik deri te zbatimi i fushatave dhe optimizimi i investimeve (ROI).",
+          items: [
+            "Planifikim strategjik",
+            "Hulumtim i tregut",
+            "Brendim dhe identitet",
+            "Fushata digjitale dhe analitikë",
+          ],
+        },
+        marketAccess: {
+          title: "Qasja në tregje",
+          subtitle: "Strategji eksporti • Identifikim i blerësve",
+          description:
+            "Mbështetje për kompanitë që kërkojnë tregje të reja ndërkombëtare: hulumtim, planifikim i eksportit, gatishmëri digjitale, auditime energjetike dhe gjetje blerësish për hyrje në tregun e eksportit me risk të ulët.",
+          items: [
+            "Hulumtim i tregut dhe analizë e potencialit",
+            "Gatishmëri për digjitalizim",
+            "Auditim i efiçencës energjetike (PiNE)",
+            "Plan eksporti dhe gjetje blerësish",
+          ],
+        },
+        esg: {
+          title: "Standardizim ESG",
+          subtitle: "Raportim jofinanciar • Udhërrëfyes pajtueshmërie",
+          description:
+            "Diagnostikim dhe implementim i mundësuar me softuer i standardeve ESG: metrika mjedisore, sociale dhe të qeverisjes, hartëzim i risqeve dhe raportim jofinanciar i harmonizuar me kërkesat ligjore.",
+          items: [
+            "Diagnostikim dhe raportim ESG",
+            "Tregues mjedisorë dhe socialë",
+            "Hartëzim i qeverisjes",
+            "Udhërrëfyes pajtueshmërie",
+          ],
+        },
+      },
+    },
+  },
 };
 
 // --- Fallback mechanism ---

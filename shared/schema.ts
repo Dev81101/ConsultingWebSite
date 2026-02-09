@@ -16,7 +16,7 @@ export const COUNTRY_NAMES: Record<Country, string> = {
 };
 
 // Language type for multi-language support
-export const languageSchema = z.enum(["sr", "en", "mk", "me", "bs"]);
+export const languageSchema = z.enum(["sr", "en", "mk", "me", "bs", "sq"]);
 export type Language = z.infer<typeof languageSchema>;
 
 // Language display names
@@ -25,13 +25,14 @@ export const LANGUAGE_NAMES: Record<Language, string> = {
   en: "English",
   mk: "Македонски", // Macedonian
   me: "Crnogorski", // Montenegrin
-  bs: "Bosanski" // Bosnian
+  bs: "Bosanski", // Bosnian
+  sq: "Shqip" // Albanian
 };
 
 // Available languages per country
 export const COUNTRY_LANGUAGES: Record<Country, Language[]> = {
   rs: ["sr", "en"], // Serbia: Serbian, English
-  mk: ["mk", "en"], // North Macedonia: Macedonian, English
+  mk: ["mk", "sq", "en"], // North Macedonia: Macedonian, Albanian, English
   me: ["me", "en"], // Montenegro: Montenegrin, English
   ba: ["bs", "en"]  // Bosnia and Herzegovina: Bosnian, English
 };

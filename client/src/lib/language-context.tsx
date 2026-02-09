@@ -18,7 +18,7 @@ export function LanguageProvider({ children }: LanguageProviderProps) {
   const [language, setLanguageState] = useState<Language>(() => {
     // Try to get language from localStorage
     const stored = localStorage.getItem(`language_${country}`);
-    if (stored && (stored === "sr" || stored === "en" || stored === "mk" || stored === "me" || stored === "bs")) {
+    if (stored && (stored === "sr" || stored === "en" || stored === "mk" || stored === "me" || stored === "bs" || stored === "sq")) {
       return stored as Language;
     }
     // Default to country's default language
@@ -28,7 +28,7 @@ export function LanguageProvider({ children }: LanguageProviderProps) {
   // Update language when country changes
   useEffect(() => {
     const stored = localStorage.getItem(`language_${country}`);
-    if (stored && (stored === "sr" || stored === "en" || stored === "mk" || stored === "me" || stored === "bs")) {
+    if (stored && (stored === "sr" || stored === "en" || stored === "mk" || stored === "me" || stored === "bs" || stored === "sq")) {
       setLanguageState(stored as Language);
     } else {
       setLanguageState(DEFAULT_LANGUAGE[country]);
