@@ -20,11 +20,40 @@ export function useCountry() {
   return context;
 }
 
+// Map ipapi country codes to our country codes
+const IP_TO_COUNTRY_MAP: Record<string, Country> = {
+  'RS': 'rs', // Serbia
+  'ME': 'me', // Montenegro
+  'BA': 'ba', // Bosnia and Herzegovina
+  'HR': 'hr', // Croatia
+  'MK': 'mk', // North Macedonia
+};
+
+// Detect country from IP using ipapi.co
+async function detectCountryFromIP(): Promise<Country | null> {
+  try {
+    const response = await fetch('https://ipapi.co/json/');
+    if (!response.ok) {
+      throw new Error('Failed to fetch location');
+    }
+    const data = await response.json();
+    const countryCode = data.country_code?.toUpperCase();
+    
+    if (countryCode && IP_TO_COUNTRY_MAP[countryCode]) {
+      return IP_TO_COUNTRY_MAP[countryCode];
+    }
+    return null;
+  } catch (error) {
+    console.error('Error detecting country from IP:', error);
+    return null;
+  }
+}
+
 export function CountryProvider({ children }: { children: React.ReactNode }) {
   const [location, setLocation] = useLocation();
   const [isLoading, setIsLoading] = useState(true);
   
-  const countries: Country[] = ['rs', 'mk', 'me', 'ba'];
+  const countries: Country[] = ['rs', 'mk', 'me', 'ba', 'hr'];
   
   // Extract country from current path
   const pathParts = location.split('/').filter(Boolean);
@@ -51,16 +80,45 @@ export function CountryProvider({ children }: { children: React.ReactNode }) {
     return 'mk';
   });
   
-  // On root path, always redirect to MK version
+  // On root path, detect country from IP and redirect
   useEffect(() => {
-    if (location === '/') {
-      setIsLoading(true);
-      setCountryState('mk');
-      setLocation('/mk');
-      setIsLoading(false);
-    } else {
-      setIsLoading(false);
-    }
+    const handleRootPath = async () => {
+      if (location === '/') {
+        setIsLoading(true);
+        
+        // Check if user has a stored preference first
+        const storedCountry = getStoredCountry();
+        
+        if (storedCountry) {
+          // Use stored preference
+          setCountryState(storedCountry);
+          setLocation(`/${storedCountry}`);
+          setIsLoading(false);
+          return;
+        }
+        
+        // Try to detect country from IP
+        const detectedCountry = await detectCountryFromIP();
+        
+        if (detectedCountry) {
+          // Redirect to detected country
+          setCountryState(detectedCountry);
+          localStorage.setItem('preferredCountry', detectedCountry);
+          setLocation(`/${detectedCountry}`);
+        } else {
+          // Fallback to Macedonia if detection fails
+          setCountryState('mk');
+          localStorage.setItem('preferredCountry', 'mk');
+          setLocation('/mk');
+        }
+        
+        setIsLoading(false);
+      } else {
+        setIsLoading(false);
+      }
+    };
+    
+    handleRootPath();
   }, [location, setLocation]);
   
   // Update country when path changes

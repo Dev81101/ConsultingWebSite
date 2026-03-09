@@ -8,7 +8,7 @@ import { motion } from "framer-motion";
 import { useLanguage } from "@/lib/language-context";
 import { useTranslations } from "@/lib/translations";
 import { useCountry } from "@/lib/country-context";
-import { Link } from "wouter";
+import { Link, useLocation } from "wouter";
 
 // Image paths from public folder
 const direktorImage = "/images/direktor.png";
@@ -40,13 +40,31 @@ const offices: { name: string; shortName: string; coordinates?: [number, number]
     { name: "Zagreb, Croatia", shortName: "Zagreb", coordinates: [15.9819, 45.8150], countryCode: "Croatia" },
 ];
 
-const countryIdToOfficeShort = {
+const countryIdToOfficeShort: Record<string, string> = {
     Serbia: "Belgrade",
     Croatia: "Zagreb",
     Bosnia_and_Herzegovina: "Sarajevo",
     Montenegro: "Podgorica",
     North_Macedonia: "Skopje",
     Kosovo: "Kosovo"
+};
+
+// Map SVG country IDs to our country codes
+const countryIdToCode: Record<string, string> = {
+    Serbia: "rs",
+    Croatia: "hr",
+    Bosnia_and_Herzegovina: "ba",
+    Montenegro: "me",
+    North_Macedonia: "mk"
+};
+
+// Country names for display
+const countryNames: Record<string, string> = {
+    Serbia: "Serbia",
+    Croatia: "Croatia",
+    Bosnia_and_Herzegovina: "Bosnia & Herzegovina",
+    Montenegro: "Montenegro",
+    North_Macedonia: "North Macedonia"
 };
 
 // Development timeline data
@@ -95,21 +113,134 @@ const developmentTimeline = [
     }
 ];
 
+// Popup component for country redirect
+interface RedirectPopupProps {
+    countryName: string;
+    countdown: number;
+    onCancel: () => void;
+}
+
+const RedirectPopup = memo(function RedirectPopup({ countryName, countdown, onCancel }: RedirectPopupProps) {
+    return (
+        <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.9 }}
+            className="fixed inset-0 flex items-center justify-center z-50 bg-black/50"
+            onClick={onCancel}
+        >
+            <div 
+                className="bg-background rounded-xl shadow-2xl p-6 max-w-sm mx-4 border border-border"
+                onClick={(e) => e.stopPropagation()}
+            >
+                <div className="flex items-center gap-3 mb-4">
+                    <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+                        <ArrowRight className="h-5 w-5 text-primary" />
+                    </div>
+                    <h3 className="text-lg font-semibold text-foreground">
+                        Redirecting...
+                    </h3>
+                </div>
+                <p className="text-muted-foreground mb-4">
+                    You are being redirected to the <strong className="text-foreground">{countryName}</strong> website.
+                </p>
+                <div className="flex items-center justify-between">
+                    <span className="text-sm text-muted-foreground">
+                        Redirecting in <strong className="text-primary">{countdown}s</strong>
+                    </span>
+                    <Button variant="outline" size="sm" onClick={onCancel}>
+                        Cancel
+                    </Button>
+                </div>
+                <div className="mt-4 h-1 bg-muted rounded-full overflow-hidden">
+                    <motion.div
+                        className="h-full bg-primary"
+                        initial={{ width: "100%" }}
+                        animate={{ width: "0%" }}
+                        transition={{ duration: 3, ease: "linear" }}
+                    />
+                </div>
+            </div>
+        </motion.div>
+    );
+});
+
 const RegionalDevelopmentMap = memo(function RegionalDevelopmentMap() {
     const containerRef = useRef<HTMLDivElement | null>(null);
     const [svgLoaded, setSvgLoaded] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
     const [hasError, setHasError] = useState(false);
+    const [selectedCountry, setSelectedCountry] = useState<string | null>(null);
+    const [countdown, setCountdown] = useState(3);
+    const [, setLocation] = useLocation();
+    const timerRef = useRef<NodeJS.Timeout | null>(null);
+    const countdownRef = useRef<NodeJS.Timeout | null>(null);
 
-    // Colors for non-interactive display
+    // Colors for interactive display
     const countryColors: Record<string, string> = {
-        "North_Macedonia": "#dc2626", // Red - headquarters
-        "Serbia": "#dc2626",          // Orange
-        "Bosnia_and_Herzegovina": "#dc2626", // Yellow
-        "Montenegro": "#dc2626",      // Green
-        "Croatia": "#dc2626",         // Blue
-        "Kosovo": "#e5e7eb"           // Gray
+        "North_Macedonia": "#dc2626",
+        "Serbia": "#dc2626",
+        "Bosnia_and_Herzegovina": "#dc2626",
+        "Montenegro": "#dc2626",
+        "Croatia": "#dc2626",
+        "Kosovo": "#e5e7eb"
     };
+
+    const hoverColors: Record<string, string> = {
+        "North_Macedonia": "#b91c1c",
+        "Serbia": "#b91c1c",
+        "Bosnia_and_Herzegovina": "#b91c1c",
+        "Montenegro": "#b91c1c",
+        "Croatia": "#b91c1c",
+        "Kosovo": "#d1d5db"
+    };
+
+    // Handle country click
+    const handleCountryClick = useCallback((countryId: string) => {
+        const countryCode = countryIdToCode[countryId];
+        if (!countryCode) return;
+
+        setSelectedCountry(countryId);
+        setCountdown(3);
+
+        // Start countdown
+        countdownRef.current = setInterval(() => {
+            setCountdown((prev) => {
+                if (prev <= 1) {
+                    if (countdownRef.current) clearInterval(countdownRef.current);
+                    return 0;
+                }
+                return prev - 1;
+            });
+        }, 1000);
+
+        // Redirect after 3 seconds
+        timerRef.current = setTimeout(() => {
+            setLocation(`/${countryCode}`);
+        }, 3000);
+    }, [setLocation]);
+
+    // Handle cancel
+    const handleCancel = useCallback(() => {
+        if (timerRef.current) {
+            clearTimeout(timerRef.current);
+            timerRef.current = null;
+        }
+        if (countdownRef.current) {
+            clearInterval(countdownRef.current);
+            countdownRef.current = null;
+        }
+        setSelectedCountry(null);
+        setCountdown(3);
+    }, []);
+
+    // Cleanup on unmount
+    useEffect(() => {
+        return () => {
+            if (timerRef.current) clearTimeout(timerRef.current);
+            if (countdownRef.current) clearInterval(countdownRef.current);
+        };
+    }, []);
 
     useEffect(() => {
         let mounted = true;
@@ -127,26 +258,38 @@ const RegionalDevelopmentMap = memo(function RegionalDevelopmentMap() {
                     containerRef.current.innerHTML = text;
                 }
 
-                // Apply static colors and disable interactions
+                // Apply interactive colors and event listeners
                 const ids = ["Serbia", "Croatia", "Bosnia_and_Herzegovina", "Montenegro", "North_Macedonia", "Kosovo"];
                 
                 ids.forEach((id) => {
                     const el = containerRef.current?.querySelector(`#${id}`);
                     if (!el) return;
 
-                    // Remove pointer cursor
-                    (el as HTMLElement).style.cursor = "default";
-                    
-                    // Apply static color
+                    const svgEl = el as SVGPathElement;
+                    const isClickable = !!countryIdToCode[id];
+
+                    // Apply colors
                     const color = countryColors[id] || "#e5e7eb";
-                    (el as SVGPathElement).style.fill = color;
-                    (el as SVGPathElement).style.transition = "none";
+                    svgEl.style.fill = color;
+                    svgEl.style.transition = "fill 0.2s ease";
                     
-                    // Remove any existing event listeners by cloning
-                    const newEl = el.cloneNode(true) as SVGPathElement;
-                    newEl.style.fill = color;
-                    newEl.style.cursor = "default";
-                    el.parentNode?.replaceChild(newEl, el);
+                    if (isClickable) {
+                        // Make it look clickable
+                        svgEl.style.cursor = "pointer";
+                        
+                        // Add hover effects
+                        svgEl.addEventListener("mouseenter", () => {
+                            svgEl.style.fill = hoverColors[id];
+                        });
+                        svgEl.addEventListener("mouseleave", () => {
+                            svgEl.style.fill = color;
+                        });
+                        
+                        // Add click handler
+                        svgEl.addEventListener("click", () => handleCountryClick(id));
+                    } else {
+                        svgEl.style.cursor = "default";
+                    }
                 });
 
                 setSvgLoaded(true);
@@ -167,7 +310,7 @@ const RegionalDevelopmentMap = memo(function RegionalDevelopmentMap() {
             mounted = false;
             abortController.abort();
         };
-    }, []);
+    }, [handleCountryClick]);
 
     if (hasError) {
         return (
@@ -182,18 +325,33 @@ const RegionalDevelopmentMap = memo(function RegionalDevelopmentMap() {
     }
 
     return (
-        <div className="relative w-full">
-            {isLoading && (
-                <div className="absolute inset-0 flex items-center justify-center bg-muted/20 rounded-xl z-10">
-                    <Loader2 className="h-8 w-8 animate-spin text-primary" />
-                </div>
+        <>
+            <div className="relative w-full">
+                {isLoading && (
+                    <div className="absolute inset-0 flex items-center justify-center bg-muted/20 rounded-xl z-10">
+                        <Loader2 className="h-8 w-8 animate-spin text-primary" />
+                    </div>
+                )}
+                <div
+                    ref={containerRef}
+                    aria-hidden={!svgLoaded}
+                    className="w-full h-full overflow-auto"
+                />
+                {!isLoading && (
+                    <p className="text-center text-sm text-muted-foreground mt-4">
+                        Click on a country to visit its website
+                    </p>
+                )}
+            </div>
+            
+            {selectedCountry && (
+                <RedirectPopup
+                    countryName={countryNames[selectedCountry] || selectedCountry}
+                    countdown={countdown}
+                    onCancel={handleCancel}
+                />
             )}
-            <div
-                ref={containerRef}
-                aria-hidden={!svgLoaded}
-                className="w-full h-full overflow-auto pointer-events-none"
-            />
-        </div>
+        </>
     );
 });
 

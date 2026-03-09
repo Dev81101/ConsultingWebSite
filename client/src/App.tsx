@@ -48,13 +48,45 @@ function CountryRouter() {
           {/* Admin routes */}
           <Route path="/admin" component={AdminPage} />
           
-          {/* Only enable Macedonian (mk) routes */}
+          {/* Serbia (rs) routes */}
+          <Route path="/rs" component={Home} />
+          <Route path="/rs/blog" component={Blog} />
+          <Route path="/rs/blog/:slug" component={BlogPost} />
+          <Route path="/rs/programs" component={Programs} />
+          <Route path="/rs/about" component={About} />
+          <Route path="/rs/contact" component={Contact} />
+
+          {/* North Macedonia (mk) routes */}
           <Route path="/mk" component={Home} />
           <Route path="/mk/blog" component={Blog} />
           <Route path="/mk/blog/:slug" component={BlogPost} />
           <Route path="/mk/programs" component={Programs} />
           <Route path="/mk/about" component={About} />
           <Route path="/mk/contact" component={Contact} />
+
+          {/* Montenegro (me) routes */}
+          <Route path="/me" component={Home} />
+          <Route path="/me/blog" component={Blog} />
+          <Route path="/me/blog/:slug" component={BlogPost} />
+          <Route path="/me/programs" component={Programs} />
+          <Route path="/me/about" component={About} />
+          <Route path="/me/contact" component={Contact} />
+
+          {/* Bosnia and Herzegovina (ba) routes */}
+          <Route path="/ba" component={Home} />
+          <Route path="/ba/blog" component={Blog} />
+          <Route path="/ba/blog/:slug" component={BlogPost} />
+          <Route path="/ba/programs" component={Programs} />
+          <Route path="/ba/about" component={About} />
+          <Route path="/ba/contact" component={Contact} />
+
+          {/* Croatia (hr) routes */}
+          <Route path="/hr" component={Home} />
+          <Route path="/hr/blog" component={Blog} />
+          <Route path="/hr/blog/:slug" component={BlogPost} />
+          <Route path="/hr/programs" component={Programs} />
+          <Route path="/hr/about" component={About} />
+          <Route path="/hr/contact" component={Contact} />
 
           {/* Any other route shows Under Construction */}
           <Route component={UnderConstruction} />

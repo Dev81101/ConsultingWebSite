@@ -4,7 +4,7 @@ import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
 
 // Country type for multi-country support
-export const countrySchema = z.enum(["rs", "mk", "me", "ba"]);
+export const countrySchema = z.enum(["rs", "mk", "me", "ba", "hr"]);
 export type Country = z.infer<typeof countrySchema>;
 
 // Country display names
@@ -12,11 +12,12 @@ export const COUNTRY_NAMES: Record<Country, string> = {
   rs: "Serbia",
   mk: "North Macedonia", 
   me: "Montenegro",
-  ba: "Bosnia and Herzegovina"
+  ba: "Bosnia and Herzegovina",
+  hr: "Croatia"
 };
 
 // Language type for multi-language support
-export const languageSchema = z.enum(["sr", "en", "mk", "me", "bs", "sq"]);
+export const languageSchema = z.enum(["sr", "en", "mk", "me", "bs", "sq", "hr"]);
 export type Language = z.infer<typeof languageSchema>;
 
 // Language display names
@@ -26,7 +27,8 @@ export const LANGUAGE_NAMES: Record<Language, string> = {
   mk: "Македонски", // Macedonian
   me: "Crnogorski", // Montenegrin
   bs: "Bosanski", // Bosnian
-  sq: "Shqip" // Albanian
+  sq: "Shqip", // Albanian
+  hr: "Hrvatski" // Croatian
 };
 
 // Available languages per country
@@ -34,7 +36,8 @@ export const COUNTRY_LANGUAGES: Record<Country, Language[]> = {
   rs: ["sr", "en"], // Serbia: Serbian, English
   mk: ["mk", "sq", "en"], // North Macedonia: Macedonian, Albanian, English
   me: ["me", "en"], // Montenegro: Montenegrin, English
-  ba: ["bs", "en"]  // Bosnia and Herzegovina: Bosnian, English
+  ba: ["bs", "en"],  // Bosnia and Herzegovina: Bosnian, English
+  hr: ["hr", "en"] // Croatia: Croatian, English
 };
 
 // Default language per country
@@ -42,7 +45,8 @@ export const DEFAULT_LANGUAGE: Record<Country, Language> = {
   rs: "sr",
   mk: "mk",
   me: "me",
-  ba: "bs"
+  ba: "bs",
+  hr: "hr"
 };
 
 export const users = pgTable("users", {
